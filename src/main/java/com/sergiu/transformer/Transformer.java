@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.sergiu.dto.CandidateDTO;
 import com.sergiu.dto.HallDTO;
 import com.sergiu.dto.TeacherDTO;
+import com.sergiu.entity.CandidateEntity;
 import com.sergiu.entity.HallEntity;
 import com.sergiu.entity.TeacherEntity;
+import com.sergiu.model.CandidateModel;
 import com.sergiu.model.HallModel;
 import com.sergiu.model.TeacherModel;
 
@@ -65,7 +68,7 @@ public class Transformer {
 		return modelList;
 	}
 
-	public HallDTO teacherFromModelToDTO(HallModel model) {
+	public HallDTO hallFromModelToDTO(HallModel model) {
 		HallDTO dto = new HallDTO();
 		dto.setId(model.getId());
 		dto.setName(model.getName());
@@ -76,7 +79,41 @@ public class Transformer {
 	public List<HallDTO> hallFromModelToDTO(List<HallModel> modelList) {
 		List<HallDTO> dtoList = new ArrayList<>();
 		for (HallModel model : modelList) {
-			dtoList.add(teacherFromModelToDTO(model));
+			dtoList.add(hallFromModelToDTO(model));
+		}
+		return dtoList;
+	}
+
+	public CandidateModel candidateFromEntityToModel(CandidateEntity entity) {
+		CandidateModel model = new CandidateModel();
+		model.setId(entity.getId());
+		model.setFirstName(entity.getFirstName());
+		model.setMiddleName(entity.getMiddleName());
+		model.setLastName(entity.getLastName());
+		return model;
+	}
+
+	public List<CandidateModel> candidateFromEntityToModel(List<CandidateEntity> entityList) {
+		List<CandidateModel> modelList = new ArrayList<>();
+		for (CandidateEntity entity : entityList) {
+			modelList.add(candidateFromEntityToModel(entity));
+		}
+		return modelList;
+	}
+
+	public CandidateDTO candidateFromModelToDTO(CandidateModel model) {
+		CandidateDTO dto = new CandidateDTO();
+		dto.setId(model.getId());
+		dto.setFirstName(model.getFirstName());
+		dto.setMiddleName(model.getMiddleName());
+		dto.setLastName(model.getLastName());
+		return dto;
+	}
+
+	public List<CandidateDTO> candidateFromModelToDTO(List<CandidateModel> modelList) {
+		List<CandidateDTO> dtoList = new ArrayList<>();
+		for (CandidateModel model : modelList) {
+			dtoList.add(candidateFromModelToDTO(model));
 		}
 		return dtoList;
 	}
