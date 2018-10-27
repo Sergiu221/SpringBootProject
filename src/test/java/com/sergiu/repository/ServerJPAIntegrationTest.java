@@ -12,18 +12,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.sergiu.Application;
+import com.sergiu.entity.CandidateEntity;
 import com.sergiu.entity.HallEntity;
 import com.sergiu.entity.TeacherEntity;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 public class ServerJPAIntegrationTest {
-	
+
 	@Autowired
 	private TeacherRepository teacherRepository;
-	
+
 	@Autowired
 	private HallRepository hallRepository;
+
+	@Autowired
+	private CandidateRepository candidateRepository;
 
 	@Test
 	public void givenTeacherEntityRepository_whenSaveAndRetreiveEntity_thenOK() {
@@ -38,7 +42,7 @@ public class ServerJPAIntegrationTest {
 		assertEquals(expected, foundEntity.get());
 		teacherRepository.delete(foundEntity.get());
 	}
-	
+
 	@Test
 	public void givenHallEntityRepository_whenSaveAndRetreiveEntity_thenOK() {
 		HallEntity entity = new HallEntity();
@@ -50,5 +54,19 @@ public class ServerJPAIntegrationTest {
 		assertNotNull(foundEntity);
 		assertEquals(expected, foundEntity.get());
 		hallRepository.delete(foundEntity.get());
+	}
+
+	@Test
+	public void givenCandidateEntityRepository_whenSaveAndRetreiveEntity_thenOK() {
+		CandidateEntity entity = new CandidateEntity();
+		entity.setId(3);
+		entity.setFirstName("Monica");
+		entity.setMiddleName("Mustata");
+		entity.setLastName("Borodea");
+		CandidateEntity expected = candidateRepository.save(entity);
+		Optional<CandidateEntity> foundEntity = candidateRepository.findById(expected.getId());
+		assertNotNull(foundEntity);
+		assertEquals(expected, foundEntity.get());
+		candidateRepository.delete(foundEntity.get());
 	}
 }
