@@ -22,7 +22,7 @@ public class TeacherController {
 	private Transformer transformer;
 
 	@RequestMapping("/teachers")
-	public List<TeacherDTO> greeting() {
+	public List<TeacherDTO> teachers() {
 		return transformer.teacherFromModelToDTO(teacherService.retrieveAllTeachers());
 	}
 }

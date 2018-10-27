@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.sergiu.entity.TeacherEntity;
 
 @Repository
-public interface TeacherRepository  extends JpaRepository<TeacherEntity, Integer> {
-	TeacherEntity findByFirstName(String productName);
+public interface TeacherRepository extends JpaRepository<TeacherEntity, Integer> {
+
 }

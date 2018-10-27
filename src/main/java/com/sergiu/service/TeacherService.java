@@ -19,8 +19,6 @@ public class TeacherService {
 	private Transformer transformer;
 
 	public List<TeacherModel> retrieveAllTeachers() {
-
-		teacherRepository.findById(1);
 		return transformer.teacherFromEntityToModel(teacherRepository.findAll());
 	}
 }
