@@ -7,12 +7,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class FileCustomCSVRepositoryImpl implements FileCustomCSVRepository {
 
-	private RedisTemplate<String, FileCustomCSV> redisTemplate;
-
 	private HashOperations<String, String, FileCustomCSV> hashOperations;
 
 	public FileCustomCSVRepositoryImpl(RedisTemplate<String, FileCustomCSV> redisTemplate) {
-		this.redisTemplate = redisTemplate;
 		this.hashOperations = redisTemplate.opsForHash();
 	}
 
