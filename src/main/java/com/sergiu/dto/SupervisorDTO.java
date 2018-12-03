@@ -1,6 +1,6 @@
 package com.sergiu.dto;
 
-public class TeacherDTO {
+public class SupervisorDTO {
 
 	private int id;
 

@@ -1,6 +1,6 @@
 package com.sergiu.model;
 
-public class TeacherModel {
+public class SupervisorModel {
 
 	private int id;
 

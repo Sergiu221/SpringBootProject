@@ -7,19 +7,19 @@ import org.springframework.stereotype.Component;
 
 import com.sergiu.dto.CandidateDTO;
 import com.sergiu.dto.HallDTO;
-import com.sergiu.dto.TeacherDTO;
+import com.sergiu.dto.SupervisorDTO;
 import com.sergiu.entity.CandidateEntity;
 import com.sergiu.entity.HallEntity;
-import com.sergiu.entity.TeacherEntity;
+import com.sergiu.entity.SupervisorEntity;
 import com.sergiu.model.CandidateModel;
 import com.sergiu.model.HallModel;
-import com.sergiu.model.TeacherModel;
+import com.sergiu.model.SupervisorModel;
 
 @Component
 public class Transformer {
 
-	public TeacherModel teacherFromEntityToModel(TeacherEntity entity) {
-		TeacherModel model = new TeacherModel();
+	public SupervisorModel supervisorFromEntityToModel(SupervisorEntity entity) {
+		SupervisorModel model = new SupervisorModel();
 		model.setId(entity.getId());
 		model.setFirstName(entity.getFirstName());
 		model.setMiddleName(entity.getMiddleName());
@@ -27,16 +27,16 @@ public class Transformer {
 		return model;
 	}
 
-	public List<TeacherModel> teacherFromEntityToModel(List<TeacherEntity> entityList) {
-		List<TeacherModel> modelList = new ArrayList<>();
-		for (TeacherEntity entity : entityList) {
-			modelList.add(teacherFromEntityToModel(entity));
+	public List<SupervisorModel> supervisorFromEntityToModel(List<SupervisorEntity> entityList) {
+		List<SupervisorModel> modelList = new ArrayList<>();
+		for (SupervisorEntity entity : entityList) {
+			modelList.add(supervisorFromEntityToModel(entity));
 		}
 		return modelList;
 	}
 
-	public TeacherDTO teacherFromModelToDTO(TeacherModel model) {
-		TeacherDTO dto = new TeacherDTO();
+	public SupervisorDTO supervisorFromModelToDTO(SupervisorModel model) {
+		SupervisorDTO dto = new SupervisorDTO();
 		dto.setId(model.getId());
 		dto.setFirstName(model.getFirstName());
 		dto.setMiddleName(model.getMiddleName());
@@ -44,15 +44,15 @@ public class Transformer {
 		return dto;
 	}
 
-	public List<TeacherDTO> teacherFromModelToDTO(List<TeacherModel> modelList) {
-		List<TeacherDTO> dtoList = new ArrayList<>();
-		for (TeacherModel model : modelList) {
-			dtoList.add(teacherFromModelToDTO(model));
+	public List<SupervisorDTO> supervisorFromModelToDTO(List<SupervisorModel> modelList) {
+		List<SupervisorDTO> dtoList = new ArrayList<>();
+		for (SupervisorModel model : modelList) {
+			dtoList.add(supervisorFromModelToDTO(model));
 		}
 		return dtoList;
 	}
 
-	public HallModel teacherFromEntityToModel(HallEntity entity) {
+	public HallModel hallFromEntityToModel(HallEntity entity) {
 		HallModel model = new HallModel();
 		model.setId(entity.getId());
 		model.setName(entity.getName());
@@ -63,7 +63,7 @@ public class Transformer {
 	public List<HallModel> hallFromEntityToModel(List<HallEntity> entityList) {
 		List<HallModel> modelList = new ArrayList<>();
 		for (HallEntity entity : entityList) {
-			modelList.add(teacherFromEntityToModel(entity));
+			modelList.add(hallFromEntityToModel(entity));
 		}
 		return modelList;
 	}

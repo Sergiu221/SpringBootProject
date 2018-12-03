@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.sergiu.Application;
 import com.sergiu.entity.CandidateEntity;
 import com.sergiu.entity.HallEntity;
-import com.sergiu.entity.TeacherEntity;
+import com.sergiu.entity.SupervisorEntity;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -31,13 +31,13 @@ public class ServerJPAIntegrationTest {
 
 	@Test
 	public void givenTeacherEntityRepository_whenSaveAndRetreiveEntity_thenOK() {
-		TeacherEntity entity = new TeacherEntity();
+		SupervisorEntity entity = new SupervisorEntity();
 		entity.setId(1);
 		entity.setFirstName("firtsName");
 		entity.setMiddleName("middleName");
 		entity.setLastName("lastName");
-		TeacherEntity expected = teacherRepository.save(entity);
-		Optional<TeacherEntity> foundEntity = teacherRepository.findById(expected.getId());
+		SupervisorEntity expected = teacherRepository.save(entity);
+		Optional<SupervisorEntity> foundEntity = teacherRepository.findById(expected.getId());
 		assertNotNull(foundEntity);
 		assertEquals(expected, foundEntity.get());
 		teacherRepository.delete(foundEntity.get());

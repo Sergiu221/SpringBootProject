@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "teachers")
-public class TeacherEntity {
+@Table(name = "supervisors")
+public class SupervisorEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,7 +76,7 @@ public class TeacherEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TeacherEntity other = (TeacherEntity) obj;
+		SupervisorEntity other = (SupervisorEntity) obj;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
