@@ -23,6 +23,6 @@ public class SupervisorController {
 
 	@RequestMapping("/teachers")
 	public List<SupervisorDTO> teachers() {
-		return transformer.teacherFromModelToDTO(teacherService.retrieveAllSupervisors());
+		return transformer.supervisorFromModelToDTO(teacherService.retrieveAllSupervisors());
 	}
 }
