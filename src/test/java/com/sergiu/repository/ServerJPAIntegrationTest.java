@@ -21,7 +21,7 @@ import com.sergiu.entity.SupervisorEntity;
 public class ServerJPAIntegrationTest {
 
 	@Autowired
-	private TeacherRepository teacherRepository;
+	private SupervisorRepository supervisorRepository;
 
 	@Autowired
 	private HallRepository hallRepository;
@@ -30,17 +30,17 @@ public class ServerJPAIntegrationTest {
 	private CandidateRepository candidateRepository;
 
 	@Test
-	public void givenTeacherEntityRepository_whenSaveAndRetreiveEntity_thenOK() {
+	public void givenSupervisorEntityRepository_whenSaveAndRetreiveEntity_thenOK() {
 		SupervisorEntity entity = new SupervisorEntity();
 		entity.setId(1);
 		entity.setFirstName("firtsName");
 		entity.setMiddleName("middleName");
 		entity.setLastName("lastName");
-		SupervisorEntity expected = teacherRepository.save(entity);
-		Optional<SupervisorEntity> foundEntity = teacherRepository.findById(expected.getId());
+		SupervisorEntity expected = supervisorRepository.save(entity);
+		Optional<SupervisorEntity> foundEntity = supervisorRepository.findById(expected.getId());
 		assertNotNull(foundEntity);
 		assertEquals(expected, foundEntity.get());
-		teacherRepository.delete(foundEntity.get());
+		supervisorRepository.delete(foundEntity.get());
 	}
 
 	@Test

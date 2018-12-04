@@ -16,13 +16,13 @@ import com.sergiu.transformer.Transformer;
 public class SupervisorController {
 
 	@Autowired
-	private SupervisorService teacherService;
+	private SupervisorService supervisorService;
 
 	@Autowired
 	private Transformer transformer;
 
-	@RequestMapping("/teachers")
-	public List<SupervisorDTO> teachers() {
-		return transformer.supervisorFromModelToDTO(teacherService.retrieveAllSupervisors());
+	@RequestMapping("/supervisors")
+	public List<SupervisorDTO> supervisors() {
+		return transformer.supervisorFromModelToDTO(supervisorService.retrieveAllSupervisors());
 	}
 }
