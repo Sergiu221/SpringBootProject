@@ -1,5 +1,6 @@
 package com.sergiu.files;
 
+import java.io.File;
 import java.io.Serializable;
 
 import org.springframework.data.redis.core.RedisHash;
@@ -16,6 +17,7 @@ public class FileCustomCSV implements Serializable {
 	private String id;
 	private String fileName;
 	private TypeFile fileType;
+	private File file;
 
 	public String getId() {
 		return id;
@@ -39,5 +41,13 @@ public class FileCustomCSV implements Serializable {
 
 	public void setFileType(TypeFile fileType) {
 		this.fileType = fileType;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 }

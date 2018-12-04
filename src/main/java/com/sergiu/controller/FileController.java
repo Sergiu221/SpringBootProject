@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sergiu.files.FileCustomCSV;
 import com.sergiu.files.FileCustomCSV.TypeFile;
+import com.sergiu.service.FileService;
 import com.sergiu.files.FileCustomCSVRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,6 +22,9 @@ public class FileController {
 	@Autowired
 	private FileCustomCSVRepository sessionFiles;
 
+	@Autowired
+	private FileService fileService;
+	
 	@ResponseStatus(value = HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.POST, path = "/upload_supervisors")
 	public void supervisorsFileUpload(@RequestParam("file") MultipartFile file) {
@@ -30,6 +34,7 @@ public class FileController {
 		fileCustomCSV.setId("0");
 		fileCustomCSV.setFileType(TypeFile.SUPERVISORS);
 		fileCustomCSV.setFileName(file.getOriginalFilename());
+		fileCustomCSV.setFile(fileService.convert(file));
 		sessionFiles.save(fileCustomCSV);
 	}
 
@@ -42,6 +47,7 @@ public class FileController {
 		fileCustomCSV.setId("1");
 		fileCustomCSV.setFileType(TypeFile.CANDIDATES);
 		fileCustomCSV.setFileName(file.getOriginalFilename());
+		fileCustomCSV.setFile(fileService.convert(file));
 		sessionFiles.save(fileCustomCSV);
 	}
 
@@ -54,6 +60,7 @@ public class FileController {
 		fileCustomCSV.setId("2");
 		fileCustomCSV.setFileType(TypeFile.HALLS);
 		fileCustomCSV.setFileName(file.getOriginalFilename());
+		fileCustomCSV.setFile(fileService.convert(file));
 		sessionFiles.save(fileCustomCSV);
 	}
 
@@ -61,6 +68,9 @@ public class FileController {
 	@RequestMapping(method = RequestMethod.GET, path = "/generate_final_report")
 	public void getAllFilesFromSession() {
 
+		fileService.retrieveFromCSVlistOfCandidates(sessionFiles.findById("0").getFile());
+		fileService.retrieveFromCSVlistOfSupervisor(sessionFiles.findById("1").getFile());
+		fileService.retrieveFromCSVlistOfHalls(sessionFiles.findById("2").getFile());
 		System.out.printf("----------Start generate report!----------");
 		FileCustomCSV supervisors = sessionFiles.findById("0");
 		FileCustomCSV candidates = sessionFiles.findById("1");
