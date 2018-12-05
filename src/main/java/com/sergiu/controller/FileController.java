@@ -1,5 +1,9 @@
 package com.sergiu.controller;
 
+import java.util.HashSet;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -12,8 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sergiu.files.FileCustomCSV;
 import com.sergiu.files.FileCustomCSV.TypeFile;
-import com.sergiu.service.FileService;
 import com.sergiu.files.FileCustomCSVRepository;
+import com.sergiu.service.FileService;
+import com.sergiu.service.ReportService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @Controller
@@ -24,7 +29,10 @@ public class FileController {
 
 	@Autowired
 	private FileService fileService;
-	
+
+	@Autowired
+	private ReportService reportSerivice;
+
 	@ResponseStatus(value = HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.POST, path = "/upload_supervisors")
 	public void supervisorsFileUpload(@RequestParam("file") MultipartFile file) {
@@ -65,18 +73,20 @@ public class FileController {
 	}
 
 	@ResponseStatus(value = HttpStatus.OK)
-	@RequestMapping(method = RequestMethod.GET, path = "/generate_final_report")
-	public void getAllFilesFromSession() {
+	@RequestMapping(path = "/generate_final_report",method = RequestMethod.GET )
+	public void getAllFilesFromSession(HttpServletResponse response) {
 
-		fileService.retrieveFromCSVlistOfCandidates(sessionFiles.findById("0").getFile());
-		fileService.retrieveFromCSVlistOfSupervisor(sessionFiles.findById("1").getFile());
-		fileService.retrieveFromCSVlistOfHalls(sessionFiles.findById("2").getFile());
-		System.out.printf("----------Start generate report!----------");
-		FileCustomCSV supervisors = sessionFiles.findById("0");
-		FileCustomCSV candidates = sessionFiles.findById("1");
-		FileCustomCSV halls = sessionFiles.findById("2");
-		System.out.println("Cu succes am obtinut:" + supervisors.getFileName() + ", " + candidates.getFileName() + ", "
-				+ halls.getFileName());
+	/*	Set<SupervisorModel> listSupervisors = fileService
+				.retrieveFromCSVlistOfSupervisor(sessionFiles.findById("1").getFile());
+		Set<CandidateModel> listCandidates = fileService
+				.retrieveFromCSVlistOfCandidates(sessionFiles.findById("0").getFile());
+		Set<HallModel> listHalls = fileService.retrieveFromCSVlistOfHalls(sessionFiles.findById("2").getFile());
+		*/
+		// get your file as InputStream
+	    //  InputStream is = ...;
+	      // copy it to response's OutputStream
+	      //org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
+		reportSerivice.generatePDFDistibution(new HashSet<>(), new HashSet<>(), new HashSet<>());
 	}
 
 }
