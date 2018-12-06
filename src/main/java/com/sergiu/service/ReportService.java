@@ -1,13 +1,15 @@
 package com.sergiu.service;
 
 import java.io.FileOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.net.MalformedURLException;
 import java.nio.file.Paths;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.BaseColor;
@@ -16,14 +18,16 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sergiu.exception.MyFileNotFoundException;
 import com.sergiu.model.CandidateModel;
 import com.sergiu.model.HallModel;
 import com.sergiu.model.SupervisorModel;
 
 @Service
 public class ReportService {
-	Logger LOGGGER =new L
-	public void generatePDFDistibution(Set<CandidateModel> listCandidates, Set<SupervisorModel> listSupervisors,
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReportService.class);
+
+	public Resource generatePDFDistibution(Set<CandidateModel> listCandidates, Set<SupervisorModel> listSupervisors,
 			Set<HallModel> listHalls) {
 		System.out.println("Generate PDF Distribution");
 
@@ -39,30 +43,21 @@ public class ReportService {
 
 			document.add(table);
 			document.close();
-
-			Path dowlnoadFile = Paths.get("raport.pdf");
-			System.out.println(dowlnoadFile.getFileName());
 		} catch (Exception e) {
 			System.err.println("My PDF have problems ");
 		}
-		
-		 String contentType = null;
-	        try {
-	            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-	        } catch (IOException ex) {
-	            logger.info("Could not determine file type.");
-	        }
+		try {
+			Resource resource = new UrlResource(Paths.get("raport.pdf").toUri());
+			System.out.println(resource);
+			if (resource.exists()) {
+				return resource;
+			} else {
+				throw new MyFileNotFoundException("File not found " + "raport.pdf");
+			}
+		} catch (MalformedURLException ex) {
+			throw new MyFileNotFoundException("File not found " + "raport.pdf", ex);
+		}
 
-	        // Fallback to the default content type if type could not be determined
-	        if(contentType == null) {
-	            contentType = "application/octet-stream";
-	        }
-
-	        return ResponseEntity.ok()
-	                .contentType(MediaType.parseMediaType(contentType))
-	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-	                .body(resource);
-	    }
 	}
 
 	private void addTableHeader(PdfPTable table) {
