@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,8 +82,8 @@ public class FileController {
 		sessionFiles.save(fileCustomCSV);
 	}
 
-	@ResponseStatus(value = HttpStatus.OK)
-	@RequestMapping(path = "/generate_final_report", method = RequestMethod.GET)
+	
+	@GetMapping(path = "/generate_final_report")
 	public ResponseEntity<Resource> getAllFilesFromSession(HttpServletRequest request) {
 
 		// Load file as Resource
