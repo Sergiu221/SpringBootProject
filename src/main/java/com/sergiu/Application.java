@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.sergiu.files.FileCustomCSV;
+import com.sergiu.model.FileCSV;
 
 @SpringBootApplication
 public class Application {
@@ -24,8 +24,8 @@ public class Application {
 	}
 
 	@Bean
-	public RedisTemplate<String, FileCustomCSV> redisTemplate() {
-		final RedisTemplate<String, FileCustomCSV> template = new RedisTemplate<String, FileCustomCSV>();
+	public RedisTemplate<String, FileCSV> redisTemplate() {
+		final RedisTemplate<String, FileCSV> template = new RedisTemplate<String, FileCSV>();
 		template.setConnectionFactory(jedisConnectionFactory());
 		return template;
 	}

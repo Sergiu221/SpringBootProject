@@ -1,31 +1,20 @@
-package com.sergiu.files;
+package com.sergiu.model;
 
 import java.io.File;
 import java.io.Serializable;
 
 import org.springframework.data.redis.core.RedisHash;
 
-@RedisHash("FileCustomCSV")
-public class FileCustomCSV implements Serializable {
+import com.sergiu.util.TypeFile;
+
+@RedisHash("FileCSV")
+public class FileCSV implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public enum TypeFile {
-		SUPERVISORS, CANDIDATES, HALLS
-	}
-
-	private String id;
 	private String fileName;
 	private TypeFile fileType;
 	private File file;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getFileName() {
 		return fileName;

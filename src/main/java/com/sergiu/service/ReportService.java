@@ -3,11 +3,11 @@ package com.sergiu.service;
 import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -19,17 +19,17 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.sergiu.exception.MyFileNotFoundException;
-import com.sergiu.model.CandidateModel;
-import com.sergiu.model.HallModel;
-import com.sergiu.model.SupervisorModel;
 
 @Service
 public class ReportService {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReportService.class);
 
-	public Resource generatePDFDistibution(Set<CandidateModel> listCandidates, Set<SupervisorModel> listSupervisors,
-			Set<HallModel> listHalls) {
-		System.out.println("Generate PDF Distribution");
+	@Autowired
+	FileService fileService;
+
+	public Resource generatePDFDistibution() {
+		LOGGER.info("Generate PDF Distribution");
 
 		try {
 			Document document = new Document();
