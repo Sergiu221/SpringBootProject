@@ -29,21 +29,28 @@ public class FileService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
 
-	public Set<CandidateModel> retrieveFromCSVlistOfCandidates(File file) {
+	public Set<CandidateModel> retrieveFromCSVlistOfCandidates() {
+		Set<CandidateModel> result = new HashSet<CandidateModel>();
 		LOGGER.info("Started retriving listOfCandidates");
-
+		FileCSV csv = fileRepository.findByType(TypeFile.CANDIDATES);
 		CSVReader reader = null;
 		try {
-			reader = new CSVReader(new FileReader(file.getPath()));
+			reader = new CSVReader(new FileReader(csv.getFile().getAbsolutePath()));
 			String[] line;
 			while ((line = reader.readNext()) != null) {
 				System.out.println("Candidate [CNP= " + line[0] + ", prenume= " + line[1] + " , nume=" + line[2] + "]");
+				CandidateModel model = new CandidateModel();
+				model.setFirstName(line[1]);
+				model.setLastName(line[2]);
+				model.setCnp(line[0]);
+				model.setLiceu(line[3]);
+				result.add(model);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return new HashSet<CandidateModel>();
+		return result;
 	}
 
 	public Set<SupervisorModel> retrieveFromCSVlistOfSupervisor(File file) {

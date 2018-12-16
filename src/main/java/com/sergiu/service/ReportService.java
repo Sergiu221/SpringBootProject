@@ -3,6 +3,7 @@ package com.sergiu.service;
 import java.io.FileOutputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -14,11 +15,14 @@ import org.springframework.stereotype.Service;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.sergiu.exception.MyFileNotFoundException;
+import com.sergiu.model.CandidateModel;
 
 @Service
 public class ReportService {
@@ -26,7 +30,7 @@ public class ReportService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReportService.class);
 
 	@Autowired
-	FileService fileService;
+	private FileService fileService;
 
 	public Resource generatePDFDistibution() {
 		LOGGER.info("Generate PDF Distribution");
@@ -36,10 +40,18 @@ public class ReportService {
 			PdfWriter.getInstance(document, new FileOutputStream("raport.pdf"));
 
 			document.open();
-
-			PdfPTable table = new PdfPTable(3);
+			document.addTitle("C309");
+			Paragraph paragraph =new Paragraph();
+			paragraph.setAlignment(Paragraph.ALIGN_CENTER);
+			
+			paragraph.add("C309 it is set Hardcoded.");
+			
+			paragraph.setSpacingAfter(20);
+			document.add(paragraph);
+			
+			PdfPTable table = new PdfPTable(4);
 			addTableHeader(table);
-			addRows(table);
+			addRows(table, fileService.retrieveFromCSVlistOfCandidates());
 
 			document.add(table);
 			document.close();
@@ -61,7 +73,7 @@ public class ReportService {
 	}
 
 	private void addTableHeader(PdfPTable table) {
-		Stream.of("column header 1", "column header 2", "column header 3").forEach(columnTitle -> {
+		Stream.of("Nume", "Prenume", "CNP", "Liceul").forEach(columnTitle -> {
 			PdfPCell header = new PdfPCell();
 			header.setBackgroundColor(BaseColor.LIGHT_GRAY);
 			header.setBorderWidth(2);
@@ -70,9 +82,16 @@ public class ReportService {
 		});
 	}
 
-	private void addRows(PdfPTable table) {
-		table.addCell("Volocaru");
-		table.addCell("Sergiu");
-		table.addCell("Adrian");
+	private void addRow(PdfPTable table, CandidateModel candidateModel) {
+		table.addCell(candidateModel.getLastName());
+		table.addCell(candidateModel.getFirstName());
+		table.addCell(candidateModel.getCnp());
+		table.addCell(candidateModel.getLiceu());
+	}
+
+	private void addRows(PdfPTable table, Set<CandidateModel> candidateModels) {
+		for (CandidateModel model : candidateModels) {
+			addRow(table, model);
+		}
 	}
 }

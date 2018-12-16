@@ -6,8 +6,6 @@ public class CandidateDTO {
 
 	private String firstName;
 
-	private String middleName;
-
 	private String lastName;
 
 	public int getId() {
@@ -24,14 +22,6 @@ public class CandidateDTO {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-	}
-
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
 	}
 
 	public String getLastName() {

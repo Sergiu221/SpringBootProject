@@ -88,7 +88,6 @@ public class Transformer {
 		CandidateModel model = new CandidateModel();
 		model.setId(entity.getId());
 		model.setFirstName(entity.getFirstName());
-		model.setMiddleName(entity.getMiddleName());
 		model.setLastName(entity.getLastName());
 		return model;
 	}
@@ -105,7 +104,6 @@ public class Transformer {
 		CandidateDTO dto = new CandidateDTO();
 		dto.setId(model.getId());
 		dto.setFirstName(model.getFirstName());
-		dto.setMiddleName(model.getMiddleName());
 		dto.setLastName(model.getLastName());
 		return dto;
 	}
