@@ -3,6 +3,8 @@ package com.sergiu.transformer;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Component;
 
 import com.sergiu.dto.CandidateDTO;
@@ -114,5 +116,13 @@ public class Transformer {
 			dtoList.add(candidateFromModelToDTO(model));
 		}
 		return dtoList;
+	}
+
+	public CandidateEntity candidateFromModelToEntity(CandidateModel model) {
+		CandidateEntity entity = new CandidateEntity();
+		entity.setId(model.getId());
+		entity.setFirstName(model.getFirstName());
+		entity.setLastName(model.getLastName());
+		return entity;
 	}
 }
