@@ -81,4 +81,12 @@ public class Transformer {
 		entity.setSize(hallModel.getSize());
 		return entity;
 	}
+
+	public SupervisorEntity supervisorFromModelToEntity(@Valid SupervisorModel model) {
+		SupervisorEntity entity = new SupervisorEntity();
+		entity.setId(model.getId());
+		entity.setFirstName(model.getFirstName());
+		entity.setLastName(model.getLastName());
+		return entity;
+	}
 }
