@@ -3,13 +3,8 @@ package com.sergiu.transformer;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Component;
 
-import com.sergiu.dto.CandidateDTO;
-import com.sergiu.dto.HallDTO;
-import com.sergiu.dto.SupervisorDTO;
 import com.sergiu.entity.CandidateEntity;
 import com.sergiu.entity.HallEntity;
 import com.sergiu.entity.SupervisorEntity;
@@ -37,23 +32,6 @@ public class Transformer {
 		return modelList;
 	}
 
-	public SupervisorDTO supervisorFromModelToDTO(SupervisorModel model) {
-		SupervisorDTO dto = new SupervisorDTO();
-		dto.setId(model.getId());
-		dto.setFirstName(model.getFirstName());
-		dto.setMiddleName(model.getMiddleName());
-		dto.setLastName(model.getLastName());
-		return dto;
-	}
-
-	public List<SupervisorDTO> supervisorFromModelToDTO(List<SupervisorModel> modelList) {
-		List<SupervisorDTO> dtoList = new ArrayList<>();
-		for (SupervisorModel model : modelList) {
-			dtoList.add(supervisorFromModelToDTO(model));
-		}
-		return dtoList;
-	}
-
 	public HallModel hallFromEntityToModel(HallEntity entity) {
 		HallModel model = new HallModel();
 		model.setId(entity.getId());
@@ -70,22 +48,6 @@ public class Transformer {
 		return modelList;
 	}
 
-	public HallDTO hallFromModelToDTO(HallModel model) {
-		HallDTO dto = new HallDTO();
-		dto.setId(model.getId());
-		dto.setName(model.getName());
-		dto.setSize(model.getSize());
-		return dto;
-	}
-
-	public List<HallDTO> hallFromModelToDTO(List<HallModel> modelList) {
-		List<HallDTO> dtoList = new ArrayList<>();
-		for (HallModel model : modelList) {
-			dtoList.add(hallFromModelToDTO(model));
-		}
-		return dtoList;
-	}
-
 	public CandidateModel candidateFromEntityToModel(CandidateEntity entity) {
 		CandidateModel model = new CandidateModel();
 		model.setId(entity.getId());
@@ -100,22 +62,6 @@ public class Transformer {
 			modelList.add(candidateFromEntityToModel(entity));
 		}
 		return modelList;
-	}
-
-	public CandidateDTO candidateFromModelToDTO(CandidateModel model) {
-		CandidateDTO dto = new CandidateDTO();
-		dto.setId(model.getId());
-		dto.setFirstName(model.getFirstName());
-		dto.setLastName(model.getLastName());
-		return dto;
-	}
-
-	public List<CandidateDTO> candidateFromModelToDTO(List<CandidateModel> modelList) {
-		List<CandidateDTO> dtoList = new ArrayList<>();
-		for (CandidateModel model : modelList) {
-			dtoList.add(candidateFromModelToDTO(model));
-		}
-		return dtoList;
 	}
 
 	public CandidateEntity candidateFromModelToEntity(CandidateModel model) {

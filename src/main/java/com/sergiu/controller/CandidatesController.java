@@ -23,7 +23,7 @@ import com.sergiu.transformer.Transformer;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class Candidates {
+public class CandidatesController {
 	@Autowired
 	private CandidateRepository candidateRepository;
 	@Autowired
@@ -34,22 +34,19 @@ public class Candidates {
 		return transformer.candidateFromEntityToModel(candidateRepository.findAll());
 	}
 
-	// Create a new Note
 	@PostMapping("/candidates")
 	public void createCandidate(@Valid @RequestBody CandidateModel candidateModel) {
 		candidateRepository.save(transformer.candidateFromModelToEntity(candidateModel));
 	}
 
-	// Get a Single Note
 	@GetMapping("/candidates/{id}")
-	public CandidateModel getNoteById(@PathVariable(value = "id") Integer id) {
+	public CandidateModel getCandidateById(@PathVariable(value = "id") Integer id) {
 		return transformer.candidateFromEntityToModel(candidateRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Candidate", "id", id)));
 	}
 
-	// Update a Note
-	@PutMapping("/notes/{id}")
-	public CandidateModel updateNote(@PathVariable(value = "id") Integer id,
+	@PutMapping("/candidates/{id}")
+	public CandidateModel updateCandidate(@PathVariable(value = "id") Integer id,
 			@Valid @RequestBody CandidateModel candidate) {
 
 		CandidateEntity entity = candidateRepository.findById(id)
@@ -60,7 +57,6 @@ public class Candidates {
 
 		return transformer.candidateFromEntityToModel(candidateRepository.save(entity));
 	}
-	// Delete a Note
 
 	@DeleteMapping("/candidates/{id}")
 	public ResponseEntity<?> deleteCandidate(@PathVariable(value = "id") Integer id) {
