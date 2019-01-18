@@ -3,6 +3,8 @@ package com.sergiu.transformer;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Component;
 
 import com.sergiu.entity.CandidateEntity;
@@ -69,6 +71,14 @@ public class Transformer {
 		entity.setId(model.getId());
 		entity.setFirstName(model.getFirstName());
 		entity.setLastName(model.getLastName());
+		return entity;
+	}
+
+	public HallEntity hallFromModelToEntity(@Valid HallModel hallModel) {
+		HallEntity entity = new HallEntity();
+		entity.setId(hallModel.getId());
+		entity.setName(hallModel.getName());
+		entity.setSize(hallModel.getSize());
 		return entity;
 	}
 }
