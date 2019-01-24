@@ -22,6 +22,9 @@ public class HallEntity {
 	@Column(name = "size")
 	private int size;
 
+	@Column(name = "utilizable_size")
+	private int utilizableSize;
+
 	public int getId() {
 		return id;
 	}
@@ -36,6 +39,14 @@ public class HallEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getUtilizableSize() {
+		return utilizableSize;
+	}
+
+	public void setUtilizableSize(int utilizableSize) {
+		this.utilizableSize = utilizableSize;
 	}
 
 	public int getSize() {
@@ -53,6 +64,7 @@ public class HallEntity {
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + size;
+		result = prime * result + utilizableSize;
 		return result;
 	}
 
@@ -73,6 +85,8 @@ public class HallEntity {
 		} else if (!name.equals(other.name))
 			return false;
 		if (size != other.size)
+			return false;
+		if (utilizableSize != other.utilizableSize)
 			return false;
 		return true;
 	}

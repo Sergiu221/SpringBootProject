@@ -6,6 +6,8 @@ public class HallModel {
 
 	private String name;
 
+	private int utilizableSize;
+	
 	private int size;
 
 	public int getId() {
@@ -30,5 +32,13 @@ public class HallModel {
 
 	public void setSize(int size) {
 		this.size = size;
+	}
+
+	public int getUtilizableSize() {
+		return utilizableSize;
+	}
+
+	public void setUtilizableSize(int utilizableSize) {
+		this.utilizableSize = utilizableSize;
 	}
 }

@@ -48,6 +48,7 @@ public class ServerJPAIntegrationTest {
 		HallEntity entity = new HallEntity();
 		entity.setId(2);
 		entity.setName("C308");
+		entity.setUtilizableSize(25);
 		entity.setSize(50);
 		HallEntity expected = hallRepository.save(entity);
 		Optional<HallEntity> foundEntity = hallRepository.findById(expected.getId());

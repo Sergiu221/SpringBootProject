@@ -39,6 +39,7 @@ public class Transformer {
 		model.setId(entity.getId());
 		model.setName(entity.getName());
 		model.setSize(entity.getSize());
+		model.setUtilizableSize(entity.getUtilizableSize());
 		return model;
 	}
 
@@ -78,6 +79,7 @@ public class Transformer {
 		HallEntity entity = new HallEntity();
 		entity.setId(hallModel.getId());
 		entity.setName(hallModel.getName());
+		entity.setUtilizableSize(hallModel.getUtilizableSize());
 		entity.setSize(hallModel.getSize());
 		return entity;
 	}

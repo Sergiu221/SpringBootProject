@@ -52,6 +52,7 @@ public class HallsController {
 				.orElseThrow(() -> new ResourceNotFoundException("Hall", "id", id));
 
 		entity.setName(hall.getName());
+		entity.setUtilizableSize(hall.getUtilizableSize());
 		entity.setSize(hall.getSize());
 
 		return transformer.hallFromEntityToModel(hallRepository.save(entity));
