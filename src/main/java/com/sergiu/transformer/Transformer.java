@@ -54,8 +54,13 @@ public class Transformer {
 	public CandidateModel candidateFromEntityToModel(CandidateEntity entity) {
 		CandidateModel model = new CandidateModel();
 		model.setId(entity.getId());
+		model.setCnp(entity.getCnp());
 		model.setFirstName(entity.getFirstName());
 		model.setLastName(entity.getLastName());
+		model.setExamLanguage(entity.getExamLanguage());
+		model.setExamField(entity.getExamField());
+		model.setExamType(entity.getExamType());
+		model.setHighSchool(entity.getHighSchool());
 		return model;
 	}
 
@@ -70,8 +75,13 @@ public class Transformer {
 	public CandidateEntity candidateFromModelToEntity(CandidateModel model) {
 		CandidateEntity entity = new CandidateEntity();
 		entity.setId(model.getId());
+		entity.setCnp(model.getCnp());
 		entity.setFirstName(model.getFirstName());
 		entity.setLastName(model.getLastName());
+		entity.setExamLanguage(model.getExamLanguage());
+		entity.setExamField(model.getExamField());
+		entity.setExamType(model.getExamType());
+		entity.setHighSchool(model.getHighSchool());
 		return entity;
 	}
 

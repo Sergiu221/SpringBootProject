@@ -43,7 +43,7 @@ public class FileService {
 				model.setFirstName(line[1]);
 				model.setLastName(line[2]);
 				model.setCnp(line[0]);
-				model.setLiceu(line[3]);
+				model.setHighSchool(line[3]);
 				result.add(model);
 			}
 		} catch (IOException e) {

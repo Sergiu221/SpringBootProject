@@ -61,9 +61,13 @@ public class ServerJPAIntegrationTest {
 	public void givenCandidateEntityRepository_whenSaveAndRetreiveEntity_thenOK() {
 		CandidateEntity entity = new CandidateEntity();
 		entity.setId(3);
-		entity.setFirstName("Monica");
-		entity.setMiddleName("Mustata");
-		entity.setLastName("Borodea");
+		entity.setCnp("1940122374514");
+		entity.setFirstName("Test First Name");
+		entity.setLastName("Test Last Name");
+		entity.setExamLanguage("Romana");
+		entity.setExamField("Matematica");
+		entity.setExamType("Admitere");
+		entity.setHighSchool("Liceul Teoretic Emil Racovita");
 		CandidateEntity expected = candidateRepository.save(entity);
 		Optional<CandidateEntity> foundEntity = candidateRepository.findById(expected.getId());
 		assertNotNull(foundEntity);

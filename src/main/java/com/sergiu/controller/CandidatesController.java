@@ -24,6 +24,7 @@ import com.sergiu.transformer.Transformer;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class CandidatesController {
+
 	@Autowired
 	private CandidateRepository candidateRepository;
 	@Autowired
@@ -52,8 +53,13 @@ public class CandidatesController {
 		CandidateEntity entity = candidateRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Candidate", "id", id));
 
+		entity.setCnp(candidate.getCnp());
 		entity.setFirstName(candidate.getFirstName());
 		entity.setLastName(candidate.getLastName());
+		entity.setExamLanguage(candidate.getExamLanguage());
+		entity.setExamField(candidate.getExamField());
+		entity.setExamType(candidate.getExamType());
+		entity.setHighSchool(candidate.getHighSchool());
 
 		return transformer.candidateFromEntityToModel(candidateRepository.save(entity));
 	}

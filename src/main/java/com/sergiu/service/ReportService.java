@@ -86,7 +86,7 @@ public class ReportService {
 		table.addCell(candidateModel.getLastName());
 		table.addCell(candidateModel.getFirstName());
 		table.addCell(candidateModel.getCnp());
-		table.addCell(candidateModel.getLiceu());
+		table.addCell(candidateModel.getHighSchool());
 	}
 
 	private void addRows(PdfPTable table, Set<CandidateModel> candidateModels) {
