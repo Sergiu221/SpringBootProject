@@ -10,6 +10,20 @@ public class CategoryModel {
 
 	private String typeExam;
 
+	private int nrCandidates;
+
+	public CategoryModel() {
+	}
+
+	public CategoryModel(String name, String subjectExam, String languageExam, String typeExam, int nrCandidates) {
+		super();
+		this.name = name;
+		this.subjectExam = subjectExam;
+		this.languageExam = languageExam;
+		this.typeExam = typeExam;
+		this.nrCandidates = nrCandidates;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -40,5 +54,13 @@ public class CategoryModel {
 
 	public void setTypeExam(String typeExam) {
 		this.typeExam = typeExam;
+	}
+
+	public int getNrCandidates() {
+		return nrCandidates;
+	}
+
+	public void setNrCandidates(int nrCandidates) {
+		this.nrCandidates = nrCandidates;
 	}
 }

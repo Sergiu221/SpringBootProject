@@ -29,6 +29,9 @@ public class ServerJPAIntegrationTest {
 	@Autowired
 	private CandidateRepository candidateRepository;
 
+	@Autowired
+	private CategoryRepository categoryRepository;
+
 	@Test
 	public void givenSupervisorEntityRepository_whenSaveAndRetreiveEntity_thenOK() {
 		SupervisorEntity entity = new SupervisorEntity();
@@ -64,10 +67,8 @@ public class ServerJPAIntegrationTest {
 		entity.setCnp("1940122374514");
 		entity.setFirstName("Test First Name");
 		entity.setLastName("Test Last Name");
-		entity.setExamLanguage("Romana");
-		entity.setExamField("Matematica");
-		entity.setExamType("Admitere");
 		entity.setHighSchool("Liceul Teoretic Emil Racovita");
+		entity.setCategory(categoryRepository.findById("MRA").get());
 		CandidateEntity expected = candidateRepository.save(entity);
 		Optional<CandidateEntity> foundEntity = candidateRepository.findById(expected.getId());
 		assertNotNull(foundEntity);

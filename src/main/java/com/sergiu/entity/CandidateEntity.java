@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,14 +27,9 @@ public class CandidateEntity {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "exam_language")
-	private String examLanguage;
-
-	@Column(name = "exam_field")
-	private String examField;
-
-	@Column(name = "exam_type")
-	private String examType;
+	@OneToOne
+	@JoinColumn(name = "category")
+	private CategoryEntity category;
 
 	@Column(name = "high_school")
 	private String highSchool;
@@ -69,30 +66,6 @@ public class CandidateEntity {
 		this.lastName = lastName;
 	}
 
-	public String getExamLanguage() {
-		return examLanguage;
-	}
-
-	public void setExamLanguage(String examLanguage) {
-		this.examLanguage = examLanguage;
-	}
-
-	public String getExamField() {
-		return examField;
-	}
-
-	public void setExamField(String examField) {
-		this.examField = examField;
-	}
-
-	public String getExamType() {
-		return examType;
-	}
-
-	public void setExamType(String examType) {
-		this.examType = examType;
-	}
-
 	public String getHighSchool() {
 		return highSchool;
 	}
@@ -101,14 +74,19 @@ public class CandidateEntity {
 		this.highSchool = highSchool;
 	}
 
+	public CategoryEntity getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryEntity category) {
+		this.category = category;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cnp == null) ? 0 : cnp.hashCode());
-		result = prime * result + ((examField == null) ? 0 : examField.hashCode());
-		result = prime * result + ((examLanguage == null) ? 0 : examLanguage.hashCode());
-		result = prime * result + ((examType == null) ? 0 : examType.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((highSchool == null) ? 0 : highSchool.hashCode());
 		result = prime * result + id;
@@ -130,21 +108,6 @@ public class CandidateEntity {
 				return false;
 		} else if (!cnp.equals(other.cnp))
 			return false;
-		if (examField == null) {
-			if (other.examField != null)
-				return false;
-		} else if (!examField.equals(other.examField))
-			return false;
-		if (examLanguage == null) {
-			if (other.examLanguage != null)
-				return false;
-		} else if (!examLanguage.equals(other.examLanguage))
-			return false;
-		if (examType == null) {
-			if (other.examType != null)
-				return false;
-		} else if (!examType.equals(other.examType))
-			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
@@ -164,4 +127,5 @@ public class CandidateEntity {
 			return false;
 		return true;
 	}
+
 }

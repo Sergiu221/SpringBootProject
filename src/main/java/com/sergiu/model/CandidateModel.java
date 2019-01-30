@@ -10,11 +10,7 @@ public class CandidateModel {
 
 	private String lastName;
 
-	private String examLanguage;
-
-	private String examField;
-
-	private String examType;
+	private CategoryModel category;
 
 	private String highSchool;
 
@@ -50,28 +46,12 @@ public class CandidateModel {
 		this.lastName = lastName;
 	}
 
-	public String getExamLanguage() {
-		return examLanguage;
+	public CategoryModel getCategory() {
+		return category;
 	}
 
-	public void setExamLanguage(String examLanguage) {
-		this.examLanguage = examLanguage;
-	}
-
-	public String getExamField() {
-		return examField;
-	}
-
-	public void setExamField(String examField) {
-		this.examField = examField;
-	}
-
-	public String getExamType() {
-		return examType;
-	}
-
-	public void setExamType(String examType) {
-		this.examType = examType;
+	public void setCategory(CategoryModel category) {
+		this.category = category;
 	}
 
 	public String getHighSchool() {

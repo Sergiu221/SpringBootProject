@@ -8,9 +8,11 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Component;
 
 import com.sergiu.entity.CandidateEntity;
+import com.sergiu.entity.CategoryEntity;
 import com.sergiu.entity.HallEntity;
 import com.sergiu.entity.SupervisorEntity;
 import com.sergiu.model.CandidateModel;
+import com.sergiu.model.CategoryModel;
 import com.sergiu.model.HallModel;
 import com.sergiu.model.SupervisorModel;
 
@@ -57,9 +59,7 @@ public class Transformer {
 		model.setCnp(entity.getCnp());
 		model.setFirstName(entity.getFirstName());
 		model.setLastName(entity.getLastName());
-		model.setExamLanguage(entity.getExamLanguage());
-		model.setExamField(entity.getExamField());
-		model.setExamType(entity.getExamType());
+		model.setCategory(categoryFromEntityToModel(entity.getCategory()));
 		model.setHighSchool(entity.getHighSchool());
 		return model;
 	}
@@ -78,9 +78,7 @@ public class Transformer {
 		entity.setCnp(model.getCnp());
 		entity.setFirstName(model.getFirstName());
 		entity.setLastName(model.getLastName());
-		entity.setExamLanguage(model.getExamLanguage());
-		entity.setExamField(model.getExamField());
-		entity.setExamType(model.getExamType());
+		entity.setCategory(categoryFromModelToEntity(model.getCategory()));
 		entity.setHighSchool(model.getHighSchool());
 		return entity;
 	}
@@ -99,6 +97,24 @@ public class Transformer {
 		entity.setId(model.getId());
 		entity.setFirstName(model.getFirstName());
 		entity.setLastName(model.getLastName());
+		return entity;
+	}
+
+	public CategoryModel categoryFromEntityToModel(CategoryEntity entity) {
+		CategoryModel model = new CategoryModel();
+		model.setLanguageExam(entity.getLanguageExam());
+		model.setName(entity.getName());
+		model.setSubjectExam(entity.getSubjectExam());
+		model.setTypeExam(entity.getTypeExam());
+		return model;
+	}
+
+	public CategoryEntity categoryFromModelToEntity(@Valid CategoryModel model) {
+		CategoryEntity entity = new CategoryEntity();
+		entity.setLanguageExam(model.getLanguageExam());
+		entity.setName(model.getName());
+		entity.setSubjectExam(model.getSubjectExam());
+		entity.setTypeExam(model.getTypeExam());
 		return entity;
 	}
 }

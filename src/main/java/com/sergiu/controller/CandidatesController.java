@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sergiu.entity.CandidateEntity;
+import com.sergiu.entity.CategoryViewEntity;
 import com.sergiu.exception.ResourceNotFoundException;
 import com.sergiu.model.CandidateModel;
 import com.sergiu.repository.CandidateRepository;
+import com.sergiu.repository.CategoryViewRepository;
 import com.sergiu.transformer.Transformer;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -27,6 +29,9 @@ public class CandidatesController {
 
 	@Autowired
 	private CandidateRepository candidateRepository;
+
+	@Autowired
+	private CategoryViewRepository categoryViewRepository;
 	@Autowired
 	private Transformer transformer;
 
@@ -56,9 +61,7 @@ public class CandidatesController {
 		entity.setCnp(candidate.getCnp());
 		entity.setFirstName(candidate.getFirstName());
 		entity.setLastName(candidate.getLastName());
-		entity.setExamLanguage(candidate.getExamLanguage());
-		entity.setExamField(candidate.getExamField());
-		entity.setExamType(candidate.getExamType());
+		entity.setCategory(transformer.categoryFromModelToEntity(candidate.getCategory()));
 		entity.setHighSchool(candidate.getHighSchool());
 
 		return transformer.candidateFromEntityToModel(candidateRepository.save(entity));
@@ -71,5 +74,10 @@ public class CandidatesController {
 
 		candidateRepository.delete(entity);
 		return ResponseEntity.ok().build();
+	}
+
+	@GetMapping("/candidates/categories")
+	public List<CategoryViewEntity> getAllCategories() {
+		return categoryViewRepository.findAll();
 	}
 }
