@@ -24,6 +24,7 @@ import com.sergiu.transformer.Transformer;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class HallsController {
+	
 	@Autowired
 	private HallRepository hallRepository;
 	@Autowired

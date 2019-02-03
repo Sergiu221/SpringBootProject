@@ -1,5 +1,6 @@
 package com.sergiu.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -79,5 +80,10 @@ public class CandidatesController {
 	@GetMapping("/candidates/categories")
 	public List<CategoryViewEntity> getAllCategories() {
 		return categoryViewRepository.findAll();
+	}
+	
+	@GetMapping("/candidates/hall/{id}")
+	public List<CandidateModel> getAllCandidatesFromHallWithId(@PathVariable(value = "id") Integer id) {
+		return new ArrayList<CandidateModel>();
 	}
 }
