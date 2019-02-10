@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,6 +34,19 @@ public class CandidateEntity {
 
 	@Column(name = "high_school")
 	private String highSchool;
+
+	@OneToOne
+	@JoinTable(name = "distribution", joinColumns = { @JoinColumn(name = "id_candidate") }, inverseJoinColumns = {
+			@JoinColumn(name = "id_hall") })
+	private HallEntity hall;
+
+	public HallEntity getHall() {
+		return hall;
+	}
+
+	public void setHall(HallEntity hall) {
+		this.hall = hall;
+	}
 
 	public int getId() {
 		return id;

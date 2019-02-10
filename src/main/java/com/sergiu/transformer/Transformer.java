@@ -42,6 +42,7 @@ public class Transformer {
 		model.setName(entity.getName());
 		model.setSize(entity.getSize());
 		model.setUtilizableSize(entity.getUtilizableSize());
+		model.setListCandidates(candidateFromEntityToModel(entity.getListCandidates()));
 		return model;
 	}
 

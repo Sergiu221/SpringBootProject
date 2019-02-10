@@ -1,5 +1,7 @@
 package com.sergiu.model;
 
+import java.util.List;
+
 public class HallModel {
 
 	private int id;
@@ -7,8 +9,10 @@ public class HallModel {
 	private String name;
 
 	private int utilizableSize;
-	
+
 	private int size;
+
+	private List<CandidateModel> listCandidates;
 
 	public int getId() {
 		return id;
@@ -40,5 +44,13 @@ public class HallModel {
 
 	public void setUtilizableSize(int utilizableSize) {
 		this.utilizableSize = utilizableSize;
+	}
+
+	public List<CandidateModel> getListCandidates() {
+		return listCandidates;
+	}
+
+	public void setListCandidates(List<CandidateModel> listCandidates) {
+		this.listCandidates = listCandidates;
 	}
 }

@@ -1,10 +1,15 @@
 package com.sergiu.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +29,11 @@ public class HallEntity {
 
 	@Column(name = "utilizable_size")
 	private int utilizableSize;
+
+	@OneToMany
+	@JoinTable(name = "distribution", joinColumns = { @JoinColumn(name = "id_hall") }, inverseJoinColumns = {
+			@JoinColumn(name = "id_candidate") })
+	private List<CandidateEntity> listCandidates;
 
 	public int getId() {
 		return id;
@@ -55,6 +65,14 @@ public class HallEntity {
 
 	public void setSize(int size) {
 		this.size = size;
+	}
+
+	public List<CandidateEntity> getListCandidates() {
+		return listCandidates;
+	}
+
+	public void setListCandidates(List<CandidateEntity> listCandidates) {
+		this.listCandidates = listCandidates;
 	}
 
 	@Override
