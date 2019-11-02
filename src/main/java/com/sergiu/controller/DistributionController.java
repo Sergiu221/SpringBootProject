@@ -28,7 +28,7 @@ import com.sergiu.repository.DistributionRepository;
 import com.sergiu.service.FileService;
 import com.sergiu.service.ReportService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 public class DistributionController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DistributionController.class);

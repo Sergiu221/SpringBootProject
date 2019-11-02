@@ -21,7 +21,7 @@ import com.sergiu.model.SupervisorModel;
 import com.sergiu.repository.SupervisorRepository;
 import com.sergiu.transformer.Transformer;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 public class SupervisorsController {
 	@Autowired

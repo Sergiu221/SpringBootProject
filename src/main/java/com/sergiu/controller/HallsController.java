@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,10 +23,11 @@ import com.sergiu.model.HallModel;
 import com.sergiu.repository.HallRepository;
 import com.sergiu.transformer.Transformer;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 public class HallsController {
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(HallsController.class);
+
 	@Autowired
 	private HallRepository hallRepository;
 	@Autowired
@@ -49,6 +52,7 @@ public class HallsController {
 	@PutMapping("/halls/{id}")
 	public HallModel updateHall(@PathVariable(value = "id") Integer id, @Valid @RequestBody HallModel hall) {
 
+		LOGGER.info("Hall with id:"+id+" is updated.");
 		HallEntity entity = hallRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Hall", "id", id));
 

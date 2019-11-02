@@ -24,7 +24,7 @@ import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.CategoryViewRepository;
 import com.sergiu.transformer.Transformer;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 public class CandidatesController {
 
