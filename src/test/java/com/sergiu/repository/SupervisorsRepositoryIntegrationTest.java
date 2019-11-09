@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,8 +16,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
-@SpringBootTest(classes = SupervisorRepository.class)
-public class SupervisorsRepositoryIT {
+public class SupervisorsRepositoryIntegrationTest {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -30,34 +28,28 @@ public class SupervisorsRepositoryIT {
     public void init() {
         SupervisorEntity entity = new SupervisorEntity();
 
-        entity.setFirstName("Supervisor Name1");
-        entity.setLastName("Supervisor LastName1");
+        entity.setFirstName("Supervisor1");
+        entity.setLastName("LastName1");
         entityManager.persist(entity);
 
         SupervisorEntity entity2 = new SupervisorEntity();
-
-        entity.setFirstName("Supervisor Name2");
-        entity.setLastName("Supervisor LastName2");
+        entity2.setFirstName("Supervisor2");
+        entity2.setLastName("LastName2");
         entityManager.persist(entity2);
-        entityManager.flush();
-    }
 
-    @After
-    public void clear() {
-        entityManager.clear();
         entityManager.flush();
     }
 
     @Test
-    public void testFindByIdOnHallsRepository() {
-        SupervisorEntity found = supervisorRepository.findById(1).get();
-        assertEquals(found.getId(), 1);
+    public void testFindByNameOnHallsRepository() {
+        SupervisorEntity found = supervisorRepository.findByFirstName("Supervisor1").get();
+        assertEquals(found.getFirstName(), "Supervisor1");
     }
 
     @Test
-    public void testDeleteByIdOnHallsRepository() {
+    public void testDeleteByNameOnHallsRepository() {
         int totalNrOfHalls = supervisorRepository.findAll().size();
-        supervisorRepository.deleteById(3);
+        supervisorRepository.deleteByFirstName("Supervisor1");
         assertEquals(totalNrOfHalls - 1, supervisorRepository.findAll().size());
     }
 }
