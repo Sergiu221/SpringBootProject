@@ -1,7 +1,6 @@
 package com.sergiu.repository;
 
 import com.sergiu.entity.SupervisorEntity;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
