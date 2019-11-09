@@ -16,8 +16,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
-@SpringBootTest(classes = HallRepository.class)
-public class HallsRepositoryIT {
+public class HallsRepositoryIntegrationTest {
 
     @Autowired
     private TestEntityManager entityManager;
