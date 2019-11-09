@@ -24,88 +24,88 @@ import com.sergiu.util.TypeFile;
 @Service
 public class FileService {
 
-	@Autowired
-	private FileRepository fileRepository;
+    @Autowired
+    private FileRepository fileRepository;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
 
-	public Set<CandidateModel> retrieveFromCSVlistOfCandidates() {
-		Set<CandidateModel> result = new HashSet<CandidateModel>();
-		LOGGER.info("Started retriving listOfCandidates");
-		FileCSV csv = fileRepository.findByType(TypeFile.CANDIDATES);
-		CSVReader reader = null;
-		try {
-			reader = new CSVReader(new FileReader(csv.getFile().getAbsolutePath()));
-			String[] line;
-			while ((line = reader.readNext()) != null) {
-				System.out.println("Candidate [CNP= " + line[0] + ", prenume= " + line[1] + " , nume=" + line[2] + "]");
-				CandidateModel model = new CandidateModel();
-				model.setFirstName(line[1]);
-				model.setLastName(line[2]);
-				model.setCnp(line[0]);
-				model.setHighSchool(line[3]);
-				result.add(model);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    public Set<CandidateModel> retrieveFromCSVlistOfCandidates() {
+        Set<CandidateModel> result = new HashSet<CandidateModel>();
+        LOGGER.info("Started retriving listOfCandidates");
+        FileCSV csv = fileRepository.findByType(TypeFile.CANDIDATES);
+        CSVReader reader = null;
+        try {
+            reader = new CSVReader(new FileReader(csv.getFile().getAbsolutePath()));
+            String[] line;
+            while ((line = reader.readNext()) != null) {
+                System.out.println("Candidate [CNP= " + line[0] + ", prenume= " + line[1] + " , nume=" + line[2] + "]");
+                CandidateModel model = new CandidateModel();
+                model.setFirstName(line[1]);
+                model.setLastName(line[2]);
+                model.setCnp(Long.valueOf(line[0]));
+                model.setHighSchool(line[3]);
+                result.add(model);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	public Set<SupervisorModel> retrieveFromCSVlistOfSupervisor(File file) {
-		LOGGER.info("Started retriving listOfSupervisor");
+    public Set<SupervisorModel> retrieveFromCSVlistOfSupervisor(File file) {
+        LOGGER.info("Started retriving listOfSupervisor");
 
-		CSVReader reader = null;
-		try {
-			reader = new CSVReader(new FileReader(file.getPath()));
-			String[] line;
-			while ((line = reader.readNext()) != null) {
-				System.out.println("Supervisor[CNP= " + line[0] + ", Prenume= " + line[1] + " , Nume=" + line[2] + "]");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return new HashSet<SupervisorModel>();
-	}
+        CSVReader reader = null;
+        try {
+            reader = new CSVReader(new FileReader(file.getPath()));
+            String[] line;
+            while ((line = reader.readNext()) != null) {
+                System.out.println("Supervisor[CNP= " + line[0] + ", Prenume= " + line[1] + " , Nume=" + line[2] + "]");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new HashSet<SupervisorModel>();
+    }
 
-	public Set<HallModel> retrieveFromCSVlistOfHalls(File file) {
-		LOGGER.info("Started retriving listOfHalls");
+    public Set<HallModel> retrieveFromCSVlistOfHalls(File file) {
+        LOGGER.info("Started retriving listOfHalls");
 
-		CSVReader reader = null;
-		try {
-			reader = new CSVReader(new FileReader(file.getPath()));
-			String[] line;
-			while ((line = reader.readNext()) != null) {
-				System.out.println("Hall [Nume= " + line[0] + ", Locuri= " + line[1] + "]");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return new HashSet<HallModel>();
-	}
+        CSVReader reader = null;
+        try {
+            reader = new CSVReader(new FileReader(file.getPath()));
+            String[] line;
+            while ((line = reader.readNext()) != null) {
+                System.out.println("Hall [Nume= " + line[0] + ", Locuri= " + line[1] + "]");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new HashSet<HallModel>();
+    }
 
-	private File convert(MultipartFile multipartFile) {
+    private File convert(MultipartFile multipartFile) {
 
-		try {
-			LOGGER.info("Start converting file with name:" + multipartFile.getName());
-			File contentFile = new File(multipartFile.getOriginalFilename());
-			contentFile.createNewFile();
-			FileOutputStream fos = new FileOutputStream(contentFile);
-			fos.write(multipartFile.getBytes());
-			fos.close();
-			return contentFile;
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException("I can't read the content of this file");
-		}
-	}
+        try {
+            LOGGER.info("Start converting file with name:" + multipartFile.getName());
+            File contentFile = new File(multipartFile.getOriginalFilename());
+            contentFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(contentFile);
+            fos.write(multipartFile.getBytes());
+            fos.close();
+            return contentFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("I can't read the content of this file");
+        }
+    }
 
-	public void saveCSVInSession(MultipartFile file, String type) {
-		FileCSV model = new FileCSV();
-		model.setFileType(TypeFile.valueOf(type));
-		model.setFileName(file.getOriginalFilename());
-		model.setFile(convert(file));
-		fileRepository.save(model);
-	}
+    public void saveCSVInSession(MultipartFile file, String type) {
+        FileCSV model = new FileCSV();
+        model.setFileType(TypeFile.valueOf(type));
+        model.setFileName(file.getOriginalFilename());
+        model.setFile(convert(file));
+        fileRepository.save(model);
+    }
 }

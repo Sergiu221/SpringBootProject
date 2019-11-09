@@ -56,7 +56,6 @@ public class Transformer {
 
 	public CandidateModel candidateFromEntityToModel(CandidateEntity entity) {
 		CandidateModel model = new CandidateModel();
-		model.setId(entity.getId());
 		model.setCnp(entity.getCnp());
 		model.setFirstName(entity.getFirstName());
 		model.setLastName(entity.getLastName());
@@ -75,7 +74,6 @@ public class Transformer {
 
 	public CandidateEntity candidateFromModelToEntity(CandidateModel model) {
 		CandidateEntity entity = new CandidateEntity();
-		entity.setId(model.getId());
 		entity.setCnp(model.getCnp());
 		entity.setFirstName(model.getFirstName());
 		entity.setLastName(model.getLastName());
@@ -103,19 +101,19 @@ public class Transformer {
 
 	public CategoryModel categoryFromEntityToModel(CategoryEntity entity) {
 		CategoryModel model = new CategoryModel();
-		model.setLanguageExam(entity.getLanguageExam());
+		model.setLanguageExam(entity.getLanguage());
 		model.setName(entity.getName());
-		model.setSubjectExam(entity.getSubjectExam());
-		model.setTypeExam(entity.getTypeExam());
+		model.setSubjectExam(entity.getDiscipline());
+		model.setTypeExam(entity.getAdmissionType());
 		return model;
 	}
 
 	public CategoryEntity categoryFromModelToEntity(@Valid CategoryModel model) {
 		CategoryEntity entity = new CategoryEntity();
-		entity.setLanguageExam(model.getLanguageExam());
+		entity.setLanguage(model.getLanguageExam());
 		entity.setName(model.getName());
-		entity.setSubjectExam(model.getSubjectExam());
-		entity.setTypeExam(model.getTypeExam());
+		entity.setDiscipline(model.getSubjectExam());
+		entity.setAdmissionType(model.getTypeExam());
 		return entity;
 	}
 }

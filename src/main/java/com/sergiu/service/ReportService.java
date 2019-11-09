@@ -26,71 +26,71 @@ import com.sergiu.model.CandidateModel;
 @Service
 public class ReportService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ReportService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReportService.class);
 
-	@Autowired
-	private FileService fileService;
+    @Autowired
+    private FileService fileService;
 
-	public Resource generatePDFDistibution() {
-		LOGGER.info("Generate PDF Distribution");
+    public Resource generatePDFDistibution() {
+        LOGGER.info("Generate PDF Distribution");
 
-		try {
-			Document document = new Document();
-			PdfWriter.getInstance(document, new FileOutputStream("raport.pdf"));
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("raport.pdf"));
 
-			document.open();
-			document.addTitle("C309");
-			Paragraph paragraph =new Paragraph();
-			paragraph.setAlignment(Paragraph.ALIGN_CENTER);
-			
-			paragraph.add("C309 it is set Hardcoded.");
-			
-			paragraph.setSpacingAfter(20);
-			document.add(paragraph);
-			
-			PdfPTable table = new PdfPTable(4);
-			addTableHeader(table);
-			addRows(table, fileService.retrieveFromCSVlistOfCandidates());
+            document.open();
+            document.addTitle("C309");
+            Paragraph paragraph = new Paragraph();
+            paragraph.setAlignment(Paragraph.ALIGN_CENTER);
 
-			document.add(table);
-			document.close();
-		} catch (Exception e) {
-			System.err.println("My PDF have problems ");
-		}
-		try {
-			Resource resource = new UrlResource(Paths.get("raport.pdf").toUri());
-			System.out.println(resource);
-			if (resource.exists()) {
-				return resource;
-			} else {
-				throw new MyFileNotFoundException("File not found " + "raport.pdf");
-			}
-		} catch (MalformedURLException ex) {
-			throw new MyFileNotFoundException("File not found " + "raport.pdf", ex);
-		}
+            paragraph.add("C309 it is set Hardcoded.");
 
-	}
+            paragraph.setSpacingAfter(20);
+            document.add(paragraph);
 
-	private void addTableHeader(PdfPTable table) {
-		Stream.of("Nume", "Prenume", "CNP", "Liceul").forEach(columnTitle -> {
-			PdfPCell header = new PdfPCell();
-			header.setBackgroundColor(BaseColor.LIGHT_GRAY);
-			header.setBorderWidth(2);
-			header.setPhrase(new Phrase(columnTitle));
-			table.addCell(header);
-		});
-	}
+            PdfPTable table = new PdfPTable(4);
+            addTableHeader(table);
+            addRows(table, fileService.retrieveFromCSVlistOfCandidates());
 
-	private void addRow(PdfPTable table, CandidateModel candidateModel) {
-		table.addCell(candidateModel.getLastName());
-		table.addCell(candidateModel.getFirstName());
-		table.addCell(candidateModel.getCnp());
-		table.addCell(candidateModel.getHighSchool());
-	}
+            document.add(table);
+            document.close();
+        } catch (Exception e) {
+            System.err.println("My PDF have problems ");
+        }
+        try {
+            Resource resource = new UrlResource(Paths.get("raport.pdf").toUri());
+            System.out.println(resource);
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new MyFileNotFoundException("File not found " + "raport.pdf");
+            }
+        } catch (MalformedURLException ex) {
+            throw new MyFileNotFoundException("File not found " + "raport.pdf", ex);
+        }
 
-	private void addRows(PdfPTable table, Set<CandidateModel> candidateModels) {
-		for (CandidateModel model : candidateModels) {
-			addRow(table, model);
-		}
-	}
+    }
+
+    private void addTableHeader(PdfPTable table) {
+        Stream.of("Nume", "Prenume", "CNP", "Liceul").forEach(columnTitle -> {
+            PdfPCell header = new PdfPCell();
+            header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            header.setBorderWidth(2);
+            header.setPhrase(new Phrase(columnTitle));
+            table.addCell(header);
+        });
+    }
+
+    private void addRow(PdfPTable table, CandidateModel candidateModel) {
+        table.addCell(candidateModel.getLastName());
+        table.addCell(candidateModel.getFirstName());
+        table.addCell(candidateModel.getCnp().toString());
+        table.addCell(candidateModel.getHighSchool());
+    }
+
+    private void addRows(PdfPTable table, Set<CandidateModel> candidateModels) {
+        for (CandidateModel model : candidateModels) {
+            addRow(table, model);
+        }
+    }
 }

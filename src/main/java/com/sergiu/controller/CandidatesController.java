@@ -28,62 +28,59 @@ import com.sergiu.transformer.Transformer;
 @RestController
 public class CandidatesController {
 
-	@Autowired
-	private CandidateRepository candidateRepository;
+    @Autowired
+    private CandidateRepository candidateRepository;
 
-	@Autowired
-	private CategoryViewRepository categoryViewRepository;
-	@Autowired
-	private Transformer transformer;
+    @Autowired
+    private CategoryViewRepository categoryViewRepository;
+    @Autowired
+    private Transformer transformer;
 
-	@GetMapping("/candidates")
-	public List<CandidateModel> getAllCandidates() {
-		return transformer.candidateFromEntityToModel(candidateRepository.findAll());
-	}
+    @GetMapping("/candidates")
+    public List<CandidateModel> getAllCandidates() {
+        return transformer.candidateFromEntityToModel(candidateRepository.findAll());
+    }
 
-	@PostMapping("/candidates")
-	public void createCandidate(@Valid @RequestBody CandidateModel candidateModel) {
-		candidateRepository.save(transformer.candidateFromModelToEntity(candidateModel));
-	}
+    @PostMapping("/candidates")
+    public void createCandidate(@Valid @RequestBody CandidateModel candidateModel) {
+        candidateRepository.save(transformer.candidateFromModelToEntity(candidateModel));
+    }
 
-	@GetMapping("/candidates/{id}")
-	public CandidateModel getCandidateById(@PathVariable(value = "id") Integer id) {
-		return transformer.candidateFromEntityToModel(candidateRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Candidate", "id", id)));
-	}
+    @GetMapping("/candidates/{cnp}")
+    public CandidateModel getCandidateByCnp(@PathVariable(value = "cnp") Long cnp) {
+        return transformer.candidateFromEntityToModel(candidateRepository.findByCnp(cnp));
+    }
 
-	@PutMapping("/candidates/{id}")
-	public CandidateModel updateCandidate(@PathVariable(value = "id") Integer id,
-			@Valid @RequestBody CandidateModel candidate) {
+    @PutMapping("/candidates/{cnp}")
+    public CandidateModel updateCandidate(@PathVariable(value = "cnp") Long cnp,
+                                          @Valid @RequestBody CandidateModel candidate) {
 
-		CandidateEntity entity = candidateRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Candidate", "id", id));
+        CandidateEntity entity = candidateRepository.findByCnp(cnp);
 
-		entity.setCnp(candidate.getCnp());
-		entity.setFirstName(candidate.getFirstName());
-		entity.setLastName(candidate.getLastName());
-		entity.setCategory(transformer.categoryFromModelToEntity(candidate.getCategory()));
-		entity.setHighSchool(candidate.getHighSchool());
+        entity.setCnp(candidate.getCnp());
+        entity.setFirstName(candidate.getFirstName());
+        entity.setLastName(candidate.getLastName());
+        entity.setCategory(transformer.categoryFromModelToEntity(candidate.getCategory()));
+        entity.setHighSchool(candidate.getHighSchool());
 
-		return transformer.candidateFromEntityToModel(candidateRepository.save(entity));
-	}
+        return transformer.candidateFromEntityToModel(candidateRepository.save(entity));
+    }
 
-	@DeleteMapping("/candidates/{id}")
-	public ResponseEntity<?> deleteCandidate(@PathVariable(value = "id") Integer id) {
-		CandidateEntity entity = candidateRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Candidate", "id", id));
+    @DeleteMapping("/candidates/{cnp}")
+    public ResponseEntity<?> deleteCandidate(@PathVariable(value = "cnp") Long cnp) {
+        CandidateEntity entity = candidateRepository.findByCnp(cnp);
 
-		candidateRepository.delete(entity);
-		return ResponseEntity.ok().build();
-	}
+        candidateRepository.delete(entity);
+        return ResponseEntity.ok().build();
+    }
 
-	@GetMapping("/candidates/categories")
-	public List<CategoryViewEntity> getAllCategories() {
-		return categoryViewRepository.findAll();
-	}
-	
-	@GetMapping("/candidates/hall/{id}")
-	public List<CandidateModel> getAllCandidatesFromHallWithId(@PathVariable(value = "id") Integer id) {
-		return new ArrayList<CandidateModel>();
-	}
+    @GetMapping("/candidates/categories")
+    public List<CategoryViewEntity> getAllCategories() {
+        return categoryViewRepository.findAll();
+    }
+
+    @GetMapping("/candidates/hall/{id}")
+    public List<CandidateModel> getAllCandidatesFromHallWithId(@PathVariable(value = "id") Integer id) {
+        return new ArrayList<CandidateModel>();
+    }
 }

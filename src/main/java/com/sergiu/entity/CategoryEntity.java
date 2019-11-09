@@ -9,91 +9,59 @@ import javax.persistence.Table;
 @Table(name = "category")
 public class CategoryEntity {
 
-	@Id
-	@Column(name = "name")
-	private String name;
+    @Id
+    @Column(name = "id")
+    private Integer id;
 
-	@Column(name = "subject_exam")
-	private String subjectExam;
+    @Column(name = "name")
+    private String name;
 
-	@Column(name = "language_exam")
-	private String languageExam;
+    @Column(name = "discipline")
+    private String discipline;
 
-	@Column(name = "type_exam")
-	private String typeExam;
+    @Column(name = "language")
+    private String language;
 
-	public String getName() {
-		return name;
-	}
+    @Column(name = "admission_type")
+    private String admissionType;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getSubjectExam() {
-		return subjectExam;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setSubjectExam(String subjectExam) {
-		this.subjectExam = subjectExam;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getLanguageExam() {
-		return languageExam;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setLanguageExam(String languageExam) {
-		this.languageExam = languageExam;
-	}
+    public String getDiscipline() {
+        return discipline;
+    }
 
-	public String getTypeExam() {
-		return typeExam;
-	}
+    public void setDiscipline(String discipline) {
+        this.discipline = discipline;
+    }
 
-	public void setTypeExam(String typeExam) {
-		this.typeExam = typeExam;
-	}
+    public String getLanguage() {
+        return language;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((languageExam == null) ? 0 : languageExam.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((subjectExam == null) ? 0 : subjectExam.hashCode());
-		result = prime * result + ((typeExam == null) ? 0 : typeExam.hashCode());
-		return result;
-	}
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CategoryEntity other = (CategoryEntity) obj;
-		if (languageExam == null) {
-			if (other.languageExam != null)
-				return false;
-		} else if (!languageExam.equals(other.languageExam))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (subjectExam == null) {
-			if (other.subjectExam != null)
-				return false;
-		} else if (!subjectExam.equals(other.subjectExam))
-			return false;
-		if (typeExam == null) {
-			if (other.typeExam != null)
-				return false;
-		} else if (!typeExam.equals(other.typeExam))
-			return false;
-		return true;
-	}
+    public String getAdmissionType() {
+        return admissionType;
+    }
+
+    public void setAdmissionType(String admissionType) {
+        this.admissionType = admissionType;
+    }
 }
