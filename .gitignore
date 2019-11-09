@@ -1,0 +1,10 @@
+.classpath
+.idea/
+.project
+.settings/
+bin/
+server.iml
+target/
+# Default ignored files
+/workspace.xml
+.classpath
