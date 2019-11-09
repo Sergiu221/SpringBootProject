@@ -42,18 +42,4 @@ public class ServerJPAIntegrationTest {
         assertEquals(expected, foundEntity.get());
         supervisorRepository.delete(foundEntity.get());
     }
-
-    @Test
-    public void givenHallEntityRepository_whenSaveAndRetreiveEntity_thenOK() {
-        HallEntity entity = new HallEntity();
-        entity.setId(2);
-        entity.setName("C308");
-        entity.setUtilizableSize(25);
-        entity.setSize(50);
-        HallEntity expected = hallRepository.save(entity);
-        Optional<HallEntity> foundEntity = hallRepository.findById(expected.getId());
-        assertNotNull(foundEntity);
-        assertEquals(expected, foundEntity.get());
-        hallRepository.delete(foundEntity.get());
-    }
 }
