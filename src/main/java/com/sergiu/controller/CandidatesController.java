@@ -48,14 +48,14 @@ public class CandidatesController {
 
     @GetMapping("/candidates/{cnp}")
     public CandidateModel getCandidateByCnp(@PathVariable(value = "cnp") Long cnp) {
-        return transformer.candidateFromEntityToModel(candidateRepository.findByCnp(cnp));
+        return transformer.candidateFromEntityToModel(candidateRepository.findByCnp(cnp).get());
     }
 
     @PutMapping("/candidates/{cnp}")
     public CandidateModel updateCandidate(@PathVariable(value = "cnp") Long cnp,
                                           @Valid @RequestBody CandidateModel candidate) {
 
-        CandidateEntity entity = candidateRepository.findByCnp(cnp);
+        CandidateEntity entity = candidateRepository.findByCnp(cnp).get();
 
         entity.setCnp(candidate.getCnp());
         entity.setFirstName(candidate.getFirstName());
@@ -68,7 +68,7 @@ public class CandidatesController {
 
     @DeleteMapping("/candidates/{cnp}")
     public ResponseEntity<?> deleteCandidate(@PathVariable(value = "cnp") Long cnp) {
-        CandidateEntity entity = candidateRepository.findByCnp(cnp);
+        CandidateEntity entity = candidateRepository.findByCnp(cnp).get();
 
         candidateRepository.delete(entity);
         return ResponseEntity.ok().build();

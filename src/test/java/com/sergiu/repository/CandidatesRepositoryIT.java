@@ -1,6 +1,7 @@
 package com.sergiu.repository;
 
 import com.sergiu.entity.CandidateEntity;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,9 +44,14 @@ public class CandidatesRepositoryIT {
         entityManager.flush();
     }
 
+    @After
+    public void destroy() {
+        entityManager.flush();
+    }
+
     @Test
     public void testFindByCnpOnCandidateRepository() {
-        CandidateEntity found = candidateRepository.findByCnp(1940122374500L);
+        CandidateEntity found = candidateRepository.findByCnp(1940122374500L).get();
         assertEquals(found.getCnp(), Long.valueOf(1940122374500L));
     }
 
