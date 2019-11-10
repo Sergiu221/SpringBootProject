@@ -32,7 +32,7 @@ public class HallEntity {
 
 	@OneToMany
 	@JoinTable(name = "distribution", joinColumns = { @JoinColumn(name = "id_hall") }, inverseJoinColumns = {
-			@JoinColumn(name = "id_candidate") })
+			@JoinColumn(name = "cnp_candidate") })
 	private List<CandidateEntity> listCandidates;
 
 	public int getId() {

@@ -17,7 +17,7 @@ import com.opencsv.CSVReader;
 import com.sergiu.model.CandidateModel;
 import com.sergiu.model.FileCSV;
 import com.sergiu.model.HallModel;
-import com.sergiu.model.SupervisorModel;
+import com.sergiu.model.SupervisorDTO;
 import com.sergiu.repository.FileRepository;
 import com.sergiu.util.TypeFile;
 
@@ -53,7 +53,7 @@ public class FileService {
         return result;
     }
 
-    public Set<SupervisorModel> retrieveFromCSVlistOfSupervisor(File file) {
+    public Set<SupervisorDTO> retrieveFromCSVlistOfSupervisor(File file) {
         LOGGER.info("Started retriving listOfSupervisor");
 
         CSVReader reader = null;
@@ -66,7 +66,7 @@ public class FileService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new HashSet<SupervisorModel>();
+        return new HashSet<SupervisorDTO>();
     }
 
     public Set<HallModel> retrieveFromCSVlistOfHalls(File file) {

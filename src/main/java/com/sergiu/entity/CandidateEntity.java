@@ -24,7 +24,7 @@ public class CandidateEntity {
     private String highSchool;
 
     @OneToOne
-    @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "id_candidate")}, inverseJoinColumns = {
+    @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "cnp_candidate")}, inverseJoinColumns = {
             @JoinColumn(name = "id_hall")})
     private HallEntity hall;
 

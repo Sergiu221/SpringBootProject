@@ -33,6 +33,7 @@ public class CandidatesController {
 
     @Autowired
     private CategoryViewRepository categoryViewRepository;
+
     @Autowired
     private Transformer transformer;
 
@@ -81,6 +82,6 @@ public class CandidatesController {
 
     @GetMapping("/candidates/hall/{id}")
     public List<CandidateModel> getAllCandidatesFromHallWithId(@PathVariable(value = "id") Integer id) {
-        return new ArrayList<CandidateModel>();
+        return transformer.candidateFromEntityToModel(candidateRepository.findAllByHallId(id));
     }
 }
