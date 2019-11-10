@@ -1,8 +1,8 @@
-package com.sergiu.model;
+package com.sergiu.dto;
 
 import java.util.List;
 
-public class HallModel {
+public class HallDTO {
 
 	private int id;
 
@@ -12,7 +12,7 @@ public class HallModel {
 
 	private int size;
 
-	private List<CandidateModel> listCandidates;
+	private List<CandidateDTO> listCandidates;
 
 	public int getId() {
 		return id;
@@ -46,11 +46,11 @@ public class HallModel {
 		this.utilizableSize = utilizableSize;
 	}
 
-	public List<CandidateModel> getListCandidates() {
+	public List<CandidateDTO> getListCandidates() {
 		return listCandidates;
 	}
 
-	public void setListCandidates(List<CandidateModel> listCandidates) {
+	public void setListCandidates(List<CandidateDTO> listCandidates) {
 		this.listCandidates = listCandidates;
 	}
 }

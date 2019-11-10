@@ -1,4 +1,4 @@
-package com.sergiu.model;
+package com.sergiu.dto;
 
 public class CategoryModel {
 

@@ -1,6 +1,6 @@
-package com.sergiu.model;
+package com.sergiu.dto;
 
-public class CandidateModel {
+public class CandidateDTO {
 
     private Long cnp;
 
@@ -8,7 +8,7 @@ public class CandidateModel {
 
     private String lastName;
 
-    private CategoryModel category;
+    private Integer categoryId;
 
     private String highSchool;
 
@@ -36,12 +36,12 @@ public class CandidateModel {
         this.lastName = lastName;
     }
 
-    public CategoryModel getCategory() {
-        return category;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(CategoryModel category) {
-        this.category = category;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getHighSchool() {

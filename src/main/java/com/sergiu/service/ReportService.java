@@ -21,7 +21,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.sergiu.exception.MyFileNotFoundException;
-import com.sergiu.model.CandidateModel;
+import com.sergiu.dto.CandidateDTO;
 
 @Service
 public class ReportService {
@@ -81,15 +81,15 @@ public class ReportService {
         });
     }
 
-    private void addRow(PdfPTable table, CandidateModel candidateModel) {
-        table.addCell(candidateModel.getLastName());
-        table.addCell(candidateModel.getFirstName());
-        table.addCell(candidateModel.getCnp().toString());
-        table.addCell(candidateModel.getHighSchool());
+    private void addRow(PdfPTable table, CandidateDTO candidateDTO) {
+        table.addCell(candidateDTO.getLastName());
+        table.addCell(candidateDTO.getFirstName());
+        table.addCell(candidateDTO.getCnp().toString());
+        table.addCell(candidateDTO.getHighSchool());
     }
 
-    private void addRows(PdfPTable table, Set<CandidateModel> candidateModels) {
-        for (CandidateModel model : candidateModels) {
+    private void addRows(PdfPTable table, Set<CandidateDTO> candidatesDTO) {
+        for (CandidateDTO model : candidatesDTO) {
             addRow(table, model);
         }
     }

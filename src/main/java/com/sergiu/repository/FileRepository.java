@@ -1,6 +1,6 @@
 package com.sergiu.repository;
 
-import com.sergiu.model.FileCSV;
+import com.sergiu.dto.FileCSV;
 import com.sergiu.util.TypeFile;
 
 public interface FileRepository {

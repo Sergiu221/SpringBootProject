@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.sergiu.model.FileCSV;
+import com.sergiu.dto.FileCSV;
 
 @SpringBootApplication
 public class Application {

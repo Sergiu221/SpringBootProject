@@ -8,9 +8,9 @@ import com.sergiu.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sergiu.model.SupervisorDTO;
+import com.sergiu.dto.SupervisorDTO;
 import com.sergiu.repository.SupervisorRepository;
-import com.sergiu.transformer.Transformer;
+import com.sergiu.transformer.SupervisorsTransformer;
 
 @Service
 public class SupervisorService {
@@ -19,18 +19,18 @@ public class SupervisorService {
     private SupervisorRepository supervisorRepository;
 
     @Autowired
-    private Transformer transformer;
+    private SupervisorsTransformer supervisorsTransformer;
 
     public List<SupervisorDTO> getAllSupervisors() {
-        return transformer.toDTO(supervisorRepository.findAll());
+        return supervisorsTransformer.toDTO(supervisorRepository.findAll());
     }
 
     public void createSupervisor(SupervisorDTO supervisorDTO) {
-        supervisorRepository.save(transformer.toEntity(supervisorDTO));
+        supervisorRepository.save(supervisorsTransformer.toEntity(supervisorDTO));
     }
 
     public SupervisorDTO getSupervisorById(Integer id) {
-        return transformer.toDTO(supervisorRepository.findById(id)
+        return supervisorsTransformer.toDTO(supervisorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Supervisor", "id", id)));
     }
 
@@ -41,13 +41,13 @@ public class SupervisorService {
         supervisorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Supervisor", "id", id));
 
-        return transformer.toDTO(supervisorRepository.save(transformer.toEntity(supervisorDTO)));
+        return supervisorsTransformer.toDTO(supervisorRepository.save(supervisorsTransformer.toEntity(supervisorDTO)));
     }
 
-	public void deleteSupervisor(Integer id) {
-		SupervisorEntity entity = supervisorRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Supervisor", "id", id));
+    public void deleteSupervisor(Integer id) {
+        SupervisorEntity entity = supervisorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Supervisor", "id", id));
 
-		supervisorRepository.delete(entity);
-	}
+        supervisorRepository.delete(entity);
+    }
 }

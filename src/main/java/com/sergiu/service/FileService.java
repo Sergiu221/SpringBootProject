@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.opencsv.CSVReader;
-import com.sergiu.model.CandidateModel;
-import com.sergiu.model.FileCSV;
-import com.sergiu.model.HallModel;
-import com.sergiu.model.SupervisorDTO;
+import com.sergiu.dto.CandidateDTO;
+import com.sergiu.dto.FileCSV;
+import com.sergiu.dto.HallDTO;
+import com.sergiu.dto.SupervisorDTO;
 import com.sergiu.repository.FileRepository;
 import com.sergiu.util.TypeFile;
 
@@ -29,8 +29,8 @@ public class FileService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
 
-    public Set<CandidateModel> retrieveFromCSVlistOfCandidates() {
-        Set<CandidateModel> result = new HashSet<CandidateModel>();
+    public Set<CandidateDTO> retrieveFromCSVlistOfCandidates() {
+        Set<CandidateDTO> result = new HashSet<CandidateDTO>();
         LOGGER.info("Started retriving listOfCandidates");
         FileCSV csv = fileRepository.findByType(TypeFile.CANDIDATES);
         CSVReader reader = null;
@@ -39,7 +39,7 @@ public class FileService {
             String[] line;
             while ((line = reader.readNext()) != null) {
                 System.out.println("Candidate [CNP= " + line[0] + ", prenume= " + line[1] + " , nume=" + line[2] + "]");
-                CandidateModel model = new CandidateModel();
+                CandidateDTO model = new CandidateDTO();
                 model.setFirstName(line[1]);
                 model.setLastName(line[2]);
                 model.setCnp(Long.valueOf(line[0]));
@@ -69,7 +69,7 @@ public class FileService {
         return new HashSet<SupervisorDTO>();
     }
 
-    public Set<HallModel> retrieveFromCSVlistOfHalls(File file) {
+    public Set<HallDTO> retrieveFromCSVlistOfHalls(File file) {
         LOGGER.info("Started retriving listOfHalls");
 
         CSVReader reader = null;
@@ -82,7 +82,7 @@ public class FileService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new HashSet<HallModel>();
+        return new HashSet<HallDTO>();
     }
 
     private File convert(MultipartFile multipartFile) {

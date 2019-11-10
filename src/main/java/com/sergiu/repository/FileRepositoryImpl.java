@@ -4,7 +4,7 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.sergiu.model.FileCSV;
+import com.sergiu.dto.FileCSV;
 import com.sergiu.util.TypeFile;
 
 @Repository

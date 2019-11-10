@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.sergiu.service.HallsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,56 +20,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sergiu.entity.HallEntity;
 import com.sergiu.exception.ResourceNotFoundException;
-import com.sergiu.model.HallModel;
-import com.sergiu.repository.HallRepository;
-import com.sergiu.transformer.Transformer;
+import com.sergiu.dto.HallDTO;
 
 @CrossOrigin
 @RestController
 public class HallsController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(HallsController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HallsController.class);
 
-	@Autowired
-	private HallRepository hallRepository;
-	@Autowired
-	private Transformer transformer;
+    @Autowired
+    private HallsService hallsService;
 
-	@GetMapping("/halls")
-	public List<HallModel> getAllHalls() {
-		return transformer.hallFromEntityToModel(hallRepository.findAll());
-	}
+    @GetMapping("/halls")
+    public List<HallDTO> getAllHalls() {
+        return hallsService.getAllHalls();
+    }
 
-	@PostMapping("/halls")
-	public void createHall(@Valid @RequestBody HallModel hallModel) {
-		hallRepository.save(transformer.hallFromModelToEntity(hallModel));
-	}
+    @PostMapping("/halls")
+    public void createHall(@Valid @RequestBody HallDTO hallDTO) {
+        hallsService.createHall(hallDTO);
+    }
 
-	@GetMapping("/halls/{id}")
-	public HallModel getHallById(@PathVariable(value = "id") Integer id) {
-		return transformer.hallFromEntityToModel(
-				hallRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Hall", "id", id)));
-	}
+    @GetMapping("/halls/{id}")
+    public HallDTO getHallById(@PathVariable(value = "id") Integer id) {
+        return hallsService.getHallById(id);
+    }
 
-	@PutMapping("/halls/{id}")
-	public HallModel updateHall(@PathVariable(value = "id") Integer id, @Valid @RequestBody HallModel hall) {
+    @PutMapping("/halls/{id}")
+    public HallDTO updateHall(@PathVariable(value = "id") Integer id, @Valid @RequestBody HallDTO hallDTO) {
+        return hallsService.updateHall(id, hallDTO);
+    }
 
-		LOGGER.info("Hall with id:"+id+" is updated.");
-		HallEntity entity = hallRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Hall", "id", id));
-
-		entity.setName(hall.getName());
-		entity.setUtilizableSize(hall.getUtilizableSize());
-		entity.setSize(hall.getSize());
-
-		return transformer.hallFromEntityToModel(hallRepository.save(entity));
-	}
-
-	@DeleteMapping("/halls/{id}")
-	public ResponseEntity<?> deleteHall(@PathVariable(value = "id") Integer id) {
-		HallEntity entity = hallRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Hall", "id", id));
-
-		hallRepository.delete(entity);
-		return ResponseEntity.ok().build();
-	}
+    @DeleteMapping("/halls/{id}")
+    public ResponseEntity<?> deleteHall(@PathVariable(value = "id") Integer id) {
+        hallsService.deleteHall(id);
+        return ResponseEntity.ok().build();
+    }
 }
