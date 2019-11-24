@@ -1,5 +1,6 @@
 package com.sergiu.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,98 +15,118 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "halls")
-public class HallEntity {
+public class HallEntity implements Comparable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Integer id;
 
-	@Column(name = "name")
-	private String name;
+    @Column(name = "name")
+    private String name;
 
-	@Column(name = "size")
-	private int size;
+    @Column(name = "size")
+    private int size;
 
-	@Column(name = "utilizable_size")
-	private int utilizableSize;
+    @Column(name = "utilizable_size")
+    private int utilizableSize;
 
-	@OneToMany
-	@JoinTable(name = "distribution", joinColumns = { @JoinColumn(name = "id_hall") }, inverseJoinColumns = {
-			@JoinColumn(name = "cnp_candidate") })
-	private List<CandidateEntity> listCandidates;
+    @OneToMany
+    @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "id_hall")}, inverseJoinColumns = {
+            @JoinColumn(name = "cnp_candidate")})
+    private List<CandidateEntity> listCandidates;
 
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public HallEntity() {
+        this.listCandidates = new ArrayList<>();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public HallEntity(String name, int size, int utilizableSize) {
+        this.name = name;
+        this.size = size;
+        this.utilizableSize = utilizableSize;
+        this.listCandidates = new ArrayList<>();
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public int getUtilizableSize() {
-		return utilizableSize;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setUtilizableSize(int utilizableSize) {
-		this.utilizableSize = utilizableSize;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public int getSize() {
-		return size;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setSize(int size) {
-		this.size = size;
-	}
+    public int getUtilizableSize() {
+        return utilizableSize - getListCandidates().size();
+    }
 
-	public List<CandidateEntity> getListCandidates() {
-		return listCandidates;
-	}
+    public void setUtilizableSize(int utilizableSize) {
+        this.utilizableSize = utilizableSize;
+    }
 
-	public void setListCandidates(List<CandidateEntity> listCandidates) {
-		this.listCandidates = listCandidates;
-	}
+    public int getSize() {
+        return size;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + size;
-		result = prime * result + utilizableSize;
-		return result;
-	}
+    public void setSize(int size) {
+        this.size = size;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		HallEntity other = (HallEntity) obj;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (size != other.size)
-			return false;
-		if (utilizableSize != other.utilizableSize)
-			return false;
-		return true;
-	}
+    public List<CandidateEntity> getListCandidates() {
+        return listCandidates;
+    }
+
+    public void setListCandidates(List<CandidateEntity> listCandidates) {
+        this.listCandidates = listCandidates;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + size;
+        result = prime * result + utilizableSize;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        HallEntity other = (HallEntity) obj;
+        if (id != other.id)
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (size != other.size)
+            return false;
+        if (utilizableSize != other.utilizableSize)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        HallEntity hallEntity = (HallEntity) o;
+
+        return (this.utilizableSize - listCandidates.size()) -
+                (hallEntity.getUtilizableSize() - hallEntity.getListCandidates().size());
+    }
 }

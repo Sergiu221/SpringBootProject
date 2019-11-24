@@ -1,13 +1,13 @@
 package com.sergiu.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "categories")
-public class CategoryEntity {
+public class CategoryEntity implements Comparable {
 
     @Id
     @Column(name = "id")
@@ -24,6 +24,9 @@ public class CategoryEntity {
 
     @Column(name = "admission_type")
     private String admissionType;
+
+    @Transient
+    private List<CandidateEntity> candidateEntities = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -63,5 +66,38 @@ public class CategoryEntity {
 
     public void setAdmissionType(String admissionType) {
         this.admissionType = admissionType;
+    }
+
+    public List<CandidateEntity> getCandidateEntities() {
+        return candidateEntities;
+    }
+
+    public void setCandidateEntities(List<CandidateEntity> candidateEntities) {
+        this.candidateEntities = candidateEntities;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+
+        CategoryEntity categoryEntity = (CategoryEntity) o;
+        int sizeCompare = categoryEntity.getCandidateEntities().size() - this.candidateEntities.size();
+        if (sizeCompare == 0) {
+            return this.id.compareTo(categoryEntity.getId());
+        }
+        return sizeCompare;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CategoryEntity)) return false;
+        CategoryEntity that = (CategoryEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

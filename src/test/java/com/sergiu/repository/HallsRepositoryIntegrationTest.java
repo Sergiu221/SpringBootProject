@@ -25,26 +25,17 @@ public class HallsRepositoryIntegrationTest {
 
     @Before
     public void init() {
-        HallEntity entity = new HallEntity();
-        entity.setName("Sala1");
-        entity.setSize(60);
-        entity.setUtilizableSize(30);
 
-        entityManager.persist(entity);
+        entityManager.persist(new HallEntity("Sala1", 60, 30));
+        entityManager.persist(new HallEntity("Sala2", 50, 25));
 
-        HallEntity entity2 = new HallEntity();
-        entity2.setName("Sala2");
-        entity2.setSize(52);
-        entity2.setUtilizableSize(25);
-
-        entityManager.persist(entity2);
         entityManager.flush();
     }
 
     @Test
     public void testFindByIdOnHallsRepository() {
         HallEntity found = hallRepository.findById(1).get();
-        assertEquals(found.getId(), 1);
+        assertEquals(found.getId().intValue(), 1);
     }
 
     @Test
