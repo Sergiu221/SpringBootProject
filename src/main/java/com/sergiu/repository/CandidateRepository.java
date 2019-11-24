@@ -11,6 +11,8 @@ public interface CandidateRepository extends JpaRepository<CandidateEntity, Long
 
     List<CandidateEntity> findAllByHallId(Integer hallId);
 
+    List<CandidateEntity> findAllByCategory_Id(Integer categoryId);
+
     Optional<CandidateEntity> findByCnp(Long cnp);
 
     void deleteByCnp(Long cnp);
