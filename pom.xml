@@ -87,6 +87,27 @@
 			<version>2.0.4</version>
 		</dependency>
         <!-- END PDF -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.olap4j</groupId>
+			<artifactId>olap4j</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.4.01</version>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 
