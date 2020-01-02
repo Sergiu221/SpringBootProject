@@ -26,16 +26,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sergiu.entity.DistributionEntity;
 import com.sergiu.repository.DistributionRepository;
-import com.sergiu.service.FileService;
 import com.sergiu.service.ReportService;
 
 @CrossOrigin
 @RestController
 public class DistributionController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DistributionController.class);
-
-    @Autowired
-    private FileService fileService;
 
     @Autowired
     private ReportService reportSerivice;
@@ -46,19 +42,19 @@ public class DistributionController {
     @Autowired
     private DistributionService distributionService;
 
-    @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST, path = "/distribution/clear")
+    @GetMapping(path = "/distribution/clear")
     public void clear() {
         // TODO:Need to be implemented
         LOGGER.info("Distribution table has bee reset");
         distributionRepository.deleteAll();
     }
 
-    @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST, path = "/distribution/start")
+    @GetMapping(path = "/distribution/start")
     public void start() {
         // TODO:Need to be implemented
         LOGGER.info("Distribution table has bee filed with data");
+        distributionRepository.deleteAll();
+        distributionService.distributeCandidatesIntoHalls();
     }
 
     @ResponseStatus(value = HttpStatus.OK)
@@ -75,7 +71,7 @@ public class DistributionController {
         System.out.printf("File name=%s\n", file.getOriginalFilename());
 
         System.out.println("Typul este:" + type);
-        fileService.saveCSVInSession(file, type);
+        //fileService.saveCSVInSession(file, type);
     }
 
     @GetMapping(path = "/generate_final_report")

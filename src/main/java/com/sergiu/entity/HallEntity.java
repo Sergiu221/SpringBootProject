@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class HallEntity implements Comparable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private Integer id;
 

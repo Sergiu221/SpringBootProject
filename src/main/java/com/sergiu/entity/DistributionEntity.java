@@ -8,14 +8,22 @@ import javax.persistence.Table;
 @Table(name = "distribution")
 public class DistributionEntity {
 
-	@EmbeddedId
-	private DistributionId distributionId;
+    @EmbeddedId
+    private DistributionId distributionId;
 
-	public DistributionId getDistributionId() {
-		return distributionId;
-	}
+    public DistributionEntity() {
 
-	public void setDistributionId(DistributionId distributionId) {
-		this.distributionId = distributionId;
-	}
+    }
+
+    public DistributionEntity(DistributionId distributionId) {
+        this.distributionId = distributionId;
+    }
+
+    public DistributionId getDistributionId() {
+        return distributionId;
+    }
+
+    public void setDistributionId(DistributionId distributionId) {
+        this.distributionId = distributionId;
+    }
 }

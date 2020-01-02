@@ -1,8 +1,6 @@
 package com.sergiu.service;
 
-import com.sergiu.entity.CandidateEntity;
-import com.sergiu.entity.CategoryEntity;
-import com.sergiu.entity.HallEntity;
+import com.sergiu.entity.*;
 import com.sergiu.model.Element;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.HallRepository;
@@ -69,12 +67,11 @@ public class DistributionService {
                 List<CandidateEntity> remainingList = getRemainingCandidates(element, size);
                 element.getCategoryEntity().setCandidateEntities(remainingList);
 
+                insertCandidatesIntoHall(listMove, element.getHallEntity());
                 LOGGER.info("Insert [{}] candidates from category [{}] into hall [{}]! ", size, element.getCategoryEntity().getId(), element.getHallEntity().getId());
             }
 
             setOfCategoriesWithHalls = refreshElements(setOfCategoriesWithHalls);
-
-
         }
     }
 
@@ -110,5 +107,24 @@ public class DistributionService {
             }
         }
         return result;
+    }
+
+    private void insertCandidatesIntoHall(List<CandidateEntity> candidateEntities, HallEntity hallEntity) {
+        List<DistributionEntity> distributions = new ArrayList<>();
+        for (CandidateEntity candidateEntity : candidateEntities) {
+            DistributionEntity distribution = new DistributionEntity(new DistributionId(candidateEntity.getCnp(), hallEntity.getId()));
+            distributions.add(distribution);
+        }
+        filterNullValue(distributions);
+        if (!distributions.isEmpty()) {
+            for (DistributionEntity distributionEntity : distributions) {
+                distributionRepository.flush();
+                distributionRepository.saveAndFlush(distributionEntity);
+            }
+        }
+    }
+
+    private void filterNullValue(List<DistributionEntity> distributionEntities) {
+        distributionEntities.removeIf(d -> null == d.getDistributionId());
     }
 }

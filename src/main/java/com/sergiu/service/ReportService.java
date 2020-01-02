@@ -41,9 +41,6 @@ public class ReportService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReportService.class);
 
     @Autowired
-    private FileService fileService;
-
-    @Autowired
     private CandidateRepository candidateRepository;
 
 
@@ -51,43 +48,8 @@ public class ReportService {
     Resource resourceFile;
 
     public Resource generatePDFDistibution() {
-        LOGGER.info("Generate PDF Distribution");
-
-        try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("raport.pdf"));
-
-            document.open();
-            document.addTitle("C309");
-            Paragraph paragraph = new Paragraph();
-            paragraph.setAlignment(Paragraph.ALIGN_CENTER);
-
-            paragraph.add("C309 it is set Hardcoded.");
-
-            paragraph.setSpacingAfter(20);
-            document.add(paragraph);
-
-            PdfPTable table = new PdfPTable(4);
-            addTableHeader(table);
-            addRows(table, fileService.retrieveFromCSVlistOfCandidates());
-
-            document.add(table);
-            document.close();
-        } catch (Exception e) {
-            System.err.println("My PDF have problems ");
-        }
-        try {
-            Resource resource = new UrlResource(Paths.get("raport.pdf").toUri());
-            System.out.println(resource);
-            if (resource.exists()) {
-                return resource;
-            } else {
-                throw new MyFileNotFoundException("File not found " + "raport.pdf");
-            }
-        } catch (MalformedURLException ex) {
-            throw new MyFileNotFoundException("File not found " + "raport.pdf", ex);
-        }
-
+        //TODO:
+        return null;
     }
 
     private void addTableHeader(PdfPTable table) {
@@ -147,7 +109,7 @@ public class ReportService {
             FileOutputStream out = new FileOutputStream("candidati.pdf");
             out.write(bytes);
             out.close();
-            return  new File("candidati.pdf");
+            return new File("candidati.pdf");
 
         } catch (Exception e) {
             e.printStackTrace();
