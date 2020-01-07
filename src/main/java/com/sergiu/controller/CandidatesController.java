@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.sergiu.service.CandidatesService;
+import com.sergiu.service.CandidatesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,32 +23,32 @@ import com.sergiu.dto.CandidateDTO;
 public class CandidatesController {
 
     @Autowired
-    private CandidatesService candidatesService;
+    private CandidatesServiceImpl candidatesServiceImpl;
 
     @GetMapping("/candidates")
     public List<CandidateDTO> getAllCandidates() {
-        return candidatesService.getAllCandidates();
+        return candidatesServiceImpl.getAllCandidates();
     }
 
     @PostMapping("/candidates")
     public void createCandidate(@Valid @RequestBody CandidateDTO candidateDTO) {
-        candidatesService.createCandidate(candidateDTO);
+        candidatesServiceImpl.createCandidate(candidateDTO);
     }
 
     @GetMapping("/candidates/{cnp}")
     public CandidateDTO getCandidateByCnp(@PathVariable(value = "cnp") Long cnp) {
-        return candidatesService.getCandidateByCnp(cnp);
+        return candidatesServiceImpl.getCandidateByCnp(cnp);
     }
 
     @PutMapping("/candidates/{cnp}")
     public CandidateDTO updateCandidate(@PathVariable(value = "cnp") Long cnp,
                                         @Valid @RequestBody CandidateDTO candidateDTO) {
-        return candidatesService.updateCandidate(cnp, candidateDTO);
+        return candidatesServiceImpl.updateCandidate(cnp, candidateDTO);
     }
 
     @DeleteMapping("/candidates/{cnp}")
     public ResponseEntity<?> deleteCandidate(@PathVariable(value = "cnp") Long cnp) {
-        candidatesService.deleteCandidate(cnp);
+        candidatesServiceImpl.deleteCandidate(cnp);
         return ResponseEntity.ok().build();
     }
 }

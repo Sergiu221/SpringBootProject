@@ -4,16 +4,12 @@ import com.sergiu.entity.HallEntity;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.DistributionRepository;
 import com.sergiu.repository.HallRepository;
-import com.sergiu.service.DistributionService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +17,7 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 
-public class DistributionServiceTest {
+public class DistributionServiceImplTest {
 
     @Mock
     private CandidateRepository candidateRepository;
@@ -33,7 +29,7 @@ public class DistributionServiceTest {
     private DistributionRepository distributionRepository;
 
     @InjectMocks
-    private DistributionService distributionService;
+    private DistributionServiceImpl distributionServiceImpl;
 
     private List<HallEntity> halls = new ArrayList<>();
 
@@ -46,7 +42,7 @@ public class DistributionServiceTest {
 
     @Test
     public void testIsSufficientSeatsForExam() {
-        Assert.assertTrue(distributionService.isSufficientSeatsForExam());
+        Assert.assertTrue(distributionServiceImpl.isSufficientSeatsForExam());
     }
 
     private List<HallEntity> retrieveHalls() {

@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.sergiu.service.DistributionService;
+import com.sergiu.service.DistributionServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sergiu.entity.DistributionEntity;
 import com.sergiu.repository.DistributionRepository;
-import com.sergiu.service.ReportService;
+import com.sergiu.service.ReportServiceImpl;
 
 @CrossOrigin
 @RestController
@@ -34,13 +34,13 @@ public class DistributionController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DistributionController.class);
 
     @Autowired
-    private ReportService reportSerivice;
+    private ReportServiceImpl reportSerivice;
 
     @Autowired
     private DistributionRepository distributionRepository;
 
     @Autowired
-    private DistributionService distributionService;
+    private DistributionServiceImpl distributionServiceImpl;
 
     @GetMapping(path = "/distribution/clear")
     public void clear() {
@@ -54,7 +54,7 @@ public class DistributionController {
         // TODO:Need to be implemented
         LOGGER.info("Distribution table has bee filed with data");
         distributionRepository.deleteAll();
-        distributionService.distributeCandidatesIntoHalls();
+        distributionServiceImpl.distributeCandidatesIntoHalls();
     }
 
     @ResponseStatus(value = HttpStatus.OK)
@@ -98,7 +98,7 @@ public class DistributionController {
     @GetMapping(path = "/testDistribution")
     public void testDistribution() {
 
-        distributionService.distributeCandidatesIntoHalls();
+        distributionServiceImpl.distributeCandidatesIntoHalls();
     }
 
 }
