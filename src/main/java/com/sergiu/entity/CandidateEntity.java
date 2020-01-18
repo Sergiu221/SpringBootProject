@@ -13,12 +13,13 @@ public class CandidateEntity {
     @Column(name = "first_name")
     private String firstName;
 
+
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "category_id")
-    private CategoryEntity category;
+    private CategoryEntity categoryEntity;
 
     @Column(name = "high_school")
     private String highSchool;
@@ -68,12 +69,14 @@ public class CandidateEntity {
         this.highSchool = highSchool;
     }
 
-    public CategoryEntity getCategory() {
-        return category;
+
+
+    public CategoryEntity getCategoryEntity() {
+        return categoryEntity;
     }
 
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
+    public void setCategoryEntity(CategoryEntity category) {
+        this.categoryEntity = category;
     }
 
     @Override
@@ -95,7 +98,7 @@ public class CandidateEntity {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        CandidateEntity other = (CandidateEntity)obj;
+        CandidateEntity other = (CandidateEntity) obj;
         if (cnp == null) {
             if (other.cnp != null)
                 return false;
@@ -119,4 +122,14 @@ public class CandidateEntity {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "CandidateEntity{" +
+                "cnp=" + cnp +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", category=" + categoryEntity +
+                ", highSchool='" + highSchool + '\'' +
+                '}';
+    }
 }

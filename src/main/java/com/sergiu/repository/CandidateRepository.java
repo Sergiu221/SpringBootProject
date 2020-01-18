@@ -13,7 +13,7 @@ public interface CandidateRepository extends JpaRepository<CandidateEntity, Long
 
     List<CandidateEntity> findAllByOrderByFirstNameAsc();
 
-    List<CandidateEntity> findAllByCategory_Id(Integer categoryId);
+    List<CandidateEntity> findAllByCategoryEntity_Id(Integer categoryId);
 
     Optional<CandidateEntity> findByCnp(Long cnp);
 

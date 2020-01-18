@@ -27,8 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
         List<CategoryEntity> categories = categoryRepository.findAll();
         List<CategoryEntity> result = new ArrayList<>();
         for (CategoryEntity category : categories) {
-            if (candidateRepository.findAllByCategory_Id(category.getId()).size() > 0) {
-                category.setCandidateEntities(candidateRepository.findAllByCategory_Id(category.getId()));
+            if (candidateRepository.findAllByCategoryEntity_Id(category.getId()).size() > 0) {
+                category.setCandidateEntities(candidateRepository.findAllByCategoryEntity_Id(category.getId()));
                 result.add(category);
             } else {
 

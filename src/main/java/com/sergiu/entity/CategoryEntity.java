@@ -10,6 +10,7 @@ import java.util.Objects;
 public class CategoryEntity implements Comparable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private Integer id;
 
@@ -25,8 +26,12 @@ public class CategoryEntity implements Comparable {
     @Column(name = "admission_type")
     private String admissionType;
 
-    @Transient
-    private List<CandidateEntity> candidateEntities = new ArrayList<>();
+    @OneToMany(mappedBy = "categoryEntity")
+    private List<CandidateEntity> candidateEntities;
+
+    public CategoryEntity() {
+        this.candidateEntities = new ArrayList<>();
+    }
 
     public Integer getId() {
         return id;

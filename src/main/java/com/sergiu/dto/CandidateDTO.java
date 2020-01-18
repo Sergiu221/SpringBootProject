@@ -10,6 +10,8 @@ public class CandidateDTO {
 
     private Integer categoryId;
 
+    private CategoryDTO categoryDTO;
+
     private String highSchool;
 
     public Long getCnp() {
@@ -42,6 +44,14 @@ public class CandidateDTO {
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public CategoryDTO getCategoryDTO() {
+        return categoryDTO;
+    }
+
+    public void setCategoryDTO(CategoryDTO categoryDTO) {
+        this.categoryDTO = categoryDTO;
     }
 
     public String getHighSchool() {

@@ -129,4 +129,14 @@ public class HallEntity implements Comparable {
         return (this.utilizableSize - listCandidates.size()) -
                 (hallEntity.getUtilizableSize() - hallEntity.getListCandidates().size());
     }
+
+    @Override
+    public String toString() {
+        return "HallEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", size=" + size +
+                ", utilizableSize=" + utilizableSize +
+                '}';
+    }
 }
