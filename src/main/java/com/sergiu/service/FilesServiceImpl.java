@@ -3,9 +3,11 @@ package com.sergiu.service;
 import com.sergiu.builders.CandidateBuilder;
 import com.sergiu.builders.CategoryBuilder;
 import com.sergiu.builders.HallBuilder;
+import com.sergiu.builders.SupervisorBuilder;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.CategoryRepository;
 import com.sergiu.repository.HallRepository;
+import com.sergiu.repository.SupervisorRepository;
 import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.table.Row;
 import org.odftoolkit.simple.table.Table;
@@ -31,6 +33,9 @@ public class FilesServiceImpl implements FilesService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private SupervisorRepository supervisorRepository;
+
     @Override
     public void readAndPrintCandidatesFrom(InputStream inputStream) throws Exception {
 
@@ -45,6 +50,22 @@ public class FilesServiceImpl implements FilesService {
         LOGGER.debug("Incarca salile!");
         insertHallsIntoDataBase(document);
 
+        LOGGER.debug("Incarca supraveghetorii!");
+        insertSupervisorsIntoDataBase(document);
+
+    }
+
+    private void insertSupervisorsIntoDataBase(SpreadsheetDocument document) throws Exception {
+        Table table = document.getSheetByName("Supraveghetori");
+        if (table == null) {
+            throw new Exception("Supraveghetori nu sunt prezenti in fisierul uploadat");
+        }
+
+        List<List<String>> listCategories = getListOfFiledFromTable(table);
+
+        for (List<String> fields : listCategories) {
+            supervisorRepository.save(SupervisorBuilder.build(fields));
+        }
     }
 
     private void insertCategoriesIntoDataBase(SpreadsheetDocument document) throws Exception {

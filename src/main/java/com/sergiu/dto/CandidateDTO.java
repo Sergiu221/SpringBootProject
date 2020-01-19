@@ -1,6 +1,10 @@
 package com.sergiu.dto;
 
-public class CandidateDTO {
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.io.Serializable;
+
+public class CandidateDTO implements Serializable {
 
     private Long cnp;
 
@@ -8,11 +12,13 @@ public class CandidateDTO {
 
     private String lastName;
 
-    private Integer categoryId;
-
+    @JsonBackReference("category")
     private CategoryDTO categoryDTO;
 
     private String highSchool;
+
+    @JsonBackReference("hall")
+    private HallDTO hallDTO;
 
     public Long getCnp() {
         return cnp;
@@ -38,14 +44,6 @@ public class CandidateDTO {
         this.lastName = lastName;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public CategoryDTO getCategoryDTO() {
         return categoryDTO;
     }
@@ -60,5 +58,13 @@ public class CandidateDTO {
 
     public void setHighSchool(String highSchool) {
         this.highSchool = highSchool;
+    }
+
+    public HallDTO getHallDTO() {
+        return hallDTO;
+    }
+
+    public void setHallDTO(HallDTO hallDTO) {
+        this.hallDTO = hallDTO;
     }
 }

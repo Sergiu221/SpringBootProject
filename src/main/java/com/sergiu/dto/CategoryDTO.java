@@ -1,6 +1,12 @@
 package com.sergiu.dto;
 
-public class CategoryDTO {
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CategoryDTO implements Serializable {
 
     private Integer id;
 
@@ -11,6 +17,9 @@ public class CategoryDTO {
     private String language;
 
     private String admissionType;
+
+    @JsonManagedReference("category")
+    private List<CandidateDTO> candidateEntities = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -50,5 +59,13 @@ public class CategoryDTO {
 
     public void setAdmissionType(String admissionType) {
         this.admissionType = admissionType;
+    }
+
+    public List<CandidateDTO> getCandidateEntities() {
+        return candidateEntities;
+    }
+
+    public void setCandidateEntities(List<CandidateDTO> candidateEntities) {
+        this.candidateEntities = candidateEntities;
     }
 }

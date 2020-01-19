@@ -1,56 +1,60 @@
 package com.sergiu.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class HallDTO {
+public class HallDTO implements Serializable {
 
-	private int id;
+    private int id;
 
-	private String name;
+    private String name;
 
-	private int utilizableSize;
+    private int utilizableSize;
 
-	private int size;
+    private int size;
 
-	private List<CandidateDTO> listCandidates;
+    @JsonManagedReference("hall")
+    private List<CandidateDTO> listCandidates;
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public int getSize() {
-		return size;
-	}
+    public int getUtilizableSize() {
+        return utilizableSize;
+    }
 
-	public void setSize(int size) {
-		this.size = size;
-	}
+    public void setUtilizableSize(int utilizableSize) {
+        this.utilizableSize = utilizableSize;
+    }
 
-	public int getUtilizableSize() {
-		return utilizableSize;
-	}
+    public int getSize() {
+        return size;
+    }
 
-	public void setUtilizableSize(int utilizableSize) {
-		this.utilizableSize = utilizableSize;
-	}
+    public void setSize(int size) {
+        this.size = size;
+    }
 
-	public List<CandidateDTO> getListCandidates() {
-		return listCandidates;
-	}
+    public List<CandidateDTO> getListCandidates() {
+        return listCandidates;
+    }
 
-	public void setListCandidates(List<CandidateDTO> listCandidates) {
-		this.listCandidates = listCandidates;
-	}
+    public void setListCandidates(List<CandidateDTO> listCandidates) {
+        this.listCandidates = listCandidates;
+    }
 }

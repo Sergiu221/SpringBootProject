@@ -1,5 +1,8 @@
 package com.sergiu.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +21,7 @@ import javax.persistence.Table;
 public class HallEntity implements Comparable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -42,6 +45,14 @@ public class HallEntity implements Comparable {
     }
 
     public HallEntity(String name, int size, int utilizableSize) {
+        this.name = name;
+        this.size = size;
+        this.utilizableSize = utilizableSize;
+        this.listCandidates = new ArrayList<>();
+    }
+
+    public HallEntity(Integer id, String name, int size, int utilizableSize) {
+        this.id = id;
         this.name = name;
         this.size = size;
         this.utilizableSize = utilizableSize;

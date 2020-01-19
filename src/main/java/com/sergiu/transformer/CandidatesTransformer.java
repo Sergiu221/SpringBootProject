@@ -1,7 +1,9 @@
 package com.sergiu.transformer;
 
-import com.sergiu.entity.CandidateEntity;
 import com.sergiu.dto.CandidateDTO;
+import com.sergiu.dto.CategoryDTO;
+import com.sergiu.dto.HallDTO;
+import com.sergiu.entity.CandidateEntity;
 import com.sergiu.model.CandidateModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,10 @@ public class CandidatesTransformer {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    public CandidatesTransformer() {
+
+    }
 
     public List<CandidateDTO> toDTO(List<CandidateEntity> entities) {
         return entities.stream()
@@ -31,6 +37,13 @@ public class CandidatesTransformer {
     }
 
     public CandidateDTO toDTO(CandidateEntity entity) {
-        return modelMapper.map(entity, CandidateDTO.class);
+        CandidateDTO candidateDTO = modelMapper.map(entity, CandidateDTO.class);
+        if (entity.getHall() != null) {
+            candidateDTO.setHallDTO(modelMapper.map(entity.getHall(), HallDTO.class));
+        }
+        if (entity.getCategoryEntity() != null) {
+            candidateDTO.setCategoryDTO(modelMapper.map(entity.getCategoryEntity(), CategoryDTO.class));
+        }
+        return candidateDTO;
     }
 }

@@ -1,5 +1,7 @@
 package com.sergiu.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -28,6 +30,18 @@ public class CandidateEntity {
     @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "cnp_candidate")}, inverseJoinColumns = {
             @JoinColumn(name = "id_hall")})
     private HallEntity hall;
+
+    public CandidateEntity() {
+    }
+
+    public CandidateEntity(Long cnp, String firstName, String lastName, CategoryEntity categoryEntity, String highSchool) {
+        this.cnp = cnp;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.categoryEntity = categoryEntity;
+        this.highSchool = highSchool;
+    }
+
 
     public HallEntity getHall() {
         return hall;
@@ -68,7 +82,6 @@ public class CandidateEntity {
     public void setHighSchool(String highSchool) {
         this.highSchool = highSchool;
     }
-
 
 
     public CategoryEntity getCategoryEntity() {

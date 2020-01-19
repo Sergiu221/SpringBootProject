@@ -62,7 +62,7 @@ public class Element implements Comparable {
 
         int resultNameCategory = this.categoryEntity.getName().compareTo(object.getCategoryEntity().getName());
         if (resultNameCategory != 0) {
-            return resultHallSpots;
+            return resultNameCategory;
         }
 
         int resultNameHall = this.hallEntity.getName().compareTo(object.getHallEntity().getName());

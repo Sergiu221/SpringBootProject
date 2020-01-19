@@ -1,6 +1,8 @@
 package com.sergiu.dto;
 
-public class SupervisorDTO {
+import java.io.Serializable;
+
+public class SupervisorDTO implements Serializable {
 
     private int id;
 

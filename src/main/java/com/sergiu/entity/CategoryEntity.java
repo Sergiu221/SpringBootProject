@@ -1,5 +1,7 @@
 package com.sergiu.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.Objects;
 public class CategoryEntity implements Comparable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -27,10 +29,18 @@ public class CategoryEntity implements Comparable {
     private String admissionType;
 
     @OneToMany(mappedBy = "categoryEntity")
-    private List<CandidateEntity> candidateEntities;
+    private List<CandidateEntity> candidateEntities = new ArrayList<>();
 
     public CategoryEntity() {
-        this.candidateEntities = new ArrayList<>();
+
+    }
+
+    public CategoryEntity(Integer id, String name, String discipline, String language, String admissionType) {
+        this.id = id;
+        this.name = name;
+        this.discipline = discipline;
+        this.language = language;
+        this.admissionType = admissionType;
     }
 
     public Integer getId() {
