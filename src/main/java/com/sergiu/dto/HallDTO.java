@@ -1,7 +1,5 @@
 package com.sergiu.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,7 +13,6 @@ public class HallDTO implements Serializable {
 
     private int size;
 
-    @JsonManagedReference("hall")
     private List<CandidateDTO> listCandidates;
 
     public int getId() {

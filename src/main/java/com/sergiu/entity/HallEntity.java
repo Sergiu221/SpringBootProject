@@ -34,6 +34,7 @@ public class HallEntity implements Comparable {
     @Column(name = "utilizable_size")
     private int utilizableSize;
 
+    @JsonManagedReference("hall")
     @OneToMany
     @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "id_hall")}, inverseJoinColumns = {
             @JoinColumn(name = "cnp_candidate")})

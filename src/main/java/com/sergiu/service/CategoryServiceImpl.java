@@ -1,8 +1,10 @@
 package com.sergiu.service;
 
+import com.sergiu.dto.CategoryDTO;
 import com.sergiu.entity.CategoryEntity;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.CategoryRepository;
+import com.sergiu.transformer.CategoriesTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CandidateRepository candidateRepository;
 
+    @Autowired
+    private CategoriesTransformer transformer;
+
     @Override
     public List<CategoryEntity> getAllCategoriesWithCandidates() {
 
@@ -36,6 +41,11 @@ public class CategoryServiceImpl implements CategoryService {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<CategoryDTO> getAllCategories() {
+        return transformer.toDTO(categoryRepository.findAll());
     }
 
 }

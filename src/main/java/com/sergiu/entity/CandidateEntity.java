@@ -19,6 +19,7 @@ public class CandidateEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @JsonBackReference("category")
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
@@ -26,6 +27,7 @@ public class CandidateEntity {
     @Column(name = "high_school")
     private String highSchool;
 
+    @JsonBackReference("hall")
     @OneToOne
     @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "cnp_candidate")}, inverseJoinColumns = {
             @JoinColumn(name = "id_hall")})

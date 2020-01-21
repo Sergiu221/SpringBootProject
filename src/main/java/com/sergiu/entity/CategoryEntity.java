@@ -28,6 +28,7 @@ public class CategoryEntity implements Comparable {
     @Column(name = "admission_type")
     private String admissionType;
 
+    @JsonManagedReference("category")
     @OneToMany(mappedBy = "categoryEntity")
     private List<CandidateEntity> candidateEntities = new ArrayList<>();
 
