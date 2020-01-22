@@ -49,9 +49,6 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private HallRepository hallRepository;
 
-    @Value("classpath:candidates.jrxml")
-    private Resource resourceFile;
-
     @Value("classpath:distribustion/general_list_distributed.jrxml")
     private Resource generalListDistributedTemplate;
 
@@ -60,6 +57,9 @@ public class ReportServiceImpl implements ReportService {
 
     @Value("classpath:distribustion/candidates_from_hall.jrxml")
     private Resource candidatesFromHall;
+
+    @Value("classpath:results/general_list_results.jrxml")
+    private Resource generalListResults;
 
     @Override
     public File buildGeneralListDistributedReport() {
@@ -82,6 +82,13 @@ public class ReportServiceImpl implements ReportService {
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
         String fileName = "lista_candidatilor_din_sala_" + hallEntity.getName() + ".pdf";
         return buildReportUsingTemplate(candidatesFromHall, fileName, jrBeanCollectionDataSource);
+    }
+
+    @Override
+    public File buildGeneralListWithGradesReport() {
+        List<CandidateEntity> candidates = candidateRepository.findAll();
+        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
+        return buildReportUsingTemplate(generalListResults, "lista_generala_rezultate.pdf", jrBeanCollectionDataSource);
     }
 
     private File buildReportUsingTemplate(Resource template, String filename, JRBeanCollectionDataSource jrBeanCollectionDataSource) {
@@ -122,50 +129,6 @@ public class ReportServiceImpl implements ReportService {
             e.printStackTrace();
             return null;
         }
-    }
-
-    @Override
-    public File generateReport() {
-        try {
-
-            byte[] bytes = null;
-
-
-            InputStream inputStream = resourceFile.getInputStream();
-
-            // Compile the Jasper report from .jrxml to .japser
-            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
-
-            List<CandidateEntity> candidates = candidateRepository.findAll();
-            // Get your data source
-            JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
-
-            // Add parameters
-            Map<String, Object> parameters = new HashMap<>();
-
-            parameters.put("createdBy", "Websparrow.org");
-
-            // Fill the report
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
-                    jrBeanCollectionDataSource);
-
-            // Export the report to a PDF file
-            bytes = JasperExportManager.exportReportToPdf(jasperPrint);
-
-            System.out.println("Done");
-
-            LOGGER.info("Report successfully generated");
-
-            FileOutputStream out = new FileOutputStream("candidati.pdf");
-            out.write(bytes);
-            out.close();
-            return new File("candidati.pdf");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.sergiu.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "candidates")
@@ -15,7 +17,6 @@ public class CandidateEntity {
     @Column(name = "first_name")
     private String firstName;
 
-
     @Column(name = "last_name")
     private String lastName;
 
@@ -27,6 +28,10 @@ public class CandidateEntity {
     @Column(name = "high_school")
     private String highSchool;
 
+    @JsonBackReference("grade")
+    @OneToMany(mappedBy = "candidateEntity")
+    private List<GradeEntity> gradeEntity;
+
     @JsonBackReference("hall")
     @OneToOne
     @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "cnp_candidate")}, inverseJoinColumns = {
@@ -34,6 +39,7 @@ public class CandidateEntity {
     private HallEntity hallEntity;
 
     public CandidateEntity() {
+        this.gradeEntity = new ArrayList<>();
     }
 
     public CandidateEntity(Long cnp, String firstName, String lastName, CategoryEntity categoryEntity, String highSchool) {
@@ -42,6 +48,7 @@ public class CandidateEntity {
         this.lastName = lastName;
         this.categoryEntity = categoryEntity;
         this.highSchool = highSchool;
+        this.gradeEntity = new ArrayList<>();
     }
 
 
@@ -85,13 +92,20 @@ public class CandidateEntity {
         this.highSchool = highSchool;
     }
 
-
     public CategoryEntity getCategoryEntity() {
         return categoryEntity;
     }
 
     public void setCategoryEntity(CategoryEntity category) {
         this.categoryEntity = category;
+    }
+
+    public List<GradeEntity> getGradeEntity() {
+        return gradeEntity;
+    }
+
+    public void setGradeEntity(List<GradeEntity> gradeEntity) {
+        this.gradeEntity = gradeEntity;
     }
 
     @Override

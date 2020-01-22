@@ -13,7 +13,7 @@ public interface ReportService {
 
     File buildCandidatesListFromHall(Integer hallId);
 
-    File generateReport();
+    File buildGeneralListWithGradesReport();
 
     File generateReportCandidates(ReportCandidatesDTO reportCandidatesDTO);
 
