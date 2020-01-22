@@ -21,7 +21,7 @@ public class GradeEntity {
     private Double grade;
 
     @Column(name = "profersor_name")
-    private String firstName;
+    private String name;
 
 
     public Integer getId() {
@@ -40,12 +40,12 @@ public class GradeEntity {
         this.grade = grade;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String firstName) {
+        this.name = firstName;
     }
 
     public CandidateEntity getCandidateEntity() {

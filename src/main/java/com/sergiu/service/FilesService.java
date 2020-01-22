@@ -4,5 +4,7 @@ import java.io.InputStream;
 
 public interface FilesService {
 
-    void readAndPrintCandidatesFrom(InputStream inputStream) throws Exception;
+    void readAndInsertMainResources(InputStream inputStream) throws Exception;
+
+    void readAndInsertGradesIntoDataBase(InputStream inputStream) throws Exception;
 }

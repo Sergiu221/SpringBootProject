@@ -11,9 +11,12 @@ import com.sergiu.dto.ReportCandidatesDTO;
 import com.sergiu.dto.ReportHallsDTO;
 import com.sergiu.entity.CandidateEntity;
 import com.sergiu.entity.HallEntity;
+import com.sergiu.model.CandidateModel;
+import com.sergiu.model.CandidateResultModel;
 import com.sergiu.model.ColumnCandidatesReport;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.HallRepository;
+import com.sergiu.transformer.CandidatesTransformer;
 import com.sergiu.util.AdmissionType;
 import com.sergiu.util.FieldWidth;
 import net.sf.jasperreports.engine.*;
@@ -42,6 +45,9 @@ public class ReportServiceImpl implements ReportService {
     public static final String HALLS_TITLE = "Sali";
     public static final String CANDIDATES_PDF = "candidati.pdf";
     public static final String HALLS_PDF = "sali.pdf";
+
+    @Autowired
+    private CandidatesTransformer transformer;
 
     @Autowired
     private CandidateRepository candidateRepository;
@@ -86,8 +92,9 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public File buildGeneralListWithGradesReport() {
-        List<CandidateEntity> candidates = candidateRepository.findAll();
-        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
+        List<CandidateModel> candidates = transformer.toModel(candidateRepository.findAll());
+        List<CandidateResultModel> candidateResultModels = transformer.toCandidateResultModel(candidates);
+        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidateResultModels);
         return buildReportUsingTemplate(generalListResults, "lista_generala_rezultate.pdf", jrBeanCollectionDataSource);
     }
 

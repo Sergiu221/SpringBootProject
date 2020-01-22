@@ -1,13 +1,7 @@
 package com.sergiu.service;
 
-import com.sergiu.builders.CandidateBuilder;
-import com.sergiu.builders.CategoryBuilder;
-import com.sergiu.builders.HallBuilder;
-import com.sergiu.builders.SupervisorBuilder;
-import com.sergiu.repository.CandidateRepository;
-import com.sergiu.repository.CategoryRepository;
-import com.sergiu.repository.HallRepository;
-import com.sergiu.repository.SupervisorRepository;
+import com.sergiu.builders.*;
+import com.sergiu.repository.*;
 import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.table.Row;
 import org.odftoolkit.simple.table.Table;
@@ -36,8 +30,11 @@ public class FilesServiceImpl implements FilesService {
     @Autowired
     private SupervisorRepository supervisorRepository;
 
+    @Autowired
+    private GradeRepository gradeRepository;
+
     @Override
-    public void readAndPrintCandidatesFrom(InputStream inputStream) throws Exception {
+    public void readAndInsertMainResources(InputStream inputStream) throws Exception {
 
         SpreadsheetDocument document = SpreadsheetDocument.loadDocument(inputStream);
 
@@ -53,6 +50,13 @@ public class FilesServiceImpl implements FilesService {
         LOGGER.debug("Incarca supraveghetorii!");
         insertSupervisorsIntoDataBase(document);
 
+    }
+
+    @Override
+    public void readAndInsertGradesIntoDataBase(InputStream inputStream) throws Exception {
+        SpreadsheetDocument document = SpreadsheetDocument.loadDocument(inputStream);
+        LOGGER.debug("Incarca categoriile!");
+        insertGradesIntoDataBase(document);
     }
 
     private void insertSupervisorsIntoDataBase(SpreadsheetDocument document) throws Exception {
@@ -79,6 +83,7 @@ public class FilesServiceImpl implements FilesService {
 
         for (List<String> fields : listCategories) {
             categoryRepository.save(CategoryBuilder.build(fields));
+            categoryRepository.flush();
         }
     }
 
@@ -92,6 +97,7 @@ public class FilesServiceImpl implements FilesService {
 
         for (List<String> fields : listCandidates) {
             candidateRepository.save(CandidateBuilder.build(fields));
+            candidateRepository.flush();
         }
     }
 
@@ -106,6 +112,7 @@ public class FilesServiceImpl implements FilesService {
 
         for (List<String> fields : listHalls) {
             hallRepository.save(HallBuilder.build(fields));
+            hallRepository.flush();
         }
     }
 
@@ -126,4 +133,20 @@ public class FilesServiceImpl implements FilesService {
         }
         return result;
     }
+
+    private void insertGradesIntoDataBase(SpreadsheetDocument document) throws Exception {
+
+        Table table = document.getSheetByName("Note");
+        if (table == null) {
+            throw new Exception("Notele nu sunt prezente in fisierul uploadat");
+        }
+
+        List<List<String>> listGrades = getListOfFiledFromTable(table);
+
+        for (List<String> grade : listGrades) {
+            gradeRepository.flush();
+            gradeRepository.saveAndFlush(GradeBuilder.build(grade));
+        }
+    }
+
 }

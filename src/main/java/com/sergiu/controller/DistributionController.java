@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -46,17 +45,6 @@ public class DistributionController {
     @RequestMapping(method = RequestMethod.GET, path = "/distribution")
     public List<DistributionEntity> getAllData() {
         return distributionRepository.findAll();
-    }
-
-
-    @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST, path = "/upload_file/{type}")
-    public void upLoadFile(@RequestParam("file") MultipartFile file, @PathVariable("type") String type) {
-
-        System.out.printf("File name=%s\n", file.getOriginalFilename());
-
-        System.out.println("Typul este:" + type);
-        //fileService.saveCSVInSession(file, type);
     }
 
     @GetMapping(path = "/testDistribution")

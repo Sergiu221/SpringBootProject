@@ -1,15 +1,28 @@
 package com.sergiu.model;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class CandidateModel {
+
     private Long cnp;
 
     private String firstName;
 
     private String lastName;
 
-    private Integer categoryId;
+    private CategoryModel categoryModel;
 
     private String highSchool;
+
+    private List<GradeModel> gradeModelList;
+
+    private HallModel hallModel;
+
+    public CandidateModel() {
+        this.gradeModelList = new ArrayList<>();
+    }
 
     public Long getCnp() {
         return cnp;
@@ -35,12 +48,12 @@ public class CandidateModel {
         this.lastName = lastName;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public CategoryModel getCategoryModel() {
+        return categoryModel;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryModel(CategoryModel categoryModel) {
+        this.categoryModel = categoryModel;
     }
 
     public String getHighSchool() {
@@ -51,14 +64,25 @@ public class CandidateModel {
         this.highSchool = highSchool;
     }
 
-    @Override
-    public String toString() {
-        return "CandidateModel{" +
-                "cnp=" + cnp +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", categoryId=" + categoryId +
-                ", highSchool='" + highSchool + '\'' +
-                '}';
+    public List<GradeModel> getGradeModelList() {
+        return gradeModelList;
+    }
+
+    public void setGradeModelList(List<GradeModel> gradeModelList) {
+        this.gradeModelList = gradeModelList;
+    }
+
+    public HallModel getHallModel() {
+        return hallModel;
+    }
+
+    public void setHallModel(HallModel hallModel) {
+        this.hallModel = hallModel;
+    }
+
+    public Double getAverageOnWriteTest() {
+        Double firstGrade = this.gradeModelList.get(0).getGrade();
+        Double secondGrade = this.gradeModelList.get(1).getGrade();
+        return (firstGrade + secondGrade) /2;
     }
 }
