@@ -5,6 +5,7 @@ import com.sergiu.entity.CategoryEntity;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.CategoryRepository;
 import com.sergiu.transformer.CategoriesTransformer;
+import com.sergiu.util.AdmissionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryEntity> getAllCategoriesWithCandidates() {
 
-        List<CategoryEntity> categories = categoryRepository.findAll();
+        List<CategoryEntity> categories = categoryRepository.findAllByAdmissionType(AdmissionType.ADMITERE.getType());
         List<CategoryEntity> result = new ArrayList<>();
         for (CategoryEntity category : categories) {
             if (candidateRepository.findAllByCategoryEntity_Id(category.getId()).size() > 0) {

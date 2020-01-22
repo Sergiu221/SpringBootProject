@@ -1,14 +1,5 @@
 package com.sergiu.service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -19,8 +10,11 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import com.sergiu.dto.ReportCandidatesDTO;
 import com.sergiu.dto.ReportHallsDTO;
 import com.sergiu.entity.CandidateEntity;
+import com.sergiu.entity.HallEntity;
 import com.sergiu.model.ColumnCandidatesReport;
 import com.sergiu.repository.CandidateRepository;
+import com.sergiu.repository.HallRepository;
+import com.sergiu.util.AdmissionType;
 import com.sergiu.util.FieldWidth;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -30,6 +24,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -43,16 +46,83 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private CandidateRepository candidateRepository;
 
+    @Autowired
+    private HallRepository hallRepository;
 
     @Value("classpath:candidates.jrxml")
-    Resource resourceFile;
+    private Resource resourceFile;
+
+    @Value("classpath:distribustion/general_list_distributed.jrxml")
+    private Resource generalListDistributedTemplate;
+
+    @Value("classpath:distribustion/candidates_without_exam.jrxml")
+    private Resource candidatesWithoutExam;
+
+    @Value("classpath:distribustion/candidates_from_hall.jrxml")
+    private Resource candidatesFromHall;
 
     @Override
-    public Resource generatePDFDistibution() {
-        //TODO:
-        return null;
+    public File buildGeneralListDistributedReport() {
+        List<CandidateEntity> candidates = candidateRepository.findAllByCategoryEntity_AdmissionType(AdmissionType.ADMITERE.getType());
+        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
+        return buildReportUsingTemplate(generalListDistributedTemplate, "lista_generala_distribuire.pdf", jrBeanCollectionDataSource);
     }
 
+    @Override
+    public File buildCandidatesListWithoutExam() {
+        List<CandidateEntity> candidates = candidateRepository.findAllByCategoryEntity_AdmissionTypeNot(AdmissionType.ADMITERE.getType());
+        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
+        return buildReportUsingTemplate(candidatesWithoutExam, "lista_candidatilor_fara_examen.pdf", jrBeanCollectionDataSource);
+    }
+
+    @Override
+    public File buildCandidatesListFromHall(Integer hallId) {
+        HallEntity hallEntity = hallRepository.findById(hallId).get();
+        List<CandidateEntity> candidates = hallEntity.getListCandidates();
+        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
+        String fileName = "lista_candidatilor_din_sala_" + hallEntity.getName() + ".pdf";
+        return buildReportUsingTemplate(candidatesFromHall, fileName, jrBeanCollectionDataSource);
+    }
+
+    private File buildReportUsingTemplate(Resource template, String filename, JRBeanCollectionDataSource jrBeanCollectionDataSource) {
+
+        try {
+            byte[] bytes;
+
+            InputStream inputStream;
+
+            inputStream = template.getInputStream();
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+
+            Map<String, Object> parameters = new HashMap<>();
+
+            parameters.put("createdBy", "Volocaru Sergiu Adrian");
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
+                    jrBeanCollectionDataSource);
+
+            bytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+            System.out.println("Done");
+
+            LOGGER.info("Report successfully generated");
+
+            FileOutputStream out = new FileOutputStream(filename);
+            out.write(bytes);
+            out.close();
+            return new File(filename);
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+            return null;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     public File generateReport() {

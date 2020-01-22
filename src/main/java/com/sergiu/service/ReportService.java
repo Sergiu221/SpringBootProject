@@ -2,12 +2,16 @@ package com.sergiu.service;
 
 import com.sergiu.dto.ReportCandidatesDTO;
 import com.sergiu.dto.ReportHallsDTO;
-import org.springframework.core.io.Resource;
 
 import java.io.File;
 
 public interface ReportService {
-    Resource generatePDFDistibution();
+
+    File buildGeneralListDistributedReport();
+
+    File buildCandidatesListWithoutExam();
+
+    File buildCandidatesListFromHall(Integer hallId);
 
     File generateReport();
 

@@ -8,7 +8,7 @@
 	<field name="cnp" class="java.lang.Long"/>
 	<field name="firstName" class="java.lang.String"/>
 	<field name="lastName" class="java.lang.String"/>
-	<field name="category" class="com.sergiu.entity.CategoryEntity"/>
+	<field name="categoryEntity" class="com.sergiu.entity.CategoryEntity"/>
 	<field name="highSchool" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -27,7 +27,7 @@
 	<columnHeader>
 		<band height="70" splitType="Stretch">
 			<staticText>
-				<reportElement x="-10" y="50" width="110" height="20" uuid="59d8a779-7c6a-4fed-8292-08018b8aa7dd"/>
+				<reportElement positionType="Float" x="-10" y="50" width="110" height="20" uuid="59d8a779-7c6a-4fed-8292-08018b8aa7dd"/>
 				<box topPadding="1" leftPadding="11">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -41,7 +41,9 @@
 				<text><![CDATA[CNP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="50" width="90" height="20" uuid="7ac1e96d-6331-43c0-bb01-cd639908535c"/>
+				<reportElement positionType="Float" x="100" y="50" width="90" height="20" uuid="7ac1e96d-6331-43c0-bb01-cd639908535c">
+					<printWhenExpression><![CDATA[$F{categoryEntity} ==null]]></printWhenExpression>
+				</reportElement>
 				<box topPadding="1" leftPadding="11">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -55,7 +57,7 @@
 				<text><![CDATA[Nume]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="190" y="50" width="90" height="20" uuid="c9766fc8-5a3d-4047-8b86-df5d47f0a63d">
+				<reportElement positionType="Float" x="190" y="50" width="90" height="20" uuid="c9766fc8-5a3d-4047-8b86-df5d47f0a63d">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box topPadding="1" leftPadding="11">
@@ -81,7 +83,9 @@
 				<text><![CDATA[Materia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="440" y="50" width="115" height="20" uuid="1bbe6a78-8ec4-4404-9328-1cc64a96f5a6"/>
+				<reportElement positionType="Float" x="440" y="50" width="115" height="20" uuid="1bbe6a78-8ec4-4404-9328-1cc64a96f5a6">
+					<printWhenExpression><![CDATA[$F{categoryEntity} ==null]]></printWhenExpression>
+				</reportElement>
 				<box topPadding="1" leftPadding="11">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -95,7 +99,7 @@
 				<text><![CDATA[Liceul]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="360" y="50" width="80" height="20" uuid="1b6e39b6-2cd3-4d4d-9c01-187d401f4723"/>
+				<reportElement positionType="Float" x="360" y="50" width="80" height="20" uuid="1b6e39b6-2cd3-4d4d-9c01-187d401f4723"/>
 				<box topPadding="1" leftPadding="11">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -113,7 +117,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="-10" y="0" width="110" height="20" uuid="899f5c87-0798-4513-bde1-fc1685d23f8e"/>
+				<reportElement positionType="Float" x="-10" y="0" width="110" height="20" uuid="899f5c87-0798-4513-bde1-fc1685d23f8e"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -125,7 +129,9 @@
 				<textFieldExpression><![CDATA[$F{cnp}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="0" width="90" height="20" uuid="4aaedc4a-1150-428a-8c34-6b22564e809c"/>
+				<reportElement positionType="Float" x="100" y="0" width="90" height="20" uuid="4aaedc4a-1150-428a-8c34-6b22564e809c">
+					<printWhenExpression><![CDATA[$F{categoryEntity} ==null]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -137,7 +143,7 @@
 				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="190" y="0" width="90" height="20" uuid="31b1d784-d218-4272-ab09-35a0c9bd80f6"/>
+				<reportElement positionType="Float" x="190" y="0" width="90" height="20" uuid="31b1d784-d218-4272-ab09-35a0c9bd80f6"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -149,7 +155,7 @@
 				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="0" width="80" height="20" uuid="3d0f7955-c5a1-430f-9447-db19e8ba8207"/>
+				<reportElement positionType="Float" x="280" y="0" width="80" height="20" uuid="3d0f7955-c5a1-430f-9447-db19e8ba8207"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -158,10 +164,12 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{category}.getDiscipline()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{categoryEntity}.getDiscipline()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="440" y="0" width="115" height="20" uuid="ac4cb6a3-880e-412d-8bd2-2a9f6ae8f0a1"/>
+				<reportElement positionType="Float" x="440" y="0" width="115" height="20" uuid="ac4cb6a3-880e-412d-8bd2-2a9f6ae8f0a1">
+					<printWhenExpression><![CDATA[$F{categoryEntity} ==null]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -173,7 +181,7 @@
 				<textFieldExpression><![CDATA[$F{highSchool}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="0" width="80" height="20" uuid="d9b7ba93-c73c-4476-9931-b74ebe37ccd8"/>
+				<reportElement positionType="Float" x="360" y="0" width="80" height="20" uuid="d9b7ba93-c73c-4476-9931-b74ebe37ccd8"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -182,7 +190,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{category}.getLanguage()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{categoryEntity}.getLanguage()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

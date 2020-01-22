@@ -9,8 +9,6 @@ import java.util.Optional;
 
 public interface CandidateRepository extends JpaRepository<CandidateEntity, Long> {
 
-    List<CandidateEntity> findAllByHallId(Integer hallId);
-
     List<CandidateEntity> findAllByOrderByFirstNameAsc();
 
     List<CandidateEntity> findAllByCategoryEntity_Id(Integer categoryId);
@@ -18,4 +16,10 @@ public interface CandidateRepository extends JpaRepository<CandidateEntity, Long
     Optional<CandidateEntity> findByCnp(Long cnp);
 
     void deleteByCnp(Long cnp);
+
+    List<CandidateEntity> findAllByCategoryEntity_AdmissionType(String type);
+
+    List<CandidateEntity> findAllByCategoryEntity_AdmissionTypeNot(String type);
+
+    List<CandidateEntity> findAllByHallEntity_Id(Integer id);
 }

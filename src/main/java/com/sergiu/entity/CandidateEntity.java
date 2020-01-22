@@ -31,7 +31,7 @@ public class CandidateEntity {
     @OneToOne
     @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "cnp_candidate")}, inverseJoinColumns = {
             @JoinColumn(name = "id_hall")})
-    private HallEntity hall;
+    private HallEntity hallEntity;
 
     public CandidateEntity() {
     }
@@ -45,12 +45,12 @@ public class CandidateEntity {
     }
 
 
-    public HallEntity getHall() {
-        return hall;
+    public HallEntity getHallEntity() {
+        return hallEntity;
     }
 
-    public void setHall(HallEntity hall) {
-        this.hall = hall;
+    public void setHallEntity(HallEntity hall) {
+        this.hallEntity = hall;
     }
 
     public Long getCnp() {

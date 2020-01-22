@@ -38,8 +38,8 @@ public class CandidatesTransformer {
 
     public CandidateDTO toDTO(CandidateEntity entity) {
         CandidateDTO candidateDTO = modelMapper.map(entity, CandidateDTO.class);
-        if (entity.getHall() != null) {
-            candidateDTO.setHallDTO(modelMapper.map(entity.getHall(), HallDTO.class));
+        if (entity.getHallEntity() != null) {
+            candidateDTO.setHallDTO(modelMapper.map(entity.getHallEntity(), HallDTO.class));
         }
         if (entity.getCategoryEntity() != null) {
             candidateDTO.setCategoryDTO(modelMapper.map(entity.getCategoryEntity(), CategoryDTO.class));
