@@ -15,6 +15,8 @@ public class CandidateBuilder {
         categoryEntity.setId(Integer.valueOf(fieldsValue.get(3)));
         candidateEntity.setCategoryEntity(categoryEntity);
         candidateEntity.setHighSchool(String.valueOf(fieldsValue.get(4)));
+        candidateEntity.setBacBestGrade(Double.valueOf(fieldsValue.get(5)));
+        candidateEntity.setBacGrade(Double.valueOf(fieldsValue.get(6)));
         return candidateEntity;
     }
 }

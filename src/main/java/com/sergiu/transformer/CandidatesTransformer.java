@@ -8,6 +8,7 @@ import com.sergiu.entity.GradeEntity;
 import com.sergiu.model.CandidateModel;
 import com.sergiu.model.CandidateResultModel;
 import com.sergiu.model.GradeModel;
+import com.sergiu.util.GradeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -60,8 +61,13 @@ public class CandidatesTransformer {
         candidateResultModel.setCnp(candidateModel.getCnp());
         candidateResultModel.setFirstName(candidateModel.getFirstName());
         candidateResultModel.setLastName(candidateModel.getLastName());
-        Double testGrade = (candidateModel.getGradeModelList().get(0).getGrade() + candidateModel.getGradeModelList().get(1).getGrade()) / 2;
+        Double testGrade = GradeUtils.calculateAverageWriteTest(candidateModel.getGradeModelList().get(0).getGrade(),
+                candidateModel.getGradeModelList().get(1).getGrade());
         candidateResultModel.setTestGrade(testGrade);
+        candidateResultModel.setBacGrade(candidateModel.getBacGrade());
+        candidateResultModel.setBacBestGrade(candidateModel.getBacBestGrade());
+        Double finalGrade = GradeUtils.calculateFinalResult(testGrade, candidateModel.getBacBestGrade(), candidateModel.getBacGrade());
+        candidateResultModel.setFinalGrade(finalGrade);
         return candidateResultModel;
     }
 

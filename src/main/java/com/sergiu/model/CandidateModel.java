@@ -16,6 +16,10 @@ public class CandidateModel {
 
     private String highSchool;
 
+    private Double bacGrade;
+
+    private Double bacBestGrade;
+
     private List<GradeModel> gradeModelList;
 
     private HallModel hallModel;
@@ -64,6 +68,22 @@ public class CandidateModel {
         this.highSchool = highSchool;
     }
 
+    public Double getBacGrade() {
+        return bacGrade;
+    }
+
+    public void setBacGrade(Double bacGrade) {
+        this.bacGrade = bacGrade;
+    }
+
+    public Double getBacBestGrade() {
+        return bacBestGrade;
+    }
+
+    public void setBacBestGrade(Double bacBestGrade) {
+        this.bacBestGrade = bacBestGrade;
+    }
+
     public List<GradeModel> getGradeModelList() {
         return gradeModelList;
     }
@@ -83,6 +103,6 @@ public class CandidateModel {
     public Double getAverageOnWriteTest() {
         Double firstGrade = this.gradeModelList.get(0).getGrade();
         Double secondGrade = this.gradeModelList.get(1).getGrade();
-        return (firstGrade + secondGrade) /2;
+        return (firstGrade + secondGrade) / 2;
     }
 }

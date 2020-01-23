@@ -28,6 +28,12 @@ public class CandidateEntity {
     @Column(name = "high_school")
     private String highSchool;
 
+    @Column(name = "bac_grade")
+    private Double bacGrade;
+
+    @Column(name = "bac_best_Grade")
+    private Double bacBestGrade;
+
     @JsonBackReference("grade")
     @OneToMany(mappedBy = "candidateEntity")
     private List<GradeEntity> gradeEntity;
@@ -98,6 +104,22 @@ public class CandidateEntity {
 
     public void setCategoryEntity(CategoryEntity category) {
         this.categoryEntity = category;
+    }
+
+    public Double getBacGrade() {
+        return bacGrade;
+    }
+
+    public void setBacGrade(Double bacGrade) {
+        this.bacGrade = bacGrade;
+    }
+
+    public Double getBacBestGrade() {
+        return bacBestGrade;
+    }
+
+    public void setBacBestGrade(Double bacBestGrade) {
+        this.bacBestGrade = bacBestGrade;
     }
 
     public List<GradeEntity> getGradeEntity() {

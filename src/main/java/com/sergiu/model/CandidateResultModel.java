@@ -13,6 +13,8 @@ public class CandidateResultModel {
 
     private Double bacBestGrade;
 
+    private Double finalGrade;
+
     public Long getCnp() {
         return cnp;
     }
@@ -59,5 +61,13 @@ public class CandidateResultModel {
 
     public void setBacBestGrade(Double bacBestGrade) {
         this.bacBestGrade = bacBestGrade;
+    }
+
+    public Double getFinalGrade() {
+        return finalGrade;
+    }
+
+    public void setFinalGrade(Double finalGrade) {
+        this.finalGrade = finalGrade;
     }
 }
