@@ -112,7 +112,7 @@ SESIUNEA IULIE 2020]]></text>
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="244" y="-1" width="130" height="25" uuid="62667f8b-d06b-4b17-a263-6ca0fedefc5a"/>
@@ -120,7 +120,7 @@ SESIUNEA IULIE 2020]]></text>
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="374" y="-1" width="70" height="25" uuid="5c0695f1-3706-4fcd-a130-397f1fe4303c"/>

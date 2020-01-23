@@ -3,6 +3,7 @@ package com.sergiu.controller;
 import com.sergiu.dto.ReportCandidatesDTO;
 import com.sergiu.dto.ReportHallsDTO;
 import com.sergiu.service.ReportService;
+import com.sergiu.util.ListAllocationType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,20 @@ public class ReportsController {
 
         LOGGER.info("Start generate report for GeneralListWithGradesReport!");
         File file = reportService.buildGeneralListWithGradesReport();
+
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName())
+                .body(resource);
+    }
+
+    @GetMapping("reports/list/{list}")
+    public ResponseEntity<Resource> buildListL1Report(@PathVariable(value = "list") String listType) throws Exception {
+
+        LOGGER.info("Start generate report for L1 list!");
+        File file = reportService.buildListL(ListAllocationType.valueOf(listType));
 
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 

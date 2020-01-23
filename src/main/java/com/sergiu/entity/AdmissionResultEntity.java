@@ -1,6 +1,7 @@
 package com.sergiu.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sergiu.model.CandidateResultModel;
 import com.sergiu.util.ListAllocationType;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "admission_results")
-public class AdmissionResultEntity implements Serializable {
+public class AdmissionResultEntity implements Serializable, Comparable {
 
     @Id
     @Column(name = "cnp_candidate")
@@ -97,5 +98,28 @@ public class AdmissionResultEntity implements Serializable {
 
     public void setListName(ListAllocationType listName) {
         this.listName = listName;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        AdmissionResultEntity obj = (AdmissionResultEntity) o;
+
+        if (this.finalGrade > obj.getFinalGrade()) {
+            return -1;
+        }
+
+        if (this.finalGrade < obj.getFinalGrade()) {
+            return 1;
+        }
+
+        if (this.testGrade > obj.getTestGrade()) {
+            return -1;
+        }
+
+        if (this.testGrade > obj.getTestGrade()) {
+            return 1;
+        }
+
+        return -1;
     }
 }

@@ -9,16 +9,19 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import com.sergiu.dto.ReportCandidatesDTO;
 import com.sergiu.dto.ReportHallsDTO;
+import com.sergiu.entity.AdmissionResultEntity;
 import com.sergiu.entity.CandidateEntity;
 import com.sergiu.entity.HallEntity;
 import com.sergiu.model.CandidateModel;
 import com.sergiu.model.CandidateResultModel;
 import com.sergiu.model.ColumnCandidatesReport;
+import com.sergiu.repository.AdmissionResultRepository;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.HallRepository;
 import com.sergiu.transformer.CandidatesTransformer;
 import com.sergiu.util.AdmissionType;
 import com.sergiu.util.FieldWidth;
+import com.sergiu.util.ListAllocationType;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.slf4j.Logger;
@@ -32,10 +35,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -55,6 +55,9 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private HallRepository hallRepository;
 
+    @Autowired
+    private AdmissionResultRepository admissionResultRepository;
+
     @Value("classpath:distribustion/general_list_distributed.jrxml")
     private Resource generalListDistributedTemplate;
 
@@ -66,6 +69,30 @@ public class ReportServiceImpl implements ReportService {
 
     @Value("classpath:results/general_list_results.jrxml")
     private Resource generalListResults;
+
+    @Value("classpath:results/list_L1.jrxml")
+    private Resource listL1;
+
+    @Value("classpath:results/list_L2.jrxml")
+    private Resource listL2;
+
+    @Value("classpath:results/list_L3.jrxml")
+    private Resource listL3;
+
+    @Value("classpath:results/list_L4.jrxml")
+    private Resource listL4;
+
+    @Value("classpath:results/list_L5.jrxml")
+    private Resource listL5;
+
+    @Value("classpath:results/list_L6.jrxml")
+    private Resource listL6;
+
+    @Value("classpath:results/list_L7.jrxml")
+    private Resource listL7;
+
+    @Value("classpath:results/list_L8.jrxml")
+    private Resource listL8;
 
     @Override
     public File buildGeneralListDistributedReport() {
@@ -94,9 +121,40 @@ public class ReportServiceImpl implements ReportService {
     public File buildGeneralListWithGradesReport() {
         List<CandidateModel> candidates = transformer.toModel(candidateRepository.findAll());
         List<CandidateResultModel> candidateResultModels = transformer.toCandidateResultModel(candidates);
-        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidateResultModels);
+        for (CandidateResultModel candidateResultModel : candidateResultModels) {
+            ListAllocationType listType = admissionResultRepository.findById(candidateResultModel.getCnp()).get().getListName();
+            candidateResultModel.setListName(listType.getMesage());
+        }
+        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(new TreeSet(candidateResultModels));
         return buildReportUsingTemplate(generalListResults, "lista_generala_rezultate.pdf", jrBeanCollectionDataSource);
     }
+
+    @Override
+    public File buildListL(ListAllocationType type) throws Exception {
+        List<AdmissionResultEntity> admissionResultEntities = admissionResultRepository.findAllByListName(type);
+        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(new TreeSet(admissionResultEntities));
+
+        switch (type) {
+            case L1:
+                return buildReportUsingTemplate(listL1, "lista_+" + type + ".pdf", jrBeanCollectionDataSource);
+            case L2:
+                return buildReportUsingTemplate(listL2, "lista_+" + type + ".pdf", jrBeanCollectionDataSource);
+            case L3:
+                return buildReportUsingTemplate(listL3, "lista_+" + type + ".pdf", jrBeanCollectionDataSource);
+            case L4:
+                return buildReportUsingTemplate(listL4, "lista_+" + type + ".pdf", jrBeanCollectionDataSource);
+            case L5:
+                return buildReportUsingTemplate(listL5, "lista_+" + type + ".pdf", jrBeanCollectionDataSource);
+            case L6:
+                return buildReportUsingTemplate(listL6, "lista_+" + type + ".pdf", jrBeanCollectionDataSource);
+            case L7:
+                return buildReportUsingTemplate(listL7, "lista_+" + type + ".pdf", jrBeanCollectionDataSource);
+            case L8:
+                return buildReportUsingTemplate(listL8, "lista_+" + type + ".pdf", jrBeanCollectionDataSource);
+        }
+        throw new Exception();
+    }
+
 
     private File buildReportUsingTemplate(Resource template, String filename, JRBeanCollectionDataSource jrBeanCollectionDataSource) {
 

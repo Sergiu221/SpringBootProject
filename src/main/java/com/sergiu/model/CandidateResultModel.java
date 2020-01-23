@@ -17,6 +17,8 @@ public class CandidateResultModel implements Comparable {
 
     private Double finalGrade;
 
+    private String listName;
+
     public Long getCnp() {
         return cnp;
     }
@@ -79,6 +81,14 @@ public class CandidateResultModel implements Comparable {
 
     public void setFinalGrade(Double finalGrade) {
         this.finalGrade = finalGrade;
+    }
+
+    public String getListName() {
+        return listName;
+    }
+
+    public void setListName(String listName) {
+        this.listName = listName;
     }
 
     @Override

@@ -5,10 +5,11 @@ import com.sergiu.entity.CandidateEntity;
 import com.sergiu.entity.CandidateOptionEntity;
 import com.sergiu.model.AllocationModel;
 import com.sergiu.model.CandidateResultModel;
-import com.sergiu.repository.AdmisionResultRepository;
+import com.sergiu.repository.AdmissionResultRepository;
 import com.sergiu.repository.CandidateOptionRepository;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.transformer.CandidatesTransformer;
+import com.sergiu.util.GradeUtils;
 import com.sergiu.util.ListAllocationType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
     private CandidateOptionRepository candidateOptionRepository;
 
     @Autowired
-    private AdmisionResultRepository admisionResultRepository;
+    private AdmissionResultRepository admissionResultRepository;
 
     @Override
     public void startAllocateCandidates() {
@@ -42,15 +43,19 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
 
         SortedSet<CandidateResultModel> candidates = retrieveAllCandidatesOrderByFinalGrade();
         for (CandidateResultModel candidateResultModel : candidates) {
+            AdmissionResultEntity resultEntity = new AdmissionResultEntity();
             ListAllocationType list;
             if (candidateResultModel.getAdmissionType().equals("Olimpic")) {
                 list = ListAllocationType.L1;
+                resultEntity.setFinalGrade(10.0);
                 LOGGER.info("Candidatul:" + candidateResultModel.getCnp() + " a fost adaugat in lista" + list);
             } else {
                 list = getAllocationListForCandidate(candidateResultModel, allocation);
+                Double finalGrade = GradeUtils.calculateFinalResult(candidateResultModel.getTestGrade(), candidateResultModel.getBacGrade(), candidateResultModel.getBacBestGrade());
+                resultEntity.setFinalGrade(finalGrade);
                 LOGGER.info("Candidatul:" + candidateResultModel.getCnp() + "a fost adaugat in lista" + list);
             }
-            AdmissionResultEntity resultEntity = new AdmissionResultEntity();
+
             resultEntity.setCandidateCnp(candidateResultModel.getCnp());
             resultEntity.setFirstName(candidateResultModel.getFirstName());
             resultEntity.setLastName(candidateResultModel.getLastName());
@@ -58,7 +63,7 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
             resultEntity.setBacGrade(candidateResultModel.getBacGrade());
             resultEntity.setTestGrade(candidateResultModel.getTestGrade());
             resultEntity.setListName(list);
-            admisionResultRepository.saveAndFlush(resultEntity);
+            admissionResultRepository.saveAndFlush(resultEntity);
         }
     }
 
@@ -74,17 +79,18 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
                         allocation.decrementRoBuget();
                         return ListAllocationType.L3;
                     }
-                case "RO-TAXA":
-                    if (allocation.getRoTaxa() > 0) {
-                        allocation.decrementRoTaxa();
-                        return ListAllocationType.L4;
-                    }
                 case "EN-BUGET": {
                     if (allocation.getEnBuget() > 0) {
                         allocation.decrementEnBuget();
-                        return ListAllocationType.L5;
+                        return ListAllocationType.L4;
                     }
                 }
+
+                case "RO-TAXA":
+                    if (allocation.getRoTaxa() > 0) {
+                        allocation.decrementRoTaxa();
+                        return ListAllocationType.L5;
+                    }
                 case "EN-TAXA": {
                     if (allocation.getEnTaxa() > 0) {
                         allocation.decrementEnTaxa();
