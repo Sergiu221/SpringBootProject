@@ -7,6 +7,7 @@ import com.sergiu.entity.CandidateEntity;
 import com.sergiu.entity.GradeEntity;
 import com.sergiu.model.CandidateModel;
 import com.sergiu.model.CandidateResultModel;
+import com.sergiu.model.CategoryModel;
 import com.sergiu.model.GradeModel;
 import com.sergiu.util.GradeUtils;
 import org.modelmapper.ModelMapper;
@@ -47,6 +48,11 @@ public class CandidatesTransformer {
                 candidateModel.getGradeModelList().add(modelMapper.map(gradeEntity, GradeModel.class));
             }
         }
+
+        if (candidateEntity.getCategoryEntity() != null) {
+            candidateModel.setCategoryModel(modelMapper.map(candidateEntity.getCategoryEntity(), CategoryModel.class));
+        }
+
         return candidateModel;
     }
 
@@ -61,6 +67,7 @@ public class CandidatesTransformer {
         candidateResultModel.setCnp(candidateModel.getCnp());
         candidateResultModel.setFirstName(candidateModel.getFirstName());
         candidateResultModel.setLastName(candidateModel.getLastName());
+        candidateResultModel.setAdmissionType(candidateModel.getCategoryModel().getAdmissionType());
         Double testGrade = GradeUtils.calculateAverageWriteTest(candidateModel.getGradeModelList().get(0).getGrade(),
                 candidateModel.getGradeModelList().get(1).getGrade());
         candidateResultModel.setTestGrade(testGrade);

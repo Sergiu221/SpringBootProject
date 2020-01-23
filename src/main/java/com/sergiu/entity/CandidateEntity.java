@@ -3,12 +3,13 @@ package com.sergiu.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "candidates")
-public class CandidateEntity {
+public class CandidateEntity implements Serializable {
 
     @Id
     @Column(name = "cnp")

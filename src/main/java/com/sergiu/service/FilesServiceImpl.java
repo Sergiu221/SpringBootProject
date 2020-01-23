@@ -22,6 +22,9 @@ public class FilesServiceImpl implements FilesService {
     private CandidateRepository candidateRepository;
 
     @Autowired
+    private CandidateOptionRepository candidateOptionRepository;
+
+    @Autowired
     private HallRepository hallRepository;
 
     @Autowired
@@ -44,12 +47,14 @@ public class FilesServiceImpl implements FilesService {
         LOGGER.debug("Incarca candidatii!");
         insertCandidatesIntoDataBase(document);
 
+        LOGGER.debug("Incarca optiunile candidatilor!");
+        insertCandidatesOptionIntoDataBase(document);
+
         LOGGER.debug("Incarca salile!");
         insertHallsIntoDataBase(document);
 
         LOGGER.debug("Incarca supraveghetorii!");
         insertSupervisorsIntoDataBase(document);
-
     }
 
     @Override
@@ -98,6 +103,19 @@ public class FilesServiceImpl implements FilesService {
         for (List<String> fields : listCandidates) {
             candidateRepository.save(CandidateBuilder.build(fields));
             candidateRepository.flush();
+        }
+    }
+
+    private void insertCandidatesOptionIntoDataBase(SpreadsheetDocument document) throws Exception {
+        Table table = document.getSheetByName("Candidati optiuni");
+        if (table == null) {
+            throw new Exception("Optiunile Candidatilor nu sunt prezente in fisierul uploadat");
+        }
+        List<List<String>> listCandidatesWithOptions = getListOfFiledFromTable(table);
+
+        for (List<String> fields : listCandidatesWithOptions) {
+            candidateOptionRepository.save(CandidateOptionBuilder.build(fields));
+            candidateOptionRepository.flush();
         }
     }
 

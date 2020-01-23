@@ -1,28 +1,46 @@
-package com.sergiu.model;
+package com.sergiu.entity;
 
-public class CandidateResultModel implements Comparable {
-    private Long cnp;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sergiu.util.ListAllocationType;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "admission_results")
+public class AdmissionResultEntity implements Serializable {
+
+    @Id
+    @Column(name = "cnp_candidate")
+    private Long candidateCnp;
+
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
-    private String admissionType;
-
+    @Column(name = "bac_grade")
     private Double bacGrade;
 
+    @Column(name = "test_grade")
     private Double testGrade;
 
+    @Column(name = "bac_best_Grade")
     private Double bacBestGrade;
 
+    @Column(name = "final_Grade")
     private Double finalGrade;
 
-    public Long getCnp() {
-        return cnp;
+    @Enumerated(EnumType.STRING)
+    private ListAllocationType listName;
+
+    public Long getCandidateCnp() {
+        return candidateCnp;
     }
 
-    public void setCnp(Long cnp) {
-        this.cnp = cnp;
+    public void setCandidateCnp(Long candidateCnp) {
+        this.candidateCnp = candidateCnp;
     }
 
     public String getFirstName() {
@@ -39,14 +57,6 @@ public class CandidateResultModel implements Comparable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getAdmissionType() {
-        return admissionType;
-    }
-
-    public void setAdmissionType(String admissionType) {
-        this.admissionType = admissionType;
     }
 
     public Double getBacGrade() {
@@ -81,25 +91,11 @@ public class CandidateResultModel implements Comparable {
         this.finalGrade = finalGrade;
     }
 
-    @Override
-    public int compareTo(Object o) {
-        CandidateResultModel obj = (CandidateResultModel) o;
-        if (this.finalGrade > obj.getFinalGrade()) {
-            return -1;
-        }
+    public ListAllocationType getListName() {
+        return listName;
+    }
 
-        if (this.finalGrade < obj.getFinalGrade()) {
-            return 1;
-        }
-
-        if (this.testGrade > obj.getTestGrade()) {
-            return -1;
-        }
-
-        if (this.testGrade > obj.getTestGrade()) {
-            return 1;
-        }
-
-        return 0;
+    public void setListName(ListAllocationType listName) {
+        this.listName = listName;
     }
 }
