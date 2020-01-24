@@ -1,5 +1,6 @@
 package com.sergiu.repository;
 
+import com.sergiu.util.StatusExam;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.sergiu.entity.CandidateEntity;
@@ -21,5 +22,5 @@ public interface CandidateRepository extends JpaRepository<CandidateEntity, Long
 
     List<CandidateEntity> findAllByCategoryEntity_AdmissionTypeNot(String type);
 
-    List<CandidateEntity> findAllByHallEntity_Id(Integer id);
+    List<CandidateEntity> findAllByStatusExamIsNullOrStatusExamNot(StatusExam statusExam);
 }

@@ -116,7 +116,7 @@ public class AdmissionResultEntity implements Serializable, Comparable {
             return -1;
         }
 
-        if (this.testGrade > obj.getTestGrade()) {
+        if (this.testGrade < obj.getTestGrade()) {
             return 1;
         }
 

@@ -1,6 +1,7 @@
 package com.sergiu.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sergiu.util.StatusExam;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,13 +13,13 @@ import java.util.List;
 public class CandidateEntity implements Serializable {
 
     @Id
-    @Column(name = "cnp")
+    @Column
     private Long cnp;
 
-    @Column(name = "first_name")
+    @Column
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column
     private String lastName;
 
     @JsonBackReference("category")
@@ -26,13 +27,13 @@ public class CandidateEntity implements Serializable {
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
 
-    @Column(name = "high_school")
+    @Column
     private String highSchool;
 
-    @Column(name = "bac_grade")
+    @Column
     private Double bacGrade;
 
-    @Column(name = "bac_best_Grade")
+    @Column
     private Double bacBestGrade;
 
     @JsonBackReference("grade")
@@ -44,6 +45,10 @@ public class CandidateEntity implements Serializable {
     @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "cnp_candidate")}, inverseJoinColumns = {
             @JoinColumn(name = "id_hall")})
     private HallEntity hallEntity;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private StatusExam statusExam;
 
     public CandidateEntity() {
         this.gradeEntity = new ArrayList<>();
@@ -129,6 +134,14 @@ public class CandidateEntity implements Serializable {
 
     public void setGradeEntity(List<GradeEntity> gradeEntity) {
         this.gradeEntity = gradeEntity;
+    }
+
+    public StatusExam getStatusExam() {
+        return statusExam;
+    }
+
+    public void setStatusExam(StatusExam statusExam) {
+        this.statusExam = statusExam;
     }
 
     @Override

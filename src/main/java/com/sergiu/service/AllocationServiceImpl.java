@@ -11,6 +11,7 @@ import com.sergiu.repository.CandidateRepository;
 import com.sergiu.transformer.CandidatesTransformer;
 import com.sergiu.util.GradeUtils;
 import com.sergiu.util.ListAllocationType;
+import com.sergiu.util.StatusExam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,12 +121,22 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
     }
 
     private SortedSet<CandidateResultModel> retrieveAllCandidatesOrderByFinalGrade() {
-        List<CandidateEntity> candidateEntities = candidateRepository.findAll();
+        List<CandidateEntity> candidateEntities = candidateRepository.findAllByStatusExamIsNullOrStatusExamNot(StatusExam.RESPINS);
         List<CandidateResultModel> candidateResultModels = transformer.toCandidateResultModel(transformer.toModel(candidateEntities));
         SortedSet<CandidateResultModel> result = new TreeSet<>();
         for (CandidateResultModel candidateResultModel : candidateResultModels) {
             result.add(candidateResultModel);
         }
         return result;
+    }
+
+    @Override
+    public void rejectCandidate(Long cnp) {
+        AdmissionResultEntity admissionResultEntity = admissionResultRepository.findById(cnp).get();
+        admissionResultEntity.setListName(ListAllocationType.L8);
+        admissionResultRepository.save(admissionResultEntity);
+        CandidateEntity candidateEntity = candidateRepository.findByCnp(cnp).get();
+        candidateEntity.setStatusExam(StatusExam.RESPINS);
+        startAllocateCandidates();
     }
 }
