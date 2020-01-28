@@ -5,12 +5,10 @@ import com.sergiu.util.StatusExam;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "candidates")
-public class CandidateEntity implements Serializable {
+public class Candidate implements Serializable {
 
     @Id
     @Column
@@ -23,7 +21,7 @@ public class CandidateEntity implements Serializable {
     private String lastName;
 
     @JsonBackReference("category")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
 
@@ -36,9 +34,8 @@ public class CandidateEntity implements Serializable {
     @Column
     private Double bacBestGrade;
 
-    @JsonBackReference("grade")
-    @OneToMany(mappedBy = "candidateEntity")
-    private List<GradeEntity> gradeEntity;
+    @OneToOne(mappedBy = "candidate")
+    private Grades grades;
 
     @JsonBackReference("hall")
     @OneToOne
@@ -50,17 +47,15 @@ public class CandidateEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusExam statusExam;
 
-    public CandidateEntity() {
-        this.gradeEntity = new ArrayList<>();
+    public Candidate() {
     }
 
-    public CandidateEntity(Long cnp, String firstName, String lastName, CategoryEntity categoryEntity, String highSchool) {
+    public Candidate(Long cnp, String firstName, String lastName, CategoryEntity categoryEntity, String highSchool) {
         this.cnp = cnp;
         this.firstName = firstName;
         this.lastName = lastName;
         this.categoryEntity = categoryEntity;
         this.highSchool = highSchool;
-        this.gradeEntity = new ArrayList<>();
     }
 
 
@@ -128,12 +123,12 @@ public class CandidateEntity implements Serializable {
         this.bacBestGrade = bacBestGrade;
     }
 
-    public List<GradeEntity> getGradeEntity() {
-        return gradeEntity;
+    public Grades getGrades() {
+        return grades;
     }
 
-    public void setGradeEntity(List<GradeEntity> gradeEntity) {
-        this.gradeEntity = gradeEntity;
+    public void setGrades(Grades grades) {
+        this.grades = grades;
     }
 
     public StatusExam getStatusExam() {
@@ -163,7 +158,7 @@ public class CandidateEntity implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        CandidateEntity other = (CandidateEntity) obj;
+        Candidate other = (Candidate) obj;
         if (cnp == null) {
             if (other.cnp != null)
                 return false;
@@ -189,7 +184,7 @@ public class CandidateEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "CandidateEntity{" +
+        return "Candidate{" +
                 "cnp=" + cnp +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

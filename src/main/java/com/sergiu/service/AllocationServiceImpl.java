@@ -1,7 +1,7 @@
 package com.sergiu.service;
 
 import com.sergiu.entity.AdmissionResultEntity;
-import com.sergiu.entity.CandidateEntity;
+import com.sergiu.entity.Candidate;
 import com.sergiu.entity.CandidateOptionEntity;
 import com.sergiu.model.AllocationModel;
 import com.sergiu.model.CandidateResultModel;
@@ -121,7 +121,7 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
     }
 
     private SortedSet<CandidateResultModel> retrieveAllCandidatesOrderByFinalGrade() {
-        List<CandidateEntity> candidateEntities = candidateRepository.findAllByStatusExamIsNullOrStatusExamNot(StatusExam.RESPINS);
+        List<Candidate> candidateEntities = candidateRepository.findAllByStatusExamIsNullOrStatusExamNot(StatusExam.RESPINS);
         List<CandidateResultModel> candidateResultModels = transformer.toCandidateResultModel(transformer.toModel(candidateEntities));
         SortedSet<CandidateResultModel> result = new TreeSet<>();
         for (CandidateResultModel candidateResultModel : candidateResultModels) {
@@ -135,8 +135,8 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
         AdmissionResultEntity admissionResultEntity = admissionResultRepository.findById(cnp).get();
         admissionResultEntity.setListName(ListAllocationType.L8);
         admissionResultRepository.save(admissionResultEntity);
-        CandidateEntity candidateEntity = candidateRepository.findByCnp(cnp).get();
-        candidateEntity.setStatusExam(StatusExam.RESPINS);
+        Candidate candidate = candidateRepository.findByCnp(cnp).get();
+        candidate.setStatusExam(StatusExam.RESPINS);
         startAllocateCandidates();
     }
 }

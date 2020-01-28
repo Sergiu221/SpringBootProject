@@ -3,12 +3,11 @@ package com.sergiu.transformer;
 import com.sergiu.dto.CandidateDTO;
 import com.sergiu.dto.CategoryDTO;
 import com.sergiu.dto.HallDTO;
-import com.sergiu.entity.CandidateEntity;
-import com.sergiu.entity.GradeEntity;
+import com.sergiu.entity.Candidate;
 import com.sergiu.model.CandidateModel;
 import com.sergiu.model.CandidateResultModel;
 import com.sergiu.model.CategoryModel;
-import com.sergiu.model.GradeModel;
+import com.sergiu.model.GradesModel;
 import com.sergiu.util.GradeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,36 +26,34 @@ public class CandidatesTransformer {
 
     }
 
-    public List<CandidateDTO> toDTO(List<CandidateEntity> entities) {
+    public List<CandidateDTO> toDTO(List<Candidate> entities) {
         return entities.stream()
                 .map(entity -> toDTO(entity))
                 .collect(Collectors.toList());
     }
 
-    public CandidateEntity toEntity(CandidateDTO candidateDTO) {
-        return modelMapper.map(candidateDTO, CandidateEntity.class);
+    public Candidate toEntity(CandidateDTO candidateDTO) {
+        return modelMapper.map(candidateDTO, Candidate.class);
     }
 
-    public CandidateEntity toEntity(CandidateModel candidateModel) {
-        return modelMapper.map(candidateModel, CandidateEntity.class);
+    public Candidate toEntity(CandidateModel candidateModel) {
+        return modelMapper.map(candidateModel, Candidate.class);
     }
 
-    public CandidateModel toModel(CandidateEntity candidateEntity) {
-        CandidateModel candidateModel = modelMapper.map(candidateEntity, CandidateModel.class);
-        if (candidateEntity.getGradeEntity().size() > 0) {
-            for (GradeEntity gradeEntity : candidateEntity.getGradeEntity()) {
-                candidateModel.getGradeModelList().add(modelMapper.map(gradeEntity, GradeModel.class));
-            }
+    public CandidateModel toModel(Candidate candidate) {
+        CandidateModel candidateModel = modelMapper.map(candidate, CandidateModel.class);
+        if (candidate.getGrades() != null) {
+            candidateModel.setGradesModel(modelMapper.map(candidate.getGrades(), GradesModel.class));
         }
 
-        if (candidateEntity.getCategoryEntity() != null) {
-            candidateModel.setCategoryModel(modelMapper.map(candidateEntity.getCategoryEntity(), CategoryModel.class));
+        if (candidate.getCategoryEntity() != null) {
+            candidateModel.setCategoryModel(modelMapper.map(candidate.getCategoryEntity(), CategoryModel.class));
         }
 
         return candidateModel;
     }
 
-    public List<CandidateModel> toModel(List<CandidateEntity> candidateEntities) {
+    public List<CandidateModel> toModel(List<Candidate> candidateEntities) {
         return candidateEntities.stream()
                 .map(entity -> toModel(entity))
                 .collect(Collectors.toList());
@@ -68,8 +65,7 @@ public class CandidatesTransformer {
         candidateResultModel.setFirstName(candidateModel.getFirstName());
         candidateResultModel.setLastName(candidateModel.getLastName());
         candidateResultModel.setAdmissionType(candidateModel.getCategoryModel().getAdmissionType());
-        Double testGrade = GradeUtils.calculateAverageWriteTest(candidateModel.getGradeModelList().get(0).getGrade(),
-                candidateModel.getGradeModelList().get(1).getGrade());
+        Double testGrade = candidateModel.getAverageOnWriteTest();
         candidateResultModel.setTestGrade(testGrade);
         candidateResultModel.setBacGrade(candidateModel.getBacGrade());
         candidateResultModel.setBacBestGrade(candidateModel.getBacBestGrade());
@@ -84,7 +80,7 @@ public class CandidatesTransformer {
                 .collect(Collectors.toList());
     }
 
-    public CandidateDTO toDTO(CandidateEntity entity) {
+    public CandidateDTO toDTO(Candidate entity) {
         CandidateDTO candidateDTO = modelMapper.map(entity, CandidateDTO.class);
         if (entity.getHallEntity() != null) {
             candidateDTO.setHallDTO(modelMapper.map(entity.getHallEntity(), HallDTO.class));

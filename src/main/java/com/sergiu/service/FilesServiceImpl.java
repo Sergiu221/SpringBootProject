@@ -1,6 +1,7 @@
 package com.sergiu.service;
 
 import com.sergiu.builders.*;
+import com.sergiu.entity.Grades;
 import com.sergiu.repository.*;
 import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.table.Row;
@@ -88,7 +89,6 @@ public class FilesServiceImpl implements FilesService {
 
         for (List<String> fields : listCategories) {
             categoryRepository.save(CategoryBuilder.build(fields));
-            categoryRepository.flush();
         }
     }
 
@@ -102,7 +102,6 @@ public class FilesServiceImpl implements FilesService {
 
         for (List<String> fields : listCandidates) {
             candidateRepository.save(CandidateBuilder.build(fields));
-            candidateRepository.flush();
         }
     }
 
@@ -115,7 +114,6 @@ public class FilesServiceImpl implements FilesService {
 
         for (List<String> fields : listCandidatesWithOptions) {
             candidateOptionRepository.save(CandidateOptionBuilder.build(fields));
-            candidateOptionRepository.flush();
         }
     }
 
@@ -130,7 +128,6 @@ public class FilesServiceImpl implements FilesService {
 
         for (List<String> fields : listHalls) {
             hallRepository.save(HallBuilder.build(fields));
-            hallRepository.flush();
         }
     }
 
@@ -162,9 +159,8 @@ public class FilesServiceImpl implements FilesService {
         List<List<String>> listGrades = getListOfFiledFromTable(table);
 
         for (List<String> grade : listGrades) {
-            gradeRepository.flush();
-            gradeRepository.saveAndFlush(GradeBuilder.build(grade));
+            Grades grades = GradesBuilder.build(grade);
+            gradeRepository.save(grades);
         }
     }
-
 }

@@ -1,6 +1,5 @@
 package com.sergiu.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class HallEntity implements Comparable {
     @OneToMany
     @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "id_hall")}, inverseJoinColumns = {
             @JoinColumn(name = "cnp_candidate")})
-    private List<CandidateEntity> listCandidates;
+    private List<Candidate> listCandidates;
 
 
     public HallEntity() {
@@ -92,11 +91,11 @@ public class HallEntity implements Comparable {
         this.size = size;
     }
 
-    public List<CandidateEntity> getListCandidates() {
+    public List<Candidate> getListCandidates() {
         return listCandidates;
     }
 
-    public void setListCandidates(List<CandidateEntity> listCandidates) {
+    public void setListCandidates(List<Candidate> listCandidates) {
         this.listCandidates = listCandidates;
     }
 

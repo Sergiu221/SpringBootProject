@@ -59,7 +59,7 @@ public class DistributionServiceImpl implements DistributionService {
 
             if (!element.getCohesion().equals(BigDecimal.ZERO)) {
 
-                List<CandidateEntity> listMove;
+                List<Candidate> listMove;
                 if (element.restOfCandidates() == 0) {
                     listMove = element.getCategoryEntity().getCandidateEntities().subList(0, element.getHallEntity().getUtilizableSize());
                 } else {
@@ -67,7 +67,7 @@ public class DistributionServiceImpl implements DistributionService {
                 }
                 int size = listMove.size();
                 element.getHallEntity().getListCandidates().addAll(listMove);
-                List<CandidateEntity> remainingList = getRemainingCandidates(element, size);
+                List<Candidate> remainingList = getRemainingCandidates(element, size);
                 element.getCategoryEntity().setCandidateEntities(remainingList);
 
                 insertCandidatesIntoHall(listMove, element.getHallEntity());
@@ -84,7 +84,7 @@ public class DistributionServiceImpl implements DistributionService {
         }
     }
 
-    private List<CandidateEntity> getRemainingCandidates(Element element, int size) {
+    private List<Candidate> getRemainingCandidates(Element element, int size) {
         if (size == element.getCategoryEntity().getCandidateEntities().size()) {
             return new ArrayList<>();
         }
@@ -111,10 +111,10 @@ public class DistributionServiceImpl implements DistributionService {
         return result;
     }
 
-    private void insertCandidatesIntoHall(List<CandidateEntity> candidateEntities, HallEntity hallEntity) {
+    private void insertCandidatesIntoHall(List<Candidate> candidateEntities, HallEntity hallEntity) {
         List<DistributionEntity> distributions = new ArrayList<>();
-        for (CandidateEntity candidateEntity : candidateEntities) {
-            DistributionEntity distribution = new DistributionEntity(new DistributionId(candidateEntity.getCnp(), hallEntity.getId()));
+        for (Candidate candidate : candidateEntities) {
+            DistributionEntity distribution = new DistributionEntity(new DistributionId(candidate.getCnp(), hallEntity.getId()));
             distributions.add(distribution);
         }
         filterNullValue(distributions);

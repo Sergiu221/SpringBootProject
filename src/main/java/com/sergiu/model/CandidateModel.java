@@ -1,9 +1,6 @@
 package com.sergiu.model;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CandidateModel {
 
     private Long cnp;
@@ -20,13 +17,9 @@ public class CandidateModel {
 
     private Double bacBestGrade;
 
-    private List<GradeModel> gradeModelList;
+    private GradesModel gradesModel;
 
     private HallModel hallModel;
-
-    public CandidateModel() {
-        this.gradeModelList = new ArrayList<>();
-    }
 
     public Long getCnp() {
         return cnp;
@@ -84,12 +77,12 @@ public class CandidateModel {
         this.bacBestGrade = bacBestGrade;
     }
 
-    public List<GradeModel> getGradeModelList() {
-        return gradeModelList;
+    public GradesModel getGradesModel() {
+        return gradesModel;
     }
 
-    public void setGradeModelList(List<GradeModel> gradeModelList) {
-        this.gradeModelList = gradeModelList;
+    public void setGradesModel(GradesModel gradesModel) {
+        this.gradesModel = gradesModel;
     }
 
     public HallModel getHallModel() {
@@ -101,8 +94,11 @@ public class CandidateModel {
     }
 
     public Double getAverageOnWriteTest() {
-        Double firstGrade = this.gradeModelList.get(0).getGrade();
-        Double secondGrade = this.gradeModelList.get(1).getGrade();
+        if (this.gradesModel == null) {
+            return null;
+        }
+        Double firstGrade = this.gradesModel.getFirstGrade();
+        Double secondGrade = this.gradesModel.getSecondGrade();
         return (firstGrade + secondGrade) / 2;
     }
 }

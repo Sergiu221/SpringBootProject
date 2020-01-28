@@ -1,22 +1,22 @@
 package com.sergiu.builders;
 
-import com.sergiu.entity.CandidateEntity;
+import com.sergiu.entity.Candidate;
 import com.sergiu.entity.CategoryEntity;
 
 import java.util.List;
 
 public class CandidateBuilder {
-    public static CandidateEntity build(List<String> fieldsValue) {
-        CandidateEntity candidateEntity = new CandidateEntity();
+    public static Candidate build(List<String> fieldsValue) {
+        Candidate candidate = new Candidate();
         CategoryEntity categoryEntity = new CategoryEntity();
-        candidateEntity.setCnp(Long.valueOf(fieldsValue.get(0)));
-        candidateEntity.setFirstName(String.valueOf(fieldsValue.get(1)));
-        candidateEntity.setLastName(String.valueOf(fieldsValue.get(2)));
+        candidate.setCnp(Long.valueOf(fieldsValue.get(0)));
+        candidate.setFirstName(String.valueOf(fieldsValue.get(1)));
+        candidate.setLastName(String.valueOf(fieldsValue.get(2)));
         categoryEntity.setId(Integer.valueOf(fieldsValue.get(3)));
-        candidateEntity.setCategoryEntity(categoryEntity);
-        candidateEntity.setHighSchool(String.valueOf(fieldsValue.get(4)));
-        candidateEntity.setBacBestGrade(Double.valueOf(fieldsValue.get(5)));
-        candidateEntity.setBacGrade(Double.valueOf(fieldsValue.get(6)));
-        return candidateEntity;
+        candidate.setCategoryEntity(categoryEntity);
+        candidate.setHighSchool(String.valueOf(fieldsValue.get(4)));
+        candidate.setBacBestGrade(Double.valueOf(fieldsValue.get(5)));
+        candidate.setBacGrade(Double.valueOf(fieldsValue.get(6)));
+        return candidate;
     }
 }

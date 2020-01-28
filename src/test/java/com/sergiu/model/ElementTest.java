@@ -1,6 +1,6 @@
 package com.sergiu.model;
 
-import com.sergiu.entity.CandidateEntity;
+import com.sergiu.entity.Candidate;
 import com.sergiu.entity.CategoryEntity;
 import com.sergiu.entity.HallEntity;
 import org.junit.Assert;
@@ -20,13 +20,13 @@ public class ElementTest {
     @Before
     public void init() {
         hallEntity = new HallEntity("Sala1", 12, 7);
-        CandidateEntity entity = new CandidateEntity();
+        Candidate entity = new Candidate();
         entity.setCnp(1940122374500L);
         entity.setFirstName("Sergiu-Adrian");
         entity.setLastName("Volocaru");
         entity.setHighSchool("Liceul Teoretic Emil Racovita");
 
-        CandidateEntity entity2 = new CandidateEntity();
+        Candidate entity2 = new Candidate();
         entity2.setCnp(1940122374502L);
         entity2.setFirstName("Sergiu-Constatin");
         entity2.setLastName("Volocaru");

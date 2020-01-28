@@ -1,7 +1,9 @@
 package com.sergiu.repository;
 
-import com.sergiu.entity.GradeEntity;
+import com.sergiu.entity.Grades;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface GradeRepository extends JpaRepository<GradeEntity, Integer> {
+@Repository
+public interface GradeRepository extends JpaRepository<Grades, Long> {
 }

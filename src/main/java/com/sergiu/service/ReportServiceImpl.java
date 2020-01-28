@@ -10,7 +10,7 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import com.sergiu.dto.ReportCandidatesDTO;
 import com.sergiu.dto.ReportHallsDTO;
 import com.sergiu.entity.AdmissionResultEntity;
-import com.sergiu.entity.CandidateEntity;
+import com.sergiu.entity.Candidate;
 import com.sergiu.entity.HallEntity;
 import com.sergiu.model.CandidateModel;
 import com.sergiu.model.CandidateResultModel;
@@ -96,14 +96,14 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public File buildGeneralListDistributedReport() {
-        List<CandidateEntity> candidates = candidateRepository.findAllByCategoryEntity_AdmissionType(AdmissionType.ADMITERE.getType());
+        List<Candidate> candidates = candidateRepository.findAllByCategoryEntity_AdmissionType(AdmissionType.ADMITERE.getType());
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
         return buildReportUsingTemplate(generalListDistributedTemplate, "lista_generala_distribuire.pdf", jrBeanCollectionDataSource);
     }
 
     @Override
     public File buildCandidatesListWithoutExam() {
-        List<CandidateEntity> candidates = candidateRepository.findAllByCategoryEntity_AdmissionTypeNot(AdmissionType.ADMITERE.getType());
+        List<Candidate> candidates = candidateRepository.findAllByCategoryEntity_AdmissionTypeNot(AdmissionType.ADMITERE.getType());
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
         return buildReportUsingTemplate(candidatesWithoutExam, "lista_candidatilor_fara_examen.pdf", jrBeanCollectionDataSource);
     }
@@ -111,7 +111,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public File buildCandidatesListFromHall(Integer hallId) {
         HallEntity hallEntity = hallRepository.findById(hallId).get();
-        List<CandidateEntity> candidates = hallEntity.getListCandidates();
+        List<Candidate> candidates = hallEntity.getListCandidates();
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
         String fileName = "lista_candidatilor_din_sala_" + hallEntity.getName() + ".pdf";
         return buildReportUsingTemplate(candidatesFromHall, fileName, jrBeanCollectionDataSource);

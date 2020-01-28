@@ -1,6 +1,6 @@
 package com.sergiu.model;
 
-import com.sergiu.entity.CandidateEntity;
+import com.sergiu.entity.Candidate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class CategoryModel {
 
     private String admissionType;
 
-    private List<CandidateEntity> candidateEntities = new ArrayList<>();
+    private List<Candidate> candidateEntities = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -59,11 +59,11 @@ public class CategoryModel {
         this.admissionType = admissionType;
     }
 
-    public List<CandidateEntity> getCandidateEntities() {
+    public List<Candidate> getCandidateEntities() {
         return candidateEntities;
     }
 
-    public void setCandidateEntities(List<CandidateEntity> candidateEntities) {
+    public void setCandidateEntities(List<Candidate> candidateEntities) {
         this.candidateEntities = candidateEntities;
     }
 }

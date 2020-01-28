@@ -1,6 +1,6 @@
 package com.sergiu.service;
 
-import com.sergiu.entity.CandidateEntity;
+import com.sergiu.entity.Candidate;
 import com.sergiu.exception.ResourceNotConsistentData;
 import com.sergiu.exception.ResourceNotFoundException;
 import com.sergiu.dto.CandidateDTO;
@@ -44,7 +44,7 @@ public class CandidatesServiceImpl implements CandidatesService {
         }
         candidateRepository.findByCnp(cnp)
                 .orElseThrow(() -> new ResourceNotFoundException("Candidate", "cnp", cnp));
-        CandidateEntity entity = candidateRepository.findByCnp(cnp).get();
+        Candidate entity = candidateRepository.findByCnp(cnp).get();
 
         return transformer.toDTO(candidateRepository.save(entity));
 
@@ -52,7 +52,7 @@ public class CandidatesServiceImpl implements CandidatesService {
 
     @Override
     public void deleteCandidate(Long cnp) {
-        CandidateEntity entity = candidateRepository.findByCnp(cnp)
+        Candidate entity = candidateRepository.findByCnp(cnp)
                 .orElseThrow(() -> new ResourceNotFoundException("Candidate", "cnp", cnp));
 
         candidateRepository.delete(entity);

@@ -30,7 +30,7 @@ public class CategoryEntity implements Comparable {
 
     @JsonManagedReference("category")
     @OneToMany(mappedBy = "categoryEntity")
-    private List<CandidateEntity> candidateEntities = new ArrayList<>();
+    private List<Candidate> candidateEntities = new ArrayList<>();
 
     public CategoryEntity() {
 
@@ -84,11 +84,11 @@ public class CategoryEntity implements Comparable {
         this.admissionType = admissionType;
     }
 
-    public List<CandidateEntity> getCandidateEntities() {
+    public List<Candidate> getCandidateEntities() {
         return candidateEntities;
     }
 
-    public void setCandidateEntities(List<CandidateEntity> candidateEntities) {
+    public void setCandidateEntities(List<Candidate> candidateEntities) {
         this.candidateEntities = candidateEntities;
     }
 
