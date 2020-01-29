@@ -61,17 +61,17 @@ public class DistributionServiceImpl implements DistributionService {
 
                 List<Candidate> listMove;
                 if (element.restOfCandidates() == 0) {
-                    listMove = element.getCategoryEntity().getCandidateEntities().subList(0, element.getHallEntity().getUtilizableSize());
+                    listMove = element.getCategory().getCandidateEntities().subList(0, element.getHallEntity().getUtilizableSize());
                 } else {
-                    listMove = element.getCategoryEntity().getCandidateEntities().subList(0, element.restOfCandidates());
+                    listMove = element.getCategory().getCandidateEntities().subList(0, element.restOfCandidates());
                 }
                 int size = listMove.size();
                 element.getHallEntity().getListCandidates().addAll(listMove);
                 List<Candidate> remainingList = getRemainingCandidates(element, size);
-                element.getCategoryEntity().setCandidateEntities(remainingList);
+                element.getCategory().setCandidateEntities(remainingList);
 
                 insertCandidatesIntoHall(listMove, element.getHallEntity());
-                LOGGER.info("Insert [{}] candidates from category [{}] into hall [{}]! ", size, element.getCategoryEntity().getId(), element.getHallEntity().getId());
+                LOGGER.info("Insert [{}] candidates from category [{}] into hall [{}]! ", size, element.getCategory().getId(), element.getHallEntity().getId());
             }
 
             setOfCategoriesWithHalls = refreshElements(setOfCategoriesWithHalls);
@@ -85,10 +85,10 @@ public class DistributionServiceImpl implements DistributionService {
     }
 
     private List<Candidate> getRemainingCandidates(Element element, int size) {
-        if (size == element.getCategoryEntity().getCandidateEntities().size()) {
+        if (size == element.getCategory().getCandidateEntities().size()) {
             return new ArrayList<>();
         }
-        return element.getCategoryEntity().getCandidateEntities().subList(size, element.getCategoryEntity().getCandidateEntities().size());
+        return element.getCategory().getCandidateEntities().subList(size, element.getCategory().getCandidateEntities().size());
     }
 
     private SortedSet<Element> refreshElements(SortedSet<Element> elementSortedSet) {
@@ -99,11 +99,11 @@ public class DistributionServiceImpl implements DistributionService {
 
     @Override
     public SortedSet<Element> fillSet() {
-        List<CategoryEntity> categories = categoryService.getAllCategoriesWithCandidates();
+        List<Category> categories = categoryService.getAllCategoriesWithCandidates();
         List<HallEntity> halls = hallRepository.findAll();
 
         SortedSet<Element> result = new TreeSet<>();
-        for (CategoryEntity category : categories) {
+        for (Category category : categories) {
             for (HallEntity hall : halls) {
                 result.add(new Element(category, hall));
             }

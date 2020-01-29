@@ -9,34 +9,34 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "categories")
-public class CategoryEntity implements Comparable {
+public class Category implements Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column
     private Integer id;
 
-    @Column(name = "name")
+    @Column
     private String name;
 
-    @Column(name = "discipline")
+    @Column
     private String discipline;
 
-    @Column(name = "language")
+    @Column
     private String language;
 
-    @Column(name = "admission_type")
+    @Column
     private String admissionType;
 
     @JsonManagedReference("category")
-    @OneToMany(mappedBy = "categoryEntity")
+    @OneToMany(mappedBy = "category")
     private List<Candidate> candidateEntities = new ArrayList<>();
 
-    public CategoryEntity() {
+    public Category() {
 
     }
 
-    public CategoryEntity(Integer id, String name, String discipline, String language, String admissionType) {
+    public Category(Integer id, String name, String discipline, String language, String admissionType) {
         this.id = id;
         this.name = name;
         this.discipline = discipline;
@@ -96,10 +96,10 @@ public class CategoryEntity implements Comparable {
     @Override
     public int compareTo(Object o) {
 
-        CategoryEntity categoryEntity = (CategoryEntity) o;
-        int sizeCompare = categoryEntity.getCandidateEntities().size() - this.candidateEntities.size();
+        Category category = (Category) o;
+        int sizeCompare = category.getCandidateEntities().size() - this.candidateEntities.size();
         if (sizeCompare == 0) {
-            return this.id.compareTo(categoryEntity.getId());
+            return this.id.compareTo(category.getId());
         }
         return sizeCompare;
     }
@@ -107,8 +107,8 @@ public class CategoryEntity implements Comparable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CategoryEntity)) return false;
-        CategoryEntity that = (CategoryEntity) o;
+        if (!(o instanceof Category)) return false;
+        Category that = (Category) o;
         return Objects.equals(id, that.id);
     }
 

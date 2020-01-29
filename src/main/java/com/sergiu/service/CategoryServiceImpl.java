@@ -1,7 +1,7 @@
 package com.sergiu.service;
 
 import com.sergiu.dto.CategoryDTO;
-import com.sergiu.entity.CategoryEntity;
+import com.sergiu.entity.Category;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.CategoryRepository;
 import com.sergiu.transformer.CategoriesTransformer;
@@ -28,13 +28,13 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoriesTransformer transformer;
 
     @Override
-    public List<CategoryEntity> getAllCategoriesWithCandidates() {
+    public List<Category> getAllCategoriesWithCandidates() {
 
-        List<CategoryEntity> categories = categoryRepository.findAllByAdmissionType(AdmissionType.ADMITERE.getType());
-        List<CategoryEntity> result = new ArrayList<>();
-        for (CategoryEntity category : categories) {
-            if (candidateRepository.findAllByCategoryEntity_Id(category.getId()).size() > 0) {
-                category.setCandidateEntities(candidateRepository.findAllByCategoryEntity_Id(category.getId()));
+        List<Category> categories = categoryRepository.findAllByAdmissionType(AdmissionType.ADMITERE.getType());
+        List<Category> result = new ArrayList<>();
+        for (Category category : categories) {
+            if (candidateRepository.findAllByCategory_Id(category.getId()).size() > 0) {
+                category.setCandidateEntities(candidateRepository.findAllByCategory_Id(category.getId()));
                 result.add(category);
             } else {
 

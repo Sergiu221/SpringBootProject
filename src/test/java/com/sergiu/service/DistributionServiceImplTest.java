@@ -1,7 +1,7 @@
 package com.sergiu.service;
 
 import com.sergiu.entity.Candidate;
-import com.sergiu.entity.CategoryEntity;
+import com.sergiu.entity.Category;
 import com.sergiu.entity.HallEntity;
 import com.sergiu.model.Element;
 import com.sergiu.repository.CandidateRepository;
@@ -60,16 +60,16 @@ public class DistributionServiceImplTest {
         return halls;
     }
 
-    private List<CategoryEntity> retrieveCategories() {
-        List<CategoryEntity> categories = new ArrayList<>();
-        categories.add(new CategoryEntity(1, "Category1", "", "", ""));
-        categories.add(new CategoryEntity(2, "Category2", "", "", ""));
+    private List<Category> retrieveCategories() {
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category(1, "Category1", "", "", ""));
+        categories.add(new Category(2, "Category2", "", "", ""));
         return categories;
     }
 
     private List<Candidate> retrieveCandidates() {
-        CategoryEntity category1 = new CategoryEntity(1, "", "", "", "");
-        CategoryEntity category2 = new CategoryEntity(2, "", "", "", "");
+        Category category1 = new Category(1, "", "", "", "");
+        Category category2 = new Category(2, "", "", "", "");
         List<Candidate> candidates = new ArrayList<>();
         candidates.add(new Candidate(123L, "FirstName1", "", category1, ""));
         candidates.add(new Candidate(133L, "FirstName2", "", category2, ""));

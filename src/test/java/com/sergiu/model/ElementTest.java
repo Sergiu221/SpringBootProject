@@ -1,7 +1,7 @@
 package com.sergiu.model;
 
 import com.sergiu.entity.Candidate;
-import com.sergiu.entity.CategoryEntity;
+import com.sergiu.entity.Category;
 import com.sergiu.entity.HallEntity;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,8 +14,8 @@ public class ElementTest {
 
     private HallEntity hallEntity;
 
-    private CategoryEntity categoryEntity;
-    private CategoryEntity categoryEntity2;
+    private Category category;
+    private Category category2;
 
     @Before
     public void init() {
@@ -31,19 +31,19 @@ public class ElementTest {
         entity2.setFirstName("Sergiu-Constatin");
         entity2.setLastName("Volocaru");
         entity2.setHighSchool("Liceul Teoretic Emil Racovita");
-        categoryEntity = new CategoryEntity();
-        categoryEntity2 = new CategoryEntity();
-        categoryEntity.getCandidateEntities().add(entity);
-        categoryEntity.getCandidateEntities().add(entity2);
-        categoryEntity.getCandidateEntities().add(entity2);
-        categoryEntity.getCandidateEntities().add(entity);
-        categoryEntity2.getCandidateEntities().add(entity2);
-        categoryEntity2.getCandidateEntities().add(entity2);
+        category = new Category();
+        category2 = new Category();
+        category.getCandidateEntities().add(entity);
+        category.getCandidateEntities().add(entity2);
+        category.getCandidateEntities().add(entity2);
+        category.getCandidateEntities().add(entity);
+        category2.getCandidateEntities().add(entity2);
+        category2.getCandidateEntities().add(entity2);
     }
 
     @Test
     public void testCohesion() {
-        Element element = new Element(categoryEntity, hallEntity);
+        Element element = new Element(category, hallEntity);
         Assert.assertEquals(new BigDecimal("0.57"), element.getCohesion());
         Assert.assertEquals(4, element.restOfCandidates());
     }
@@ -51,15 +51,15 @@ public class ElementTest {
     @Test
     public void testCompareTo() {
 
-        Element element = new Element(categoryEntity, hallEntity);
-        Element element1 = new Element(categoryEntity2, hallEntity);
+        Element element = new Element(category, hallEntity);
+        Element element1 = new Element(category2, hallEntity);
         Assert.assertEquals(1, element.compareTo(element1));
     }
 
     @Test
     public void testCohesionMax() {
         hallEntity = new HallEntity("Sala1", 8, 4);
-        Element element = new Element(categoryEntity, hallEntity);
+        Element element = new Element(category, hallEntity);
         Assert.assertEquals(BigDecimal.ONE, element.getCohesion());
     }
 

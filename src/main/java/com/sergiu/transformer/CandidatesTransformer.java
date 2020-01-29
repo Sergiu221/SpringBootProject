@@ -46,8 +46,8 @@ public class CandidatesTransformer {
             candidateModel.setGradesModel(modelMapper.map(candidate.getGrades(), GradesModel.class));
         }
 
-        if (candidate.getCategoryEntity() != null) {
-            candidateModel.setCategoryModel(modelMapper.map(candidate.getCategoryEntity(), CategoryModel.class));
+        if (candidate.getCategory() != null) {
+            candidateModel.setCategoryModel(modelMapper.map(candidate.getCategory(), CategoryModel.class));
         }
 
         return candidateModel;
@@ -85,8 +85,8 @@ public class CandidatesTransformer {
         if (entity.getHallEntity() != null) {
             candidateDTO.setHallDTO(modelMapper.map(entity.getHallEntity(), HallDTO.class));
         }
-        if (entity.getCategoryEntity() != null) {
-            candidateDTO.setCategoryDTO(modelMapper.map(entity.getCategoryEntity(), CategoryDTO.class));
+        if (entity.getCategory() != null) {
+            candidateDTO.setCategoryDTO(modelMapper.map(entity.getCategory(), CategoryDTO.class));
         }
         return candidateDTO;
     }

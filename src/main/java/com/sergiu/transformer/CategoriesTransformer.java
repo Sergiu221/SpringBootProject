@@ -1,7 +1,7 @@
 package com.sergiu.transformer;
 
 import com.sergiu.dto.CategoryDTO;
-import com.sergiu.entity.CategoryEntity;
+import com.sergiu.entity.Category;
 import com.sergiu.model.CategoryModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +16,27 @@ public class CategoriesTransformer {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<CategoryDTO> toDTO(List<CategoryEntity> entities) {
+    public List<CategoryDTO> toDTO(List<Category> entities) {
         return entities.stream()
                 .map(entity -> toDTO(entity))
                 .collect(Collectors.toList());
     }
 
-    public CategoryEntity toEntity(CategoryDTO categoryDTO) {
-        return modelMapper.map(categoryDTO, CategoryEntity.class);
+    public Category toEntity(CategoryDTO categoryDTO) {
+        return modelMapper.map(categoryDTO, Category.class);
     }
 
-    public CategoryModel toModel(CategoryEntity entity) {
+    public CategoryModel toModel(Category entity) {
         return modelMapper.map(entity, CategoryModel.class);
     }
 
-    public List<CategoryModel> toModel(List<CategoryEntity> entities) {
+    public List<CategoryModel> toModel(List<Category> entities) {
         return entities.stream()
                 .map(entity -> toModel(entity))
                 .collect(Collectors.toList());
     }
 
-    public CategoryDTO toDTO(CategoryEntity entity) {
+    public CategoryDTO toDTO(Category entity) {
         return modelMapper.map(entity, CategoryDTO.class);
     }
 }

@@ -23,7 +23,7 @@ public class Candidate implements Serializable {
     @JsonBackReference("category")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private CategoryEntity categoryEntity;
+    private Category category;
 
     @Column
     private String highSchool;
@@ -50,11 +50,11 @@ public class Candidate implements Serializable {
     public Candidate() {
     }
 
-    public Candidate(Long cnp, String firstName, String lastName, CategoryEntity categoryEntity, String highSchool) {
+    public Candidate(Long cnp, String firstName, String lastName, Category category, String highSchool) {
         this.cnp = cnp;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.categoryEntity = categoryEntity;
+        this.category = category;
         this.highSchool = highSchool;
     }
 
@@ -99,12 +99,12 @@ public class Candidate implements Serializable {
         this.highSchool = highSchool;
     }
 
-    public CategoryEntity getCategoryEntity() {
-        return categoryEntity;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryEntity(CategoryEntity category) {
-        this.categoryEntity = category;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Double getBacGrade() {
@@ -188,7 +188,7 @@ public class Candidate implements Serializable {
                 "cnp=" + cnp +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", category=" + categoryEntity +
+                ", category=" + category +
                 ", highSchool='" + highSchool + '\'' +
                 '}';
     }
