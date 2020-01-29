@@ -26,13 +26,13 @@ public class GradesController {
     }
 
     @PostMapping("/grades")
-    public ResponseEntity<?> addGrade(@Valid GradesDTO gradesDTO) {
+    public ResponseEntity<?> addGrade(@Valid @RequestBody GradesDTO gradesDTO) {
         gradesService.add(gradesDTO);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/grades/{cnp}")
-    public GradesDTO updateGrade(@PathVariable(value = "cnp") Long cnp, @Valid GradesDTO gradesDTO) {
+    public GradesDTO updateGrade(@PathVariable(value = "cnp") Long cnp, @Valid @RequestBody GradesDTO gradesDTO) {
         return gradesService.updateGrades(cnp, gradesDTO);
     }
 

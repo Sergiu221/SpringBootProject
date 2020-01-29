@@ -1,5 +1,7 @@
 package com.sergiu.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 public class CandidateDTO implements Serializable {
@@ -10,10 +12,12 @@ public class CandidateDTO implements Serializable {
 
     private String lastName;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private CategoryDTO categoryDTO;
 
     private String highSchool;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private HallDTO hallDTO;
 
     public Long getCnp() {

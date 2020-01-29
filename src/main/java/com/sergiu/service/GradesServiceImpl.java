@@ -1,8 +1,9 @@
 package com.sergiu.service;
 
 import com.sergiu.dto.GradesDTO;
+import com.sergiu.entity.Grades;
 import com.sergiu.repository.GradeRepository;
-import com.sergiu.transformer.Transformer;
+import com.sergiu.transformer.GradesTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public class GradesServiceImpl implements GradesService {
 
     private GradeRepository gradeRepository;
-    private Transformer transformer;
+    private GradesTransformer transformer;
 
     @Autowired
     public void setGradeRepository(GradeRepository gradeRepository) {
@@ -20,27 +21,29 @@ public class GradesServiceImpl implements GradesService {
     }
 
     @Autowired
-    public void setTransformer(Transformer transformer) {
+    public void setTransformer(GradesTransformer transformer) {
         this.transformer = transformer;
     }
 
     @Override
     public List<GradesDTO> getAllGrades() {
-        return (List<GradesDTO>) transformer.map(gradeRepository.findAll(), GradesDTO.class);
+        return transformer.toDTO(gradeRepository.findAll());
     }
 
     @Override
     public void add(GradesDTO gradesDTO) {
-
+        Grades grades = transformer.toEntity(gradesDTO);
+        gradeRepository.save(grades);
     }
 
     @Override
     public GradesDTO updateGrades(Long cnp, GradesDTO gradesDTO) {
-        return null;
+        Grades grades = gradeRepository.save(transformer.toEntity(gradesDTO));
+        return transformer.toDTO(grades);
     }
 
     @Override
     public void deleteGrades(Long cnp) {
-
+        gradeRepository.deleteById(cnp);
     }
 }
