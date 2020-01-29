@@ -18,14 +18,25 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImpl.class);
-    @Autowired
+
     private CategoryRepository categoryRepository;
-
-    @Autowired
     private CandidateRepository candidateRepository;
+    private CategoriesTransformer categoriesTransformer;
 
     @Autowired
-    private CategoriesTransformer transformer;
+    public void setCategoryRepository(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
+    @Autowired
+    public void setCandidateRepository(CandidateRepository candidateRepository) {
+        this.candidateRepository = candidateRepository;
+    }
+
+    @Autowired
+    public void setCategoriesTransformer(CategoriesTransformer categoriesTransformer) {
+        this.categoriesTransformer = categoriesTransformer;
+    }
 
     @Override
     public List<Category> getAllCategoriesWithCandidates() {
@@ -46,7 +57,23 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDTO> getAllCategories() {
-        return transformer.toDTO(categoryRepository.findAll());
+        return categoriesTransformer.toDTO(categoryRepository.findAll());
     }
 
+    @Override
+    public void add(CategoryDTO categoryDTO) {
+        Category category = categoriesTransformer.toEntity(categoryDTO);
+        categoryRepository.save(category);
+    }
+
+    @Override
+    public CategoryDTO updateCategory(Integer id, CategoryDTO categoryDTO) {
+        Category category = categoryRepository.save(categoriesTransformer.toEntity(categoryDTO));
+        return categoriesTransformer.toDTO(category);
+    }
+
+    @Override
+    public void deleteCategory(Integer id) {
+        categoryRepository.deleteById(id);
+    }
 }

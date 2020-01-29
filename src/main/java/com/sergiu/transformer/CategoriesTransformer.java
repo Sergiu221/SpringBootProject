@@ -13,8 +13,18 @@ import java.util.stream.Collectors;
 @Component
 public class CategoriesTransformer {
 
-    @Autowired
     private ModelMapper modelMapper;
+    private CandidatesTransformer candidatesTransformer;
+
+    @Autowired
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
+    @Autowired
+    public void setCandidatesTransformer(CandidatesTransformer candidatesTransformer) {
+        this.candidatesTransformer = candidatesTransformer;
+    }
 
     public List<CategoryDTO> toDTO(List<Category> entities) {
         return entities.stream()
@@ -37,6 +47,10 @@ public class CategoriesTransformer {
     }
 
     public CategoryDTO toDTO(Category entity) {
-        return modelMapper.map(entity, CategoryDTO.class);
+        CategoryDTO categoryDTO = modelMapper.map(entity, CategoryDTO.class);
+        if (entity.getCandidateEntities() != null) {
+            categoryDTO.setCandidateDTOS(candidatesTransformer.toDTO(entity.getCandidateEntities()));
+        }
+        return categoryDTO;
     }
 }

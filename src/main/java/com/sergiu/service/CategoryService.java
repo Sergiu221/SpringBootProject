@@ -10,4 +10,10 @@ public interface CategoryService {
     List<Category> getAllCategoriesWithCandidates();
 
     List<CategoryDTO> getAllCategories();
+
+    void add(CategoryDTO categoryDTO);
+
+    CategoryDTO updateCategory(Integer id, CategoryDTO categoryDTO);
+
+    void deleteCategory(Integer cnp);
 }
