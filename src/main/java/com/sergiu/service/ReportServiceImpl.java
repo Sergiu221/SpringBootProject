@@ -9,7 +9,7 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import com.sergiu.dto.ReportCandidatesDTO;
 import com.sergiu.dto.ReportHallsDTO;
-import com.sergiu.entity.AdmissionResultEntity;
+import com.sergiu.entity.AdmissionResult;
 import com.sergiu.entity.Candidate;
 import com.sergiu.entity.HallEntity;
 import com.sergiu.model.CandidateModel;
@@ -131,7 +131,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public File buildListL(ListAllocationType type) throws Exception {
-        List<AdmissionResultEntity> admissionResultEntities = admissionResultRepository.findAllByListName(type);
+        List<AdmissionResult> admissionResultEntities = admissionResultRepository.findAllByListName(type);
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(new TreeSet(admissionResultEntities));
 
         switch (type) {

@@ -1,6 +1,7 @@
 package com.sergiu.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sergiu.util.StatusExam;
 
 import java.io.Serializable;
 
@@ -19,6 +20,8 @@ public class CandidateDTO implements Serializable {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private HallDTO hallDTO;
+
+    private StatusExam statusExam;
 
     public Long getCnp() {
         return cnp;
@@ -66,5 +69,13 @@ public class CandidateDTO implements Serializable {
 
     public void setHallDTO(HallDTO hallDTO) {
         this.hallDTO = hallDTO;
+    }
+
+    public StatusExam getStatusExam() {
+        return statusExam;
+    }
+
+    public void setStatusExam(StatusExam statusExam) {
+        this.statusExam = statusExam;
     }
 }

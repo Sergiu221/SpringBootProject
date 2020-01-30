@@ -4,13 +4,9 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="firstName" class="java.lang.String"/>
-	<field name="lastName" class="java.lang.String"/>
+	<field name="candidate" class="com.sergiu.entity.Candidate"/>
 	<field name="testGrade" class="java.lang.Double"/>
-	<field name="bacBestGrade" class="java.lang.Double"/>
-	<field name="bacGrade" class="java.lang.Double"/>
 	<field name="finalGrade" class="java.lang.Double"/>
-	<field name="listName" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -140,7 +136,7 @@
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{candidate}.getLastName()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="196" y="-1" width="131" height="25" uuid="62667f8b-d06b-4b17-a263-6ca0fedefc5a"/>
@@ -148,7 +144,7 @@
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{candidate}.getFirstName()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="327" y="-1" width="56" height="25" uuid="5c0695f1-3706-4fcd-a130-397f1fe4303c"/>

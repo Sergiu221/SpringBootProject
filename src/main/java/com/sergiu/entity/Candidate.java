@@ -34,6 +34,7 @@ public class Candidate implements Serializable {
     @Column
     private Double bacBestGrade;
 
+    @JsonBackReference("grades")
     @OneToOne(mappedBy = "candidate")
     private Grades grades;
 

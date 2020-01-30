@@ -1,6 +1,7 @@
 package com.sergiu.service;
 
-import com.sergiu.entity.AdmissionResultEntity;
+import com.sergiu.controller.AdmissionResultDTO;
+import com.sergiu.entity.AdmissionResult;
 import com.sergiu.entity.Candidate;
 import com.sergiu.entity.CandidateOptionEntity;
 import com.sergiu.model.AllocationModel;
@@ -12,6 +13,7 @@ import com.sergiu.transformer.CandidatesTransformer;
 import com.sergiu.util.GradeUtils;
 import com.sergiu.util.ListAllocationType;
 import com.sergiu.util.StatusExam;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +28,36 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AllocationServiceImpl.class);
 
-    @Autowired
+    private ModelMapper modelMapper;
     private CandidatesTransformer transformer;
-
-    @Autowired
     private CandidateRepository candidateRepository;
-
-    @Autowired
     private CandidateOptionRepository candidateOptionRepository;
+    private AdmissionResultRepository admissionResultRepository;
 
     @Autowired
-    private AdmissionResultRepository admissionResultRepository;
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
+    @Autowired
+    public void setTransformer(CandidatesTransformer transformer) {
+        this.transformer = transformer;
+    }
+
+    @Autowired
+    public void setCandidateRepository(CandidateRepository candidateRepository) {
+        this.candidateRepository = candidateRepository;
+    }
+
+    @Autowired
+    public void setCandidateOptionRepository(CandidateOptionRepository candidateOptionRepository) {
+        this.candidateOptionRepository = candidateOptionRepository;
+    }
+
+    @Autowired
+    public void setAdmissionResultRepository(AdmissionResultRepository admissionResultRepository) {
+        this.admissionResultRepository = admissionResultRepository;
+    }
 
     @Override
     public void startAllocateCandidates() {
@@ -44,11 +65,14 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
 
         SortedSet<CandidateResultModel> candidates = retrieveAllCandidatesOrderByFinalGrade();
         for (CandidateResultModel candidateResultModel : candidates) {
-            AdmissionResultEntity resultEntity = new AdmissionResultEntity();
+            Candidate candidate = candidateRepository.findByCnp(candidateResultModel.getCnp()).get();
+
+            AdmissionResult resultEntity = new AdmissionResult();
             ListAllocationType list;
             if (candidateResultModel.getAdmissionType().equals("Olimpic")) {
                 list = ListAllocationType.L1;
                 resultEntity.setFinalGrade(10.0);
+                candidate.setStatusExam(StatusExam.ADMIS);
                 LOGGER.info("Candidatul:" + candidateResultModel.getCnp() + " a fost adaugat in lista" + list);
             } else {
                 list = getAllocationListForCandidate(candidateResultModel, allocation);
@@ -57,13 +81,15 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
                 LOGGER.info("Candidatul:" + candidateResultModel.getCnp() + "a fost adaugat in lista" + list);
             }
 
-            resultEntity.setCandidateCnp(candidateResultModel.getCnp());
-            resultEntity.setFirstName(candidateResultModel.getFirstName());
-            resultEntity.setLastName(candidateResultModel.getLastName());
-            resultEntity.setBacBestGrade(candidateResultModel.getBacBestGrade());
-            resultEntity.setBacGrade(candidateResultModel.getBacGrade());
+            resultEntity.setCnp(candidateResultModel.getCnp());
             resultEntity.setTestGrade(candidateResultModel.getTestGrade());
             resultEntity.setListName(list);
+            if (list == ListAllocationType.L8) {
+                candidate.setStatusExam(StatusExam.RESPINS);
+            } else {
+                candidate.setStatusExam(StatusExam.ADMIS);
+            }
+            candidateRepository.saveAndFlush(candidate);
             admissionResultRepository.saveAndFlush(resultEntity);
         }
     }
@@ -132,11 +158,18 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
 
     @Override
     public void rejectCandidate(Long cnp) {
-        AdmissionResultEntity admissionResultEntity = admissionResultRepository.findById(cnp).get();
-        admissionResultEntity.setListName(ListAllocationType.L8);
-        admissionResultRepository.save(admissionResultEntity);
+        AdmissionResult admissionResult = admissionResultRepository.findById(cnp).get();
+        admissionResult.setListName(ListAllocationType.L8);
+        admissionResultRepository.save(admissionResult);
         Candidate candidate = candidateRepository.findByCnp(cnp).get();
         candidate.setStatusExam(StatusExam.RESPINS);
+        candidateRepository.save(candidate);
         startAllocateCandidates();
+    }
+
+    @Override
+    public AdmissionResultDTO getCandidateResult(Long cnp) {
+        AdmissionResult admissionResult = admissionResultRepository.findById(cnp).get();
+        return modelMapper.map(admissionResult, AdmissionResultDTO.class);
     }
 }

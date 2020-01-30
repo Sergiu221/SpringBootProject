@@ -1,5 +1,7 @@
 package com.sergiu.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,6 +10,7 @@ public class Grades {
     @Id
     private Long cnp;
 
+    @JsonManagedReference("grades")
     @OneToOne
     @MapsId("cnp")
     @JoinColumn(name = "cnp")
