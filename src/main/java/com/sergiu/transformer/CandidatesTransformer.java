@@ -5,10 +5,8 @@ import com.sergiu.dto.CategoryDTO;
 import com.sergiu.dto.HallDTO;
 import com.sergiu.entity.Candidate;
 import com.sergiu.model.CandidateModel;
-import com.sergiu.model.CandidateResultModel;
 import com.sergiu.model.CategoryModel;
 import com.sergiu.model.GradesModel;
-import com.sergiu.util.GradeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,11 +17,11 @@ import java.util.stream.Collectors;
 @Component
 public class CandidatesTransformer {
 
-    @Autowired
     private ModelMapper modelMapper;
 
-    public CandidatesTransformer() {
-
+    @Autowired
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
     }
 
     public List<CandidateDTO> toDTO(List<Candidate> entities) {
@@ -34,10 +32,6 @@ public class CandidatesTransformer {
 
     public Candidate toEntity(CandidateDTO candidateDTO) {
         return modelMapper.map(candidateDTO, Candidate.class);
-    }
-
-    public Candidate toEntity(CandidateModel candidateModel) {
-        return modelMapper.map(candidateModel, Candidate.class);
     }
 
     public CandidateModel toModel(Candidate candidate) {
@@ -56,27 +50,6 @@ public class CandidatesTransformer {
     public List<CandidateModel> toModel(List<Candidate> candidateEntities) {
         return candidateEntities.stream()
                 .map(entity -> toModel(entity))
-                .collect(Collectors.toList());
-    }
-
-    public CandidateResultModel toCandidateResultModel(CandidateModel candidateModel) {
-        CandidateResultModel candidateResultModel = new CandidateResultModel();
-        candidateResultModel.setCnp(candidateModel.getCnp());
-        candidateResultModel.setFirstName(candidateModel.getFirstName());
-        candidateResultModel.setLastName(candidateModel.getLastName());
-        candidateResultModel.setAdmissionType(candidateModel.getCategoryModel().getAdmissionType());
-        Double testGrade = candidateModel.getAverageOnWriteTest();
-        candidateResultModel.setTestGrade(testGrade);
-        candidateResultModel.setBacGrade(candidateModel.getBacGrade());
-        candidateResultModel.setBacBestGrade(candidateModel.getBacBestGrade());
-        Double finalGrade = GradeUtils.calculateFinalResult(testGrade, candidateModel.getBacBestGrade(), candidateModel.getBacGrade());
-        candidateResultModel.setFinalGrade(finalGrade);
-        return candidateResultModel;
-    }
-
-    public List<CandidateResultModel> toCandidateResultModel(List<CandidateModel> candidateModels) {
-        return candidateModels.stream()
-                .map(model -> toCandidateResultModel(model))
                 .collect(Collectors.toList());
     }
 

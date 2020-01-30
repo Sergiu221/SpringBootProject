@@ -12,8 +12,6 @@ import com.sergiu.dto.ReportHallsDTO;
 import com.sergiu.entity.AdmissionResult;
 import com.sergiu.entity.Candidate;
 import com.sergiu.entity.HallEntity;
-import com.sergiu.model.CandidateModel;
-import com.sergiu.model.CandidateResultModel;
 import com.sergiu.model.ColumnCandidatesReport;
 import com.sergiu.repository.AdmissionResultRepository;
 import com.sergiu.repository.CandidateRepository;
@@ -119,13 +117,8 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public File buildGeneralListWithGradesReport() {
-        List<CandidateModel> candidates = transformer.toModel(candidateRepository.findAll());
-        List<CandidateResultModel> candidateResultModels = transformer.toCandidateResultModel(candidates);
-        for (CandidateResultModel candidateResultModel : candidateResultModels) {
-            ListAllocationType listType = admissionResultRepository.findById(candidateResultModel.getCnp()).get().getListName();
-            candidateResultModel.setListName(listType.getMesage());
-        }
-        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(new TreeSet(candidateResultModels));
+        List<AdmissionResult> admissionResults = admissionResultRepository.findAll();
+        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(new TreeSet(admissionResults));
         return buildReportUsingTemplate(generalListResults, "lista_generala_rezultate.pdf", jrBeanCollectionDataSource);
     }
 

@@ -1,7 +1,6 @@
 package com.sergiu.service;
 
 import com.sergiu.builders.*;
-import com.sergiu.entity.Grades;
 import com.sergiu.repository.*;
 import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.table.Row;
@@ -19,6 +18,13 @@ import java.util.List;
 public class FilesServiceImpl implements FilesService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FilesServiceImpl.class);
 
+    private GradesService gradesService;
+
+    @Autowired
+    public void setGradesService(GradesService gradesService) {
+        this.gradesService = gradesService;
+    }
+
     @Autowired
     private CandidateRepository candidateRepository;
 
@@ -33,9 +39,6 @@ public class FilesServiceImpl implements FilesService {
 
     @Autowired
     private SupervisorRepository supervisorRepository;
-
-    @Autowired
-    private GradeRepository gradeRepository;
 
     @Override
     public void readAndInsertMainResources(InputStream inputStream) throws Exception {
@@ -159,8 +162,8 @@ public class FilesServiceImpl implements FilesService {
         List<List<String>> listGrades = getListOfFiledFromTable(table);
 
         for (List<String> grade : listGrades) {
-            Grades grades = GradesBuilder.build(grade);
-            gradeRepository.save(grades);
+            gradesService.add(GradesBuilder.buildDTO(grade));
         }
+        LOGGER.info("Notele au fost uploadate cu succes!");
     }
 }

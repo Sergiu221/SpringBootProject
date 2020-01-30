@@ -21,7 +21,7 @@ public class Candidate implements Serializable {
     private String lastName;
 
     @JsonBackReference("category")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
