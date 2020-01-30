@@ -8,6 +8,7 @@ import com.sergiu.model.AllocationModel;
 import com.sergiu.repository.AdmissionResultRepository;
 import com.sergiu.repository.CandidateOptionRepository;
 import com.sergiu.repository.CandidateRepository;
+import com.sergiu.util.AdmissionType;
 import com.sergiu.util.ListAllocationType;
 import com.sergiu.util.StatusExam;
 import org.modelmapper.ModelMapper;
@@ -24,7 +25,6 @@ import java.util.TreeSet;
 public class AllocationServiceImpl implements AllocationService, AllocationRule {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AllocationServiceImpl.class);
-    private static final String OLYMPIC = "Olimpic";
 
     private ModelMapper modelMapper;
     private CandidateRepository candidateRepository;
@@ -71,7 +71,7 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
     }
 
     private boolean isOlympic(AdmissionResult admissionResult) {
-        return OLYMPIC.equals(admissionResult.getCandidate().getCategory().getAdmissionType());
+        return AdmissionType.OLIMPIC.equals(admissionResult.getCandidate().getCategory().getAdmissionType());
     }
 
     private ListAllocationType getAllocationListForCandidate(AdmissionResult admissionResult, AllocationModel allocation) {

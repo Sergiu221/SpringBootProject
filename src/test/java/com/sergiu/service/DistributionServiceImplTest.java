@@ -7,6 +7,7 @@ import com.sergiu.model.Element;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.DistributionRepository;
 import com.sergiu.repository.HallRepository;
+import com.sergiu.util.AdmissionType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,14 +63,14 @@ public class DistributionServiceImplTest {
 
     private List<Category> retrieveCategories() {
         List<Category> categories = new ArrayList<>();
-        categories.add(new Category(1, "Category1", "", "", ""));
-        categories.add(new Category(2, "Category2", "", "", ""));
+        categories.add(new Category(1, "Category1", "", "", AdmissionType.ADMITERE));
+        categories.add(new Category(2, "Category2", "", "", AdmissionType.ADMITERE));
         return categories;
     }
 
     private List<Candidate> retrieveCandidates() {
-        Category category1 = new Category(1, "", "", "", "");
-        Category category2 = new Category(2, "", "", "", "");
+        Category category1 = new Category(1, "", "", "", AdmissionType.ADMITERE);
+        Category category2 = new Category(2, "", "", "", AdmissionType.ADMITERE);
         List<Candidate> candidates = new ArrayList<>();
         candidates.add(new Candidate(123L, "FirstName1", "", category1, ""));
         candidates.add(new Candidate(133L, "FirstName2", "", category2, ""));

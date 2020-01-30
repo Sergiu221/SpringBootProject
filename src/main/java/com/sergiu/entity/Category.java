@@ -1,6 +1,7 @@
 package com.sergiu.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sergiu.util.AdmissionType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ public class Category implements Comparable {
     @Column
     private String language;
 
-    @Column
-    private String admissionType;
+    @Enumerated(EnumType.STRING)
+    private AdmissionType admissionType;
 
     @JsonManagedReference("category")
     @OneToMany(mappedBy = "category")
@@ -36,7 +37,7 @@ public class Category implements Comparable {
 
     }
 
-    public Category(Integer id, String name, String discipline, String language, String admissionType) {
+    public Category(Integer id, String name, String discipline, String language, AdmissionType admissionType) {
         this.id = id;
         this.name = name;
         this.discipline = discipline;
@@ -76,11 +77,11 @@ public class Category implements Comparable {
         this.language = language;
     }
 
-    public String getAdmissionType() {
+    public AdmissionType getAdmissionType() {
         return admissionType;
     }
 
-    public void setAdmissionType(String admissionType) {
+    public void setAdmissionType(AdmissionType admissionType) {
         this.admissionType = admissionType;
     }
 

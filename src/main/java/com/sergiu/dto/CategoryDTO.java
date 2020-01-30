@@ -1,6 +1,7 @@
 package com.sergiu.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sergiu.util.AdmissionType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class CategoryDTO implements Serializable {
 
     private String language;
 
-    private String admissionType;
+    private AdmissionType admissionType;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<CandidateDTO> candidateDTOS = new ArrayList<>();
@@ -53,11 +54,11 @@ public class CategoryDTO implements Serializable {
         this.language = language;
     }
 
-    public String getAdmissionType() {
+    public AdmissionType getAdmissionType() {
         return admissionType;
     }
 
-    public void setAdmissionType(String admissionType) {
+    public void setAdmissionType(AdmissionType admissionType) {
         this.admissionType = admissionType;
     }
 
