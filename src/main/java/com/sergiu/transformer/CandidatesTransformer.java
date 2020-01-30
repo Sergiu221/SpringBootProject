@@ -4,9 +4,6 @@ import com.sergiu.dto.CandidateDTO;
 import com.sergiu.dto.CategoryDTO;
 import com.sergiu.dto.HallDTO;
 import com.sergiu.entity.Candidate;
-import com.sergiu.model.CandidateModel;
-import com.sergiu.model.CategoryModel;
-import com.sergiu.model.GradesModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,25 +29,6 @@ public class CandidatesTransformer {
 
     public Candidate toEntity(CandidateDTO candidateDTO) {
         return modelMapper.map(candidateDTO, Candidate.class);
-    }
-
-    public CandidateModel toModel(Candidate candidate) {
-        CandidateModel candidateModel = modelMapper.map(candidate, CandidateModel.class);
-        if (candidate.getGrades() != null) {
-            candidateModel.setGradesModel(modelMapper.map(candidate.getGrades(), GradesModel.class));
-        }
-
-        if (candidate.getCategory() != null) {
-            candidateModel.setCategoryModel(modelMapper.map(candidate.getCategory(), CategoryModel.class));
-        }
-
-        return candidateModel;
-    }
-
-    public List<CandidateModel> toModel(List<Candidate> candidateEntities) {
-        return candidateEntities.stream()
-                .map(entity -> toModel(entity))
-                .collect(Collectors.toList());
     }
 
     public CandidateDTO toDTO(Candidate entity) {
