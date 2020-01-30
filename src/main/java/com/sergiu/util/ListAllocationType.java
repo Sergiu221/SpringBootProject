@@ -11,13 +11,13 @@ public enum ListAllocationType {
     L7("L7"),
     L8("L8");
 
-    ListAllocationType(String mesage) {
-        this.mesage = mesage;
+    ListAllocationType(String type) {
+        this.type = type;
     }
 
-    private final String mesage;
+    private final String type;
 
-    public String getMesage() {
-        return mesage;
+    public String getType() {
+        return type;
     }
 }

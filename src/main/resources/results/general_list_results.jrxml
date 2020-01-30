@@ -4,13 +4,10 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="firstName" class="java.lang.String"/>
-	<field name="lastName" class="java.lang.String"/>
+	<field name="candidate" class="com.sergiu.entity.Candidate"/>
 	<field name="testGrade" class="java.lang.Double"/>
-	<field name="bacBestGrade" class="java.lang.Double"/>
-	<field name="bacGrade" class="java.lang.Double"/>
 	<field name="finalGrade" class="java.lang.Double"/>
-	<field name="listName" class="java.lang.String"/>
+	<field name="listName" class="com.sergiu.util.ListAllocationType"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -155,7 +152,7 @@ Bac]]></text>
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{candidate}.getLastName()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="161" y="-1" width="131" height="25" uuid="62667f8b-d06b-4b17-a263-6ca0fedefc5a"/>
@@ -163,7 +160,7 @@ Bac]]></text>
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{candidate}.getFirstName()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="292" y="-1" width="56" height="25" uuid="5c0695f1-3706-4fcd-a130-397f1fe4303c"/>
@@ -181,7 +178,7 @@ Bac]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{bacBestGrade}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{candidate}.getBacBestGrade()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="440" y="-1" width="46" height="25" uuid="e13f68c5-01bc-4161-84c5-530488c19779"/>
@@ -195,7 +192,7 @@ Bac]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{bacGrade}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{candidate}.getBacGrade()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="486" y="-1" width="40" height="25" uuid="ae4e858d-919b-421d-bfe7-d3f0edcc7518"/>
@@ -215,7 +212,7 @@ Bac]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{listName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{listName}.toString()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="348" y="-1" width="46" height="25" uuid="779eeebc-17a8-408e-b58d-502118a9b669"/>
