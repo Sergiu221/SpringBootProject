@@ -11,7 +11,7 @@ public class CategoryBuilder {
         category.setName(String.valueOf(fields.get(0)));
         category.setDiscipline(String.valueOf(fields.get(1)));
         category.setLanguage(String.valueOf(fields.get(2)));
-        category.setAdmissionType(AdmissionType.valueOf(fields.get(3)));
+        category.setAdmissionType(AdmissionType.get(fields.get(3)));
         return category;
     }
 }
