@@ -2,7 +2,7 @@ package com.sergiu.model;
 
 import com.sergiu.entity.Candidate;
 import com.sergiu.entity.Category;
-import com.sergiu.entity.HallEntity;
+import com.sergiu.entity.Hall;
 import org.junit.Assert;
 import org.junit.Before;
 
@@ -12,14 +12,14 @@ import java.math.BigDecimal;
 
 public class ElementTest {
 
-    private HallEntity hallEntity;
+    private Hall hall;
 
     private Category category;
     private Category category2;
 
     @Before
     public void init() {
-        hallEntity = new HallEntity("Sala1", 12, 7);
+        hall = new Hall("Sala1", 12, 7);
         Candidate entity = new Candidate();
         entity.setCnp(1940122374500L);
         entity.setFirstName("Sergiu-Adrian");
@@ -43,7 +43,7 @@ public class ElementTest {
 
     @Test
     public void testCohesion() {
-        Element element = new Element(category, hallEntity);
+        Element element = new Element(category, hall);
         Assert.assertEquals(new BigDecimal("0.57"), element.getCohesion());
         Assert.assertEquals(4, element.restOfCandidates());
     }
@@ -51,15 +51,15 @@ public class ElementTest {
     @Test
     public void testCompareTo() {
 
-        Element element = new Element(category, hallEntity);
-        Element element1 = new Element(category2, hallEntity);
+        Element element = new Element(category, hall);
+        Element element1 = new Element(category2, hall);
         Assert.assertEquals(1, element.compareTo(element1));
     }
 
     @Test
     public void testCohesionMax() {
-        hallEntity = new HallEntity("Sala1", 8, 4);
-        Element element = new Element(category, hallEntity);
+        hall = new Hall("Sala1", 8, 4);
+        Element element = new Element(category, hall);
         Assert.assertEquals(BigDecimal.ONE, element.getCohesion());
     }
 

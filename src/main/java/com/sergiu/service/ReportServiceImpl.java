@@ -11,7 +11,7 @@ import com.sergiu.dto.ReportCandidatesDTO;
 import com.sergiu.dto.ReportHallsDTO;
 import com.sergiu.entity.AdmissionResult;
 import com.sergiu.entity.Candidate;
-import com.sergiu.entity.HallEntity;
+import com.sergiu.entity.Hall;
 import com.sergiu.model.ColumnCandidatesReport;
 import com.sergiu.repository.AdmissionResultRepository;
 import com.sergiu.repository.CandidateRepository;
@@ -108,10 +108,10 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public File buildCandidatesListFromHall(Integer hallId) {
-        HallEntity hallEntity = hallRepository.findById(hallId).get();
-        List<Candidate> candidates = hallEntity.getListCandidates();
+        Hall hall = hallRepository.findById(hallId).get();
+        List<Candidate> candidates = hall.getListCandidates();
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
-        String fileName = "lista_candidatilor_din_sala_" + hallEntity.getName() + ".pdf";
+        String fileName = "lista_candidatilor_din_sala_" + hall.getName() + ".pdf";
         return buildReportUsingTemplate(candidatesFromHall, fileName, jrBeanCollectionDataSource);
     }
 

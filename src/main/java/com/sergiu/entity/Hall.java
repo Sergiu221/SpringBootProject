@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "halls")
-public class HallEntity implements Comparable {
+public class Hall implements Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,18 +40,18 @@ public class HallEntity implements Comparable {
     private List<Candidate> listCandidates;
 
 
-    public HallEntity() {
+    public Hall() {
         this.listCandidates = new ArrayList<>();
     }
 
-    public HallEntity(String name, int size, int utilizableSize) {
+    public Hall(String name, int size, int utilizableSize) {
         this.name = name;
         this.size = size;
         this.utilizableSize = utilizableSize;
         this.listCandidates = new ArrayList<>();
     }
 
-    public HallEntity(Integer id, String name, int size, int utilizableSize) {
+    public Hall(Integer id, String name, int size, int utilizableSize) {
         this.id = id;
         this.name = name;
         this.size = size;
@@ -118,7 +118,7 @@ public class HallEntity implements Comparable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        HallEntity other = (HallEntity) obj;
+        Hall other = (Hall) obj;
         if (id != other.id)
             return false;
         if (name == null) {
@@ -135,15 +135,15 @@ public class HallEntity implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        HallEntity hallEntity = (HallEntity) o;
+        Hall hall = (Hall) o;
 
         return (this.utilizableSize - listCandidates.size()) -
-                (hallEntity.getUtilizableSize() - hallEntity.getListCandidates().size());
+                (hall.getUtilizableSize() - hall.getListCandidates().size());
     }
 
     @Override
     public String toString() {
-        return "HallEntity{" +
+        return "Hall{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", size=" + size +

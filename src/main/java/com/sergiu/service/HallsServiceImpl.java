@@ -1,7 +1,7 @@
 package com.sergiu.service;
 
 import com.sergiu.dto.HallDTO;
-import com.sergiu.entity.HallEntity;
+import com.sergiu.entity.Hall;
 import com.sergiu.exception.ResourceNotConsistentData;
 import com.sergiu.exception.ResourceNotFoundException;
 import com.sergiu.repository.HallRepository;
@@ -50,7 +50,7 @@ public class HallsServiceImpl implements HallsService {
 
     @Override
     public void deleteHall(Integer id) {
-        HallEntity entity = hallRepository.findById(id)
+        Hall entity = hallRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Hall", "id", id));
         hallRepository.delete(entity);
     }

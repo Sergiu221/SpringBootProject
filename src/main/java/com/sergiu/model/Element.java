@@ -1,7 +1,7 @@
 package com.sergiu.model;
 
 import com.sergiu.entity.Category;
-import com.sergiu.entity.HallEntity;
+import com.sergiu.entity.Hall;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -10,16 +10,16 @@ import java.util.Objects;
 public class Element implements Comparable {
     private Category category;
 
-    private HallEntity hallEntity;
+    private Hall hall;
 
-    public Element(Category category, HallEntity hallEntity) {
+    public Element(Category category, Hall hall) {
         this.category = category;
-        this.hallEntity = hallEntity;
+        this.hall = hall;
     }
 
     public BigDecimal getCohesion() {
 
-        if (hallEntity.getUtilizableSize() == 0) {
+        if (hall.getUtilizableSize() == 0) {
             return BigDecimal.ZERO;
         }
 
@@ -32,13 +32,13 @@ public class Element implements Comparable {
         }
 
         BigDecimal restCandidates = new BigDecimal(restOfCandidates());
-        BigDecimal availableSpaces = new BigDecimal(this.hallEntity.getUtilizableSize());
+        BigDecimal availableSpaces = new BigDecimal(this.hall.getUtilizableSize());
         return restCandidates.divide(availableSpaces, 2, RoundingMode.FLOOR);
     }
 
     public int restOfCandidates() {
         int nrOfCandidates = category.getCandidateEntities().size();
-        int nrOfAvailableSpaces = hallEntity.getUtilizableSize();
+        int nrOfAvailableSpaces = hall.getUtilizableSize();
 
         return nrOfCandidates % nrOfAvailableSpaces;
     }
@@ -55,7 +55,7 @@ public class Element implements Comparable {
             return resultCandidatesComparison;
         }
 
-        int resultHallSpots = this.hallEntity.getUtilizableSize() - object.getHallEntity().getUtilizableSize();
+        int resultHallSpots = this.hall.getUtilizableSize() - object.getHall().getUtilizableSize();
         if (resultHallSpots != 0) {
             return resultHallSpots;
         }
@@ -65,7 +65,7 @@ public class Element implements Comparable {
             return resultNameCategory;
         }
 
-        int resultNameHall = this.hallEntity.getName().compareTo(object.getHallEntity().getName());
+        int resultNameHall = this.hall.getName().compareTo(object.getHall().getName());
         if (resultNameHall != 0) {
             return resultNameHall;
         }
@@ -76,15 +76,15 @@ public class Element implements Comparable {
 
     @Override
     public String toString() {
-        return "Cohesion=" + getCohesion() + " category_id=" + category.getId() + " with hall_id" + hallEntity.getId();
+        return "Cohesion=" + getCohesion() + " category_id=" + category.getId() + " with hall_id" + hall.getId();
     }
 
     public Category getCategory() {
         return category;
     }
 
-    public HallEntity getHallEntity() {
-        return hallEntity;
+    public Hall getHall() {
+        return hall;
     }
 
     @Override
@@ -92,11 +92,11 @@ public class Element implements Comparable {
         Element object = (Element) o;
 
         return (this.getCategory().getId() == object.getCategory().getId()
-                && this.getHallEntity().getId() == object.getHallEntity().getId());
+                && this.getHall().getId() == object.getHall().getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(category, hallEntity);
+        return Objects.hash(category, hall);
     }
 }

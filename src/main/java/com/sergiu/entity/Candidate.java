@@ -42,7 +42,7 @@ public class Candidate implements Serializable {
     @OneToOne
     @JoinTable(name = "distribution", joinColumns = {@JoinColumn(name = "cnp_candidate")}, inverseJoinColumns = {
             @JoinColumn(name = "id_hall")})
-    private HallEntity hallEntity;
+    private Hall hall;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -60,12 +60,12 @@ public class Candidate implements Serializable {
     }
 
 
-    public HallEntity getHallEntity() {
-        return hallEntity;
+    public Hall getHall() {
+        return hall;
     }
 
-    public void setHallEntity(HallEntity hall) {
-        this.hallEntity = hall;
+    public void setHall(Hall hall) {
+        this.hall = hall;
     }
 
     public Long getCnp() {

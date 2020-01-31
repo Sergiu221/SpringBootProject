@@ -40,7 +40,7 @@ public class DistributionServiceImpl implements DistributionService {
     @Override
     public boolean isSufficientSeatsForExam() {
         long numberOfCandidates = candidateRepository.count();
-        long numberOfSeatsFromHalls = hallRepository.findAll().stream().mapToLong(HallEntity::getUtilizableSize).sum();
+        long numberOfSeatsFromHalls = hallRepository.findAll().stream().mapToLong(Hall::getUtilizableSize).sum();
         return numberOfSeatsFromHalls >= numberOfCandidates;
     }
 
@@ -61,17 +61,17 @@ public class DistributionServiceImpl implements DistributionService {
 
                 List<Candidate> listMove;
                 if (element.restOfCandidates() == 0) {
-                    listMove = element.getCategory().getCandidateEntities().subList(0, element.getHallEntity().getUtilizableSize());
+                    listMove = element.getCategory().getCandidateEntities().subList(0, element.getHall().getUtilizableSize());
                 } else {
                     listMove = element.getCategory().getCandidateEntities().subList(0, element.restOfCandidates());
                 }
                 int size = listMove.size();
-                element.getHallEntity().getListCandidates().addAll(listMove);
+                element.getHall().getListCandidates().addAll(listMove);
                 List<Candidate> remainingList = getRemainingCandidates(element, size);
                 element.getCategory().setCandidateEntities(remainingList);
 
-                insertCandidatesIntoHall(listMove, element.getHallEntity());
-                LOGGER.info("Insert [{}] candidates from category [{}] into hall [{}]! ", size, element.getCategory().getId(), element.getHallEntity().getId());
+                insertCandidatesIntoHall(listMove, element.getHall());
+                LOGGER.info("Insert [{}] candidates from category [{}] into hall [{}]! ", size, element.getCategory().getId(), element.getHall().getId());
             }
 
             setOfCategoriesWithHalls = refreshElements(setOfCategoriesWithHalls);
@@ -100,21 +100,21 @@ public class DistributionServiceImpl implements DistributionService {
     @Override
     public SortedSet<Element> fillSet() {
         List<Category> categories = categoryService.getAllCategoriesWithCandidates();
-        List<HallEntity> halls = hallRepository.findAll();
+        List<Hall> halls = hallRepository.findAll();
 
         SortedSet<Element> result = new TreeSet<>();
         for (Category category : categories) {
-            for (HallEntity hall : halls) {
+            for (Hall hall : halls) {
                 result.add(new Element(category, hall));
             }
         }
         return result;
     }
 
-    private void insertCandidatesIntoHall(List<Candidate> candidateEntities, HallEntity hallEntity) {
+    private void insertCandidatesIntoHall(List<Candidate> candidateEntities, Hall hall) {
         List<DistributionEntity> distributions = new ArrayList<>();
         for (Candidate candidate : candidateEntities) {
-            DistributionEntity distribution = new DistributionEntity(new DistributionId(candidate.getCnp(), hallEntity.getId()));
+            DistributionEntity distribution = new DistributionEntity(new DistributionId(candidate.getCnp(), hall.getId()));
             distributions.add(distribution);
         }
         filterNullValue(distributions);

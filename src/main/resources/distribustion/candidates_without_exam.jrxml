@@ -6,7 +6,7 @@
 	</queryString>
 	<field name="firstName" class="java.lang.String"/>
 	<field name="lastName" class="java.lang.String"/>
-	<field name="hallEntity" class="com.sergiu.entity.HallEntity"/>
+	<field name="hall" class="com.sergiu.entity.Hall"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

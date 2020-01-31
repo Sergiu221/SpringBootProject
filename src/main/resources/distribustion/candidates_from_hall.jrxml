@@ -6,7 +6,7 @@
 	</queryString>
 	<field name="firstName" class="java.lang.String"/>
 	<field name="lastName" class="java.lang.String"/>
-	<field name="hallEntity" class="com.sergiu.entity.HallEntity"/>
+	<field name="hall" class="com.sergiu.entity.Hall"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -38,7 +38,7 @@ SESIUNEA IULIE 2020]]></text>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["CANDIDATILOR REPARTIZATI IN SALA "+$F{hallEntity}.getName()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CANDIDATILOR REPARTIZATI IN SALA "+$F{hall}.getName()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -136,7 +136,7 @@ SESIUNEA IULIE 2020]]></text>
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{hallEntity}.getName()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hall}.getName()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

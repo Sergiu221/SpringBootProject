@@ -2,7 +2,7 @@ package com.sergiu.service;
 
 import com.sergiu.entity.Candidate;
 import com.sergiu.entity.Category;
-import com.sergiu.entity.HallEntity;
+import com.sergiu.entity.Hall;
 import com.sergiu.model.Element;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.DistributionRepository;
@@ -39,7 +39,7 @@ public class DistributionServiceImplTest {
     @InjectMocks
     private DistributionServiceImpl distributionServiceImpl;
 
-    private List<HallEntity> halls = new ArrayList<>();
+    private List<Hall> halls = new ArrayList<>();
 
     @Before
     public void init() {
@@ -53,11 +53,11 @@ public class DistributionServiceImplTest {
         Assert.assertTrue(distributionServiceImpl.isSufficientSeatsForExam());
     }
 
-    private List<HallEntity> retrieveHalls() {
-        List<HallEntity> halls = new ArrayList<>();
-        halls.add(new HallEntity(1, "C201", 6, 10));
-        halls.add(new HallEntity(2, "C202", 5, 10));
-        halls.add(new HallEntity(3, "C203", 4, 10));
+    private List<Hall> retrieveHalls() {
+        List<Hall> halls = new ArrayList<>();
+        halls.add(new Hall(1, "C201", 6, 10));
+        halls.add(new Hall(2, "C202", 5, 10));
+        halls.add(new Hall(3, "C203", 4, 10));
         return halls;
     }
 
