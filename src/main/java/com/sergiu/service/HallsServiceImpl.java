@@ -6,10 +6,14 @@ import com.sergiu.exception.ResourceNotConsistentData;
 import com.sergiu.exception.ResourceNotFoundException;
 import com.sergiu.repository.HallRepository;
 import com.sergiu.transformer.HallsTransformer;
+import org.apache.commons.lang.mutable.MutableInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class HallsServiceImpl implements HallsService {
@@ -53,5 +57,48 @@ public class HallsServiceImpl implements HallsService {
         Hall entity = hallRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Hall", "id", id));
         hallRepository.delete(entity);
+    }
+
+    @Override
+    public Integer totalSeatsAvailable() {
+        Long result= hallRepository.findAll().stream().mapToLong(Hall::getUtilizableSize).sum();
+        return result.intValue();
+    }
+
+
+    @Override
+    public List<Hall> selectHalls(Integer numberCandidates) {
+        MutableInt bestValue = new MutableInt(Integer.MAX_VALUE);
+        List<Hall> halls = hallRepository.findAll();
+        List<Hall> result = new ArrayList<>();
+        Map<Integer, List<Hall>> myMap = new HashMap<>();
+
+        findSubset(halls, 0, 0, numberCandidates, result, myMap, bestValue);
+
+        return myMap.get(bestValue.intValue());
+    }
+
+    private void findSubset(List<Hall> halls, int sum, int startIndex, Integer numberCandidates, List<Hall> solution, Map<Integer, List<Hall>> myMap, MutableInt bestValue) {
+
+        if (numberCandidates == sum) {
+            bestValue.setValue(sum);
+            myMap.put(bestValue.intValue(), new ArrayList(solution));
+            solution.clear();
+            return;
+        }
+
+        if (sum > numberCandidates && sum < bestValue.intValue()) {
+            bestValue.setValue(sum);
+            myMap.put(bestValue.intValue(), new ArrayList(solution));
+            solution.clear();
+            return;
+        } else {
+
+            for (int i = startIndex; i < halls.size(); i++) {
+                solution.add(halls.get(i));
+                findSubset(halls, sum + halls.get(i).getUtilizableSize(), i + 1, numberCandidates, solution, myMap, bestValue);
+            }
+            solution.clear();
+        }
     }
 }

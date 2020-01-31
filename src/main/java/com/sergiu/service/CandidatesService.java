@@ -14,4 +14,6 @@ public interface CandidatesService {
     CandidateDTO updateCandidate(Long cnp, CandidateDTO candidateDTO);
 
     void deleteCandidate(Long cnp);
+
+    Integer totalCandidates();
 }

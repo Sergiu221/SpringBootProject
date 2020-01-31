@@ -6,6 +6,7 @@ import com.sergiu.exception.ResourceNotFoundException;
 import com.sergiu.dto.CandidateDTO;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.transformer.CandidatesTransformer;
+import com.sergiu.util.AdmissionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +57,10 @@ public class CandidatesServiceImpl implements CandidatesService {
                 .orElseThrow(() -> new ResourceNotFoundException("Candidate", "cnp", cnp));
 
         candidateRepository.delete(entity);
+    }
+
+    @Override
+    public Integer totalCandidates() {
+        return candidateRepository.findAllByCategory_AdmissionTypeNot(AdmissionType.OLIMPIC).size();
     }
 }

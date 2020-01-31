@@ -2,34 +2,48 @@ package com.sergiu.service;
 
 import com.sergiu.entity.*;
 import com.sergiu.model.Element;
-import com.sergiu.repository.CandidateRepository;
-import com.sergiu.repository.HallRepository;
+import com.sergiu.repository.DistributionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sergiu.repository.DistributionRepository;
-
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @Service
 public class DistributionServiceImpl implements DistributionService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DistributionServiceImpl.class);
 
-    @Autowired
-    private CandidateRepository candidateRepository;
-
-    @Autowired
-    private HallRepository hallRepository;
-
-    @Autowired
+    private CandidatesService candidatesService;
     private CategoryService categoryService;
+    private HallsService hallsService;
+
+    private DistributionRepository distributionRepository;
 
     @Autowired
-    private DistributionRepository distributionRepository;
+    public void setHallsService(HallsService hallsService) {
+        this.hallsService = hallsService;
+    }
+
+    @Autowired
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
+    @Autowired
+    public void setCandidatesService(CandidatesService candidatesService) {
+        this.candidatesService = candidatesService;
+    }
+
+    @Autowired
+    public void setDistributionRepository(DistributionRepository distributionRepository) {
+        this.distributionRepository = distributionRepository;
+    }
 
 
     @Override
@@ -39,9 +53,7 @@ public class DistributionServiceImpl implements DistributionService {
 
     @Override
     public boolean isSufficientSeatsForExam() {
-        long numberOfCandidates = candidateRepository.count();
-        long numberOfSeatsFromHalls = hallRepository.findAll().stream().mapToLong(Hall::getUtilizableSize).sum();
-        return numberOfSeatsFromHalls >= numberOfCandidates;
+        return hallsService.totalSeatsAvailable() >= candidatesService.totalCandidates();
     }
 
     @Override
@@ -100,7 +112,7 @@ public class DistributionServiceImpl implements DistributionService {
     @Override
     public SortedSet<Element> fillSet() {
         List<Category> categories = categoryService.getAllCategoriesWithCandidates();
-        List<Hall> halls = hallRepository.findAll();
+        List<Hall> halls = hallsService.selectHalls(candidatesService.totalCandidates());
 
         SortedSet<Element> result = new TreeSet<>();
         for (Category category : categories) {

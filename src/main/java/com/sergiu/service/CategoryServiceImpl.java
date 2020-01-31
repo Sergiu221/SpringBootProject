@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAllCategoriesWithCandidates() {
 
-        List<Category> categories = categoryRepository.findAllByAdmissionType(AdmissionType.ADMITERE.getType());
+        List<Category> categories = categoryRepository.findAllByAdmissionType(AdmissionType.ADMITERE);
         List<Category> result = new ArrayList<>();
         for (Category category : categories) {
             if (candidateRepository.findAllByCategory_Id(category.getId()).size() > 0) {

@@ -16,7 +16,6 @@ import com.sergiu.model.ColumnCandidatesReport;
 import com.sergiu.repository.AdmissionResultRepository;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.HallRepository;
-import com.sergiu.transformer.CandidatesTransformer;
 import com.sergiu.util.AdmissionType;
 import com.sergiu.util.FieldWidth;
 import com.sergiu.util.ListAllocationType;
@@ -43,9 +42,6 @@ public class ReportServiceImpl implements ReportService {
     public static final String HALLS_TITLE = "Sali";
     public static final String CANDIDATES_PDF = "candidati.pdf";
     public static final String HALLS_PDF = "sali.pdf";
-
-    @Autowired
-    private CandidatesTransformer transformer;
 
     @Autowired
     private CandidateRepository candidateRepository;
@@ -94,14 +90,14 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public File buildGeneralListDistributedReport() {
-        List<Candidate> candidates = candidateRepository.findAllByCategory_AdmissionType(AdmissionType.ADMITERE.getType());
+        List<Candidate> candidates = candidateRepository.findAllByCategory_AdmissionType(AdmissionType.ADMITERE);
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
         return buildReportUsingTemplate(generalListDistributedTemplate, "lista_generala_distribuire.pdf", jrBeanCollectionDataSource);
     }
 
     @Override
     public File buildCandidatesListWithoutExam() {
-        List<Candidate> candidates = candidateRepository.findAllByCategory_AdmissionTypeNot(AdmissionType.ADMITERE.getType());
+        List<Candidate> candidates = candidateRepository.findAllByCategory_AdmissionTypeNot(AdmissionType.ADMITERE);
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(candidates);
         return buildReportUsingTemplate(candidatesWithoutExam, "lista_candidatilor_fara_examen.pdf", jrBeanCollectionDataSource);
     }
