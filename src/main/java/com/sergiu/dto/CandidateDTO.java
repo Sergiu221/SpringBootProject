@@ -13,7 +13,6 @@ public class CandidateDTO implements Serializable {
 
     private String lastName;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private CategoryDTO categoryDTO;
 
     private String highSchool;
