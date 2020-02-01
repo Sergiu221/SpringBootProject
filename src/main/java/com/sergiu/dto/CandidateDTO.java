@@ -17,6 +17,10 @@ public class CandidateDTO implements Serializable {
 
     private String highSchool;
 
+    private Double bacGrade;
+
+    private Double bacBestGrade;
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private HallDTO hallDTO;
 
@@ -60,6 +64,22 @@ public class CandidateDTO implements Serializable {
 
     public void setHighSchool(String highSchool) {
         this.highSchool = highSchool;
+    }
+
+    public Double getBacGrade() {
+        return bacGrade;
+    }
+
+    public void setBacGrade(Double bacGrade) {
+        this.bacGrade = bacGrade;
+    }
+
+    public Double getBacBestGrade() {
+        return bacBestGrade;
+    }
+
+    public void setBacBestGrade(Double bacBestGrade) {
+        this.bacBestGrade = bacBestGrade;
     }
 
     public HallDTO getHallDTO() {
