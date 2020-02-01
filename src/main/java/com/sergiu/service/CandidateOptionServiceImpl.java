@@ -39,6 +39,7 @@ public class CandidateOptionServiceImpl implements CandidateOptionService {
         CandidateOption candidateOption = new CandidateOption();
         candidateOption.setCandidateOptionId(new CandidateOptionId(candidateOptionDTO.getCnp(), candidateOptionDTO.getAdmissionOption()));
         candidateOption.setCandidate(new Candidate(candidateOptionDTO.getCnp()));
+        candidateOption.setPriority(candidateOptionDTO.getPriority());
         candidateOptionRepository.save(candidateOption);
     }
 
