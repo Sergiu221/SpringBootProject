@@ -5,6 +5,7 @@ import com.sergiu.entity.Category;
 import com.sergiu.entity.Hall;
 import com.sergiu.model.Element;
 import com.sergiu.repository.CandidateRepository;
+import com.sergiu.repository.CategoryRepository;
 import com.sergiu.repository.DistributionRepository;
 import com.sergiu.repository.HallRepository;
 import com.sergiu.util.AdmissionType;
@@ -21,14 +22,13 @@ import java.util.SortedSet;
 
 import static org.mockito.Mockito.when;
 
-
 public class DistributionServiceImplTest {
 
     @Mock
-    private CategoryServiceImpl categoryService;
+    private CandidateRepository candidateRepository;
 
     @Mock
-    private CandidateRepository candidateRepository;
+    private CategoryRepository categoryRepository;
 
     @Mock
     private HallRepository hallRepository;
@@ -37,27 +37,37 @@ public class DistributionServiceImplTest {
     private DistributionRepository distributionRepository;
 
     @InjectMocks
-    private DistributionServiceImpl distributionServiceImpl;
+    private CandidatesService candidatesService = new CandidatesServiceImpl();
 
-    private List<Hall> halls = new ArrayList<>();
+    @InjectMocks
+    private CategoryService categoryService = new CategoryServiceImpl();
+
+    @InjectMocks
+    private HallsService hallsService = new HallsServiceImpl();
+
+    @InjectMocks
+    private DistributionServiceImpl distributionService = new DistributionServiceImpl();
 
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        when(candidateRepository.count()).thenReturn(15L);
+        when(candidateRepository.findAllByCategory_AdmissionTypeNot(AdmissionType.OLIMPIC)).thenReturn(retrieveCandidates());
         when(hallRepository.findAll()).thenReturn(retrieveHalls());
+        distributionService.setCandidatesService(candidatesService);
+        distributionService.setCategoryService(categoryService);
+        distributionService.setHallsService(hallsService);
     }
 
     @Test
     public void testIsSufficientSeatsForExam() {
-        Assert.assertTrue(distributionServiceImpl.isSufficientSeatsForExam());
+        Assert.assertTrue(distributionService.isSufficientSeatsForExam());
     }
 
     private List<Hall> retrieveHalls() {
         List<Hall> halls = new ArrayList<>();
         halls.add(new Hall(1, "C201", 6, 10));
         halls.add(new Hall(2, "C202", 5, 10));
-        halls.add(new Hall(3, "C203", 4, 10));
+        halls.add(new Hall(3, "C203", 4, 8));
         return halls;
     }
 
@@ -79,8 +89,10 @@ public class DistributionServiceImplTest {
 
     @Test
     public void testFillSet() {
-        when(categoryService.getAllCategoriesWithCandidates()).thenReturn(retrieveCategories());
-        SortedSet<Element> table = distributionServiceImpl.fillSet();
-        Assert.assertEquals(6, table.size());
+        when(candidateRepository.findAllByCategory_Id(1)).thenReturn(retrieveCandidates().subList(0, 1));
+        when(candidateRepository.findAllByCategory_Id(1)).thenReturn(retrieveCandidates().subList(1, 2));
+        when(categoryRepository.findAllByAdmissionType(AdmissionType.ADMITERE)).thenReturn(retrieveCategories());
+        SortedSet<Element> table = distributionService.fillSet();
+        Assert.assertEquals(1, table.size());
     }
 }

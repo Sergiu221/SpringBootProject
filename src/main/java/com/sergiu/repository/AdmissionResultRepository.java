@@ -11,4 +11,6 @@ import java.util.List;
 public interface AdmissionResultRepository extends JpaRepository<AdmissionResult, Long> {
 
     List<AdmissionResult> findAllByListName(ListAllocationType listType);
+
+    List<AdmissionResult>findAllByListNameIsNullOrListNameIsNot(ListAllocationType listAllocationType);
 }

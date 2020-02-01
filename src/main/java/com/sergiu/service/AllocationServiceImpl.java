@@ -54,7 +54,7 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
     @Override
     public void startAllocateCandidates() {
         AllocationModel allocation = new AllocationModel(RO_BUGET, RO_TAXA, EN_BUGET, EN_TAXA, MD_RO_BUGET, MD_EN_TAXA);
-        SortedSet<AdmissionResult> admissionResults = new TreeSet<>(admissionResultRepository.findAll());
+        SortedSet<AdmissionResult> admissionResults = new TreeSet<>(admissionResultRepository.findAllByListNameIsNullOrListNameIsNot(ListAllocationType.L8));
 
         for (AdmissionResult admissionResult : admissionResults) {
             if (isOlympic(admissionResult)) {
