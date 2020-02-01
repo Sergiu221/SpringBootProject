@@ -7,6 +7,7 @@
 	<field name="firstName" class="java.lang.String"/>
 	<field name="lastName" class="java.lang.String"/>
 	<field name="hall" class="com.sergiu.entity.Hall"/>
+	<field name="category" class="com.sergiu.entity.Category"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -45,7 +46,7 @@ SESIUNEA IULIE 2020]]></text>
 	<columnHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="43" y="17" width="49" height="19" uuid="70fe0991-3432-4f10-a8d8-b439e6f349c3"/>
+				<reportElement x="5" y="17" width="49" height="19" uuid="70fe0991-3432-4f10-a8d8-b439e6f349c3"/>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -55,7 +56,7 @@ SESIUNEA IULIE 2020]]></text>
 				<text><![CDATA[Nr. loc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="244" y="17" width="130" height="19" uuid="9ebcc4a7-fd8b-43a1-9163-1b097995145b"/>
+				<reportElement x="206" y="17" width="130" height="19" uuid="9ebcc4a7-fd8b-43a1-9163-1b097995145b"/>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -65,7 +66,7 @@ SESIUNEA IULIE 2020]]></text>
 				<text><![CDATA[Prenume]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="92" y="17" width="152" height="19" uuid="fbefa5b3-7c52-428c-9edf-c2129202c59e"/>
+				<reportElement x="54" y="17" width="152" height="19" uuid="fbefa5b3-7c52-428c-9edf-c2129202c59e"/>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -75,7 +76,7 @@ SESIUNEA IULIE 2020]]></text>
 				<text><![CDATA[Nume]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="374" y="17" width="70" height="19" uuid="0fe9de75-cb69-41c7-b092-d04202019151"/>
+				<reportElement x="336" y="17" width="70" height="19" uuid="0fe9de75-cb69-41c7-b092-d04202019151"/>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -85,7 +86,7 @@ SESIUNEA IULIE 2020]]></text>
 				<text><![CDATA[Nr. leg.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="444" y="17" width="100" height="19" uuid="3549aca3-fa7e-49ec-b5b9-027f857db69f"/>
+				<reportElement x="406" y="17" width="100" height="19" uuid="3549aca3-fa7e-49ec-b5b9-027f857db69f"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -94,12 +95,22 @@ SESIUNEA IULIE 2020]]></text>
 				</textElement>
 				<text><![CDATA[Sala]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="506" y="17" width="54" height="19" uuid="38eeff4a-20b1-4a7e-93dd-538a8c244891"/>
+				<box padding="0">
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teza]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="43" y="-1" width="49" height="25" uuid="b178e57d-3c0a-4ced-a9c4-b0b5a0c9b584"/>
+				<reportElement x="5" y="-1" width="49" height="25" uuid="b178e57d-3c0a-4ced-a9c4-b0b5a0c9b584"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -107,7 +118,7 @@ SESIUNEA IULIE 2020]]></text>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="92" y="-1" width="152" height="25" uuid="bce52bb3-a5fd-48a2-aea9-4296a802ff21"/>
+				<reportElement x="54" y="-1" width="152" height="25" uuid="bce52bb3-a5fd-48a2-aea9-4296a802ff21"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -115,7 +126,7 @@ SESIUNEA IULIE 2020]]></text>
 				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="244" y="-1" width="130" height="25" uuid="62667f8b-d06b-4b17-a263-6ca0fedefc5a"/>
+				<reportElement x="206" y="-1" width="130" height="25" uuid="62667f8b-d06b-4b17-a263-6ca0fedefc5a"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -123,7 +134,7 @@ SESIUNEA IULIE 2020]]></text>
 				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="374" y="-1" width="70" height="25" uuid="5c0695f1-3706-4fcd-a130-397f1fe4303c"/>
+				<reportElement x="336" y="-1" width="70" height="25" uuid="5c0695f1-3706-4fcd-a130-397f1fe4303c"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -131,12 +142,20 @@ SESIUNEA IULIE 2020]]></text>
 				<textFieldExpression><![CDATA["Nimic"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="444" y="-1" width="100" height="25" uuid="f379ea79-3ef3-4096-891a-d3b940ab2725"/>
+				<reportElement x="406" y="-1" width="100" height="25" uuid="f379ea79-3ef3-4096-891a-d3b940ab2725"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{hall}.getName()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="506" y="-1" width="54" height="25" uuid="4fd23ac3-444a-464b-a77b-a09c7d8695ec"/>
+				<box padding="0">
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{category}.getName()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

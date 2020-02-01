@@ -32,7 +32,7 @@ SESIUNEA IULIE 2020]]></text>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="23" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<staticText>
 				<reportElement x="110" y="4" width="335" height="15" uuid="b0d9c1e7-1213-4649-bebc-40617316890c"/>
 				<textElement textAlignment="Center">
@@ -40,12 +40,8 @@ SESIUNEA IULIE 2020]]></text>
 				</textElement>
 				<text><![CDATA[CANDIDATILOR PE SALI PENTRU TESTUL SCRIS]]></text>
 			</staticText>
-		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="43" y="17" width="49" height="19" uuid="70fe0991-3432-4f10-a8d8-b439e6f349c3"/>
+				<reportElement x="41" y="22" width="49" height="19" uuid="ee3fd089-4083-4771-a588-d01b2485a2a4"/>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -55,7 +51,7 @@ SESIUNEA IULIE 2020]]></text>
 				<text><![CDATA[Nr. loc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="244" y="17" width="130" height="19" uuid="9ebcc4a7-fd8b-43a1-9163-1b097995145b"/>
+				<reportElement x="242" y="22" width="130" height="19" uuid="7fd5303a-a01c-4c88-8dd2-7ab0c1f4c68e"/>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -65,7 +61,7 @@ SESIUNEA IULIE 2020]]></text>
 				<text><![CDATA[Prenume]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="92" y="17" width="152" height="19" uuid="fbefa5b3-7c52-428c-9edf-c2129202c59e"/>
+				<reportElement x="90" y="22" width="152" height="19" uuid="a1c489c2-0245-4a42-aa26-f5ffde3b94c1"/>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -75,7 +71,7 @@ SESIUNEA IULIE 2020]]></text>
 				<text><![CDATA[Nume]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="374" y="17" width="70" height="19" uuid="0fe9de75-cb69-41c7-b092-d04202019151"/>
+				<reportElement x="372" y="22" width="70" height="19" uuid="d24f1578-b680-408d-afe8-62b009f21199"/>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -85,7 +81,7 @@ SESIUNEA IULIE 2020]]></text>
 				<text><![CDATA[Nr. leg.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="444" y="17" width="100" height="19" uuid="3549aca3-fa7e-49ec-b5b9-027f857db69f"/>
+				<reportElement x="442" y="22" width="100" height="19" uuid="ce296189-fbff-4889-b8a0-13b7a8541e6a"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -95,11 +91,11 @@ SESIUNEA IULIE 2020]]></text>
 				<text><![CDATA[Sala]]></text>
 			</staticText>
 		</band>
-	</columnHeader>
+	</pageHeader>
 	<detail>
 		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="43" y="-1" width="49" height="25" uuid="b178e57d-3c0a-4ced-a9c4-b0b5a0c9b584"/>
+				<reportElement x="41" y="-1" width="49" height="25" uuid="b178e57d-3c0a-4ced-a9c4-b0b5a0c9b584"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -107,15 +103,7 @@ SESIUNEA IULIE 2020]]></text>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="92" y="-1" width="152" height="25" uuid="bce52bb3-a5fd-48a2-aea9-4296a802ff21"/>
-				<box padding="0">
-					<pen lineWidth="1.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="244" y="-1" width="130" height="25" uuid="62667f8b-d06b-4b17-a263-6ca0fedefc5a"/>
+				<reportElement x="90" y="-1" width="152" height="25" uuid="bce52bb3-a5fd-48a2-aea9-4296a802ff21"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -123,7 +111,15 @@ SESIUNEA IULIE 2020]]></text>
 				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="374" y="-1" width="70" height="25" uuid="5c0695f1-3706-4fcd-a130-397f1fe4303c"/>
+				<reportElement x="242" y="-1" width="130" height="25" uuid="62667f8b-d06b-4b17-a263-6ca0fedefc5a"/>
+				<box padding="0">
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="372" y="-1" width="70" height="25" uuid="5c0695f1-3706-4fcd-a130-397f1fe4303c"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -131,7 +127,7 @@ SESIUNEA IULIE 2020]]></text>
 				<textFieldExpression><![CDATA["Nimic"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="444" y="-1" width="100" height="25" uuid="f379ea79-3ef3-4096-891a-d3b940ab2725"/>
+				<reportElement x="442" y="-1" width="100" height="25" uuid="f379ea79-3ef3-4096-891a-d3b940ab2725"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>

@@ -17,7 +17,9 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
     void deleteByCnp(Long cnp);
 
-    List<Candidate> findAllByCategory_AdmissionType(AdmissionType admissionType);
+    List<Candidate> findAllByHall_IdOrderByCategoryAscLastNameAscFirstNameAsc(Integer hallId);
 
     List<Candidate> findAllByCategory_AdmissionTypeNot(AdmissionType admissionType);
+
+    List<Candidate> findAllByCategory_AdmissionTypeOrderByLastNameAscFirstNameAsc(AdmissionType admissionType);
 }
