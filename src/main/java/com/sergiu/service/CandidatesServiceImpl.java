@@ -47,10 +47,7 @@ public class CandidatesServiceImpl implements CandidatesService {
 
     @Override
     public void deleteCandidate(Long cnp) {
-        Candidate entity = candidateRepository.findByCnp(cnp)
-                .orElseThrow(() -> new ResourceNotFoundException("Candidate", "cnp", cnp));
-
-        candidateRepository.delete(entity);
+          candidateRepository.deleteById(cnp);
     }
 
     @Override

@@ -3,13 +3,14 @@ package com.sergiu.service;
 import com.sergiu.controller.AdmissionResultDTO;
 import com.sergiu.entity.AdmissionResult;
 import com.sergiu.entity.Candidate;
-import com.sergiu.entity.CandidateOptionEntity;
+import com.sergiu.entity.CandidateOption;
 import com.sergiu.exception.FrameworkException;
 import com.sergiu.model.AllocationModel;
 import com.sergiu.repository.AdmissionResultRepository;
 import com.sergiu.repository.CandidateOptionRepository;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.repository.GradeRepository;
+import com.sergiu.util.AdmissionOption;
 import com.sergiu.util.AdmissionType;
 import com.sergiu.util.ListAllocationType;
 import com.sergiu.util.StatusExam;
@@ -90,41 +91,40 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
     private ListAllocationType getAllocationListForCandidate(AdmissionResult admissionResult, AllocationModel allocation) {
         Long cnp = admissionResult.getCnp();
 
-        List<CandidateOptionEntity> candidateOptionEntities = candidateOptionRepository.findAllByCandidateOptionId_CandidateCnpOrderByPriority(cnp);
-        for (CandidateOptionEntity candidateOptionEntity : candidateOptionEntities) {
+        List<CandidateOption> candidateOptionEntities = candidateOptionRepository.findAllByCandidateOptionId_CnpOrderByPriority(cnp);
+        for (CandidateOption candidateOption : candidateOptionEntities) {
 
-            String option = candidateOptionEntity.getCandidateOptionId().getName_option();
+            AdmissionOption option = candidateOption.getCandidateOptionId().getAdmissionOption();
             switch (option) {
-                case "RO-BUGET":
+                case RO_BUGET:
                     if (allocation.getRoBuget() > 0) {
                         allocation.decrementRoBuget();
                         return ListAllocationType.L3;
                     }
-                case "EN-BUGET": {
+                case EN_BUGET: {
                     if (allocation.getEnBuget() > 0) {
                         allocation.decrementEnBuget();
                         return ListAllocationType.L4;
                     }
                 }
-
-                case "RO-TAXA":
+                case RO_TAXA:
                     if (allocation.getRoTaxa() > 0) {
                         allocation.decrementRoTaxa();
                         return ListAllocationType.L5;
                     }
-                case "EN-TAXA": {
+                case EN_TAXA: {
                     if (allocation.getEnTaxa() > 0) {
                         allocation.decrementEnTaxa();
                         return ListAllocationType.L6;
                     }
                 }
-                case "MD-RO-BUGET": {
+                case MD_RO_BUGET: {
                     if (allocation.getMdRoBuget() > 0) {
                         allocation.decrementMdRoBuget();
                         return ListAllocationType.L2;
                     }
                 }
-                case "MD-EN-BUGET": {
+                case MD_EN_BUGET: {
                     if (allocation.getMdEnBuget() > 0) {
                         allocation.decrementMdEnBuget();
                         return ListAllocationType.L2;

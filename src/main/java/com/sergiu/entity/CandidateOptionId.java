@@ -1,43 +1,48 @@
 package com.sergiu.entity;
 
-import javax.persistence.*;
+import com.sergiu.util.AdmissionOption;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class CandidateOptionId implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "cnp_candidate")
-    private Long candidateCnp;
+    @Column
+    private Long cnp;
 
-    @Column(name = "name_option")
-    private String name_option;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private AdmissionOption admissionOption;
 
     public CandidateOptionId() {
 
     }
 
-    public CandidateOptionId(Long candidateCnp, String name_option) {
-        this.candidateCnp = candidateCnp;
-        this.name_option = name_option;
+    public CandidateOptionId(Long cnp, AdmissionOption admissionOption) {
+        this.cnp = cnp;
+        this.admissionOption = admissionOption;
     }
 
-    public Long getCandidateCnp() {
-        return candidateCnp;
+    public Long getCnp() {
+        return cnp;
     }
 
-    public void setCandidateCnp(Long candidateCnp) {
-        this.candidateCnp = candidateCnp;
+    public void setCnp(Long cnp) {
+        this.cnp = cnp;
     }
 
-    public String getName_option() {
-        return name_option;
+    public AdmissionOption getAdmissionOption() {
+        return admissionOption;
     }
 
-    public void setName_option(String name_option) {
-        this.name_option = name_option;
+    public void setAdmissionOption(AdmissionOption admissionOption) {
+        this.admissionOption = admissionOption;
     }
 
     @Override
@@ -45,12 +50,12 @@ public class CandidateOptionId implements Serializable {
         if (this == o) return true;
         if (!(o instanceof CandidateOptionId)) return false;
         CandidateOptionId that = (CandidateOptionId) o;
-        return Objects.equals(getCandidateCnp(), that.getCandidateCnp()) &&
-                Objects.equals(getName_option(), that.getName_option());
+        return getCnp().equals(that.getCnp()) &&
+                getAdmissionOption() == that.getAdmissionOption();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCandidateCnp(), getName_option());
+        return Objects.hash(getCnp(), getAdmissionOption());
     }
 }

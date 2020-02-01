@@ -4,22 +4,20 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "candidate_options")
-public class CandidateOptionEntity {
-
+public class CandidateOption {
 
     @EmbeddedId
     private CandidateOptionId candidateOptionId;
 
-    @Column(name = "priority")
+    @Column
     private Integer priority;
 
-    public CandidateOptionEntity() {
+    @ManyToOne(optional = false)
+    @MapsId("cnp")
+    @JoinColumn(name = "cnp", insertable = false)
+    private Candidate candidate;
 
-    }
-
-    public CandidateOptionEntity(CandidateOptionId candidateOptionId) {
-        this.candidateOptionId = candidateOptionId;
-
+    public CandidateOption() {
     }
 
     public CandidateOptionId getCandidateOptionId() {
@@ -36,5 +34,13 @@ public class CandidateOptionEntity {
 
     public void setPriority(Integer priority) {
         this.priority = priority;
+    }
+
+    public Candidate getCandidate() {
+        return candidate;
+    }
+
+    public void setCandidate(Candidate candidate) {
+        this.candidate = candidate;
     }
 }
