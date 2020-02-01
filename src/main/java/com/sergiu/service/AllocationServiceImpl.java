@@ -4,10 +4,12 @@ import com.sergiu.controller.AdmissionResultDTO;
 import com.sergiu.entity.AdmissionResult;
 import com.sergiu.entity.Candidate;
 import com.sergiu.entity.CandidateOptionEntity;
+import com.sergiu.exception.FrameworkException;
 import com.sergiu.model.AllocationModel;
 import com.sergiu.repository.AdmissionResultRepository;
 import com.sergiu.repository.CandidateOptionRepository;
 import com.sergiu.repository.CandidateRepository;
+import com.sergiu.repository.GradeRepository;
 import com.sergiu.util.AdmissionType;
 import com.sergiu.util.ListAllocationType;
 import com.sergiu.util.StatusExam;
@@ -30,6 +32,8 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
     private CandidateRepository candidateRepository;
     private CandidateOptionRepository candidateOptionRepository;
     private AdmissionResultRepository admissionResultRepository;
+    private GradeRepository gradeRepository;
+
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) {
@@ -51,8 +55,17 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
         this.admissionResultRepository = admissionResultRepository;
     }
 
+    @Autowired
+    public void setGradeRepository(GradeRepository gradeRepository) {
+        this.gradeRepository = gradeRepository;
+    }
+
     @Override
     public void startAllocateCandidates() {
+        if (gradeRepository.count() != candidateRepository.count()) {
+            throw new FrameworkException("No toti candidatii au note!");
+        }
+
         AllocationModel allocation = new AllocationModel(RO_BUGET, RO_TAXA, EN_BUGET, EN_TAXA, MD_RO_BUGET, MD_EN_TAXA);
         SortedSet<AdmissionResult> admissionResults = new TreeSet<>(admissionResultRepository.findAllByListNameIsNullOrListNameIsNot(ListAllocationType.L8));
 
