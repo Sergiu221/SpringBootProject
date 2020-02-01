@@ -45,19 +45,19 @@ public class DistributionServiceImpl implements DistributionService {
         this.distributionRepository = distributionRepository;
     }
 
-
-    @Override
-    public void clear() {
-        distributionRepository.deleteAllInBatch();
-    }
-
     @Override
     public boolean isSufficientSeatsForExam() {
         return hallsService.totalSeatsAvailable() >= candidatesService.totalCandidates();
     }
 
     @Override
+    public void clearDistribution() {
+        distributionRepository.deleteAll();
+    }
+
+    @Override
     public void distributeCandidatesIntoHalls() {
+        distributionRepository.deleteAll();
 
         SortedSet<Element> setOfCategoriesWithHalls = fillSet();
 
