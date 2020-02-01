@@ -5,6 +5,8 @@ import com.sergiu.util.StatusExam;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "candidates")
@@ -48,7 +50,15 @@ public class Candidate implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusExam statusExam;
 
+    @JsonBackReference("option")
+    @OneToMany(mappedBy = "candidate")
+    private List<CandidateOption> candidateOptions = new ArrayList<>();
+
     public Candidate() {
+    }
+
+    public Candidate(Long cnp) {
+        this.cnp = cnp;
     }
 
     public Candidate(Long cnp, String firstName, String lastName, Category category, String highSchool) {
@@ -138,6 +148,14 @@ public class Candidate implements Serializable {
 
     public void setStatusExam(StatusExam statusExam) {
         this.statusExam = statusExam;
+    }
+
+    public List<CandidateOption> getCandidateOptions() {
+        return candidateOptions;
+    }
+
+    public void setCandidateOptions(List<CandidateOption> candidateOptions) {
+        this.candidateOptions = candidateOptions;
     }
 
     @Override

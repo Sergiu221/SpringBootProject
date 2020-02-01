@@ -1,5 +1,7 @@
 package com.sergiu.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,7 @@ public class CandidateOption {
     @Column
     private Integer priority;
 
+    @JsonManagedReference("option")
     @ManyToOne(optional = false)
     @MapsId("cnp")
     @JoinColumn(name = "cnp", insertable = false)
