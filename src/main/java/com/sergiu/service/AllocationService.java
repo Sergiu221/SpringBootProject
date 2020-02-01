@@ -1,6 +1,6 @@
 package com.sergiu.service;
 
-import com.sergiu.controller.AdmissionResultDTO;
+import com.sergiu.dto.AdmissionResultDTO;
 import com.sergiu.entity.AdmissionResult;
 
 public interface AllocationService {

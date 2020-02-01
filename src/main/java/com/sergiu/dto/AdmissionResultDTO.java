@@ -1,4 +1,4 @@
-package com.sergiu.controller;
+package com.sergiu.dto;
 
 import com.sergiu.entity.Candidate;
 import com.sergiu.util.ListAllocationType;

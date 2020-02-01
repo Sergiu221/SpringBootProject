@@ -1,5 +1,6 @@
 package com.sergiu.controller;
 
+import com.sergiu.dto.AdmissionResultDTO;
 import com.sergiu.service.AllocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
