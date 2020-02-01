@@ -1,7 +1,5 @@
 package com.sergiu;
 
-import com.sergiu.service.FilesService;
-import com.sergiu.service.FilesServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,10 +15,5 @@ public class Application {
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
-    }
-
-    @Bean
-    public FilesService filesService() {
-        return new FilesServiceImpl();
     }
 }
