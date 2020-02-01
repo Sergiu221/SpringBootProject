@@ -2,7 +2,7 @@ package com.sergiu.service;
 
 import java.util.List;
 
-import com.sergiu.entity.SupervisorEntity;
+import com.sergiu.entity.Supervisor;
 import com.sergiu.exception.ResourceNotConsistentData;
 import com.sergiu.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class SupervisorServiceImpl implements SupervisorService {
 
     @Override
     public void deleteSupervisor(Integer id) {
-        SupervisorEntity entity = supervisorRepository.findById(id)
+        Supervisor entity = supervisorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Supervisor", "id", id));
 
         supervisorRepository.delete(entity);

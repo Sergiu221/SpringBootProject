@@ -6,16 +6,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "distribution")
-public class DistributionEntity {
+public class Distribution {
 
     @EmbeddedId
     private DistributionId distributionId;
 
-    public DistributionEntity() {
+    public Distribution() {
 
     }
 
-    public DistributionEntity(DistributionId distributionId) {
+    public Distribution(DistributionId distributionId) {
         this.distributionId = distributionId;
     }
 

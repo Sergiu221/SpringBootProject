@@ -1,6 +1,6 @@
 package com.sergiu.repository;
 
-import com.sergiu.entity.SupervisorEntity;
+import com.sergiu.entity.Supervisor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,13 +25,13 @@ public class SupervisorsRepositoryIntegrationTest {
 
     @Before
     public void init() {
-        SupervisorEntity entity = new SupervisorEntity();
+        Supervisor entity = new Supervisor();
 
         entity.setFirstName("Supervisor1");
         entity.setLastName("LastName1");
         entityManager.persist(entity);
 
-        SupervisorEntity entity2 = new SupervisorEntity();
+        Supervisor entity2 = new Supervisor();
         entity2.setFirstName("Supervisor2");
         entity2.setLastName("LastName2");
         entityManager.persist(entity2);
@@ -41,7 +41,7 @@ public class SupervisorsRepositoryIntegrationTest {
 
     @Test
     public void testFindByNameOnHallsRepository() {
-        SupervisorEntity found = supervisorRepository.findByFirstName("Supervisor1").get();
+        Supervisor found = supervisorRepository.findByFirstName("Supervisor1").get();
         assertEquals(found.getFirstName(), "Supervisor1");
     }
 

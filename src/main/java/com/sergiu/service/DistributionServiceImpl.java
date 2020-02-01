@@ -124,21 +124,21 @@ public class DistributionServiceImpl implements DistributionService {
     }
 
     private void insertCandidatesIntoHall(List<Candidate> candidateEntities, Hall hall) {
-        List<DistributionEntity> distributions = new ArrayList<>();
+        List<Distribution> distributions = new ArrayList<>();
         for (Candidate candidate : candidateEntities) {
-            DistributionEntity distribution = new DistributionEntity(new DistributionId(candidate.getCnp(), hall.getId()));
+            Distribution distribution = new Distribution(new DistributionId(candidate.getCnp(), hall.getId()));
             distributions.add(distribution);
         }
         filterNullValue(distributions);
         if (!distributions.isEmpty()) {
-            for (DistributionEntity distributionEntity : distributions) {
+            for (Distribution distribution : distributions) {
                 distributionRepository.flush();
-                distributionRepository.saveAndFlush(distributionEntity);
+                distributionRepository.saveAndFlush(distribution);
             }
         }
     }
 
-    private void filterNullValue(List<DistributionEntity> distributionEntities) {
+    private void filterNullValue(List<Distribution> distributionEntities) {
         distributionEntities.removeIf(d -> null == d.getDistributionId());
     }
 }
