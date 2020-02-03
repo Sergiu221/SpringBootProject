@@ -43,7 +43,9 @@
 	<columnHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="-6" y="10" width="51" height="26" uuid="70fe0991-3432-4f10-a8d8-b439e6f349c3"/>
+				<reportElement x="-6" y="10" width="51" height="26" uuid="70fe0991-3432-4f10-a8d8-b439e6f349c3">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -53,7 +55,9 @@
 				<text><![CDATA[Nr. crt.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="162" y="10" width="130" height="26" uuid="9ebcc4a7-fd8b-43a1-9163-1b097995145b"/>
+				<reportElement x="162" y="10" width="130" height="26" uuid="9ebcc4a7-fd8b-43a1-9163-1b097995145b">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -63,7 +67,9 @@
 				<text><![CDATA[Prenume]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="45" y="10" width="116" height="26" uuid="fbefa5b3-7c52-428c-9edf-c2129202c59e"/>
+				<reportElement x="45" y="10" width="116" height="26" uuid="fbefa5b3-7c52-428c-9edf-c2129202c59e">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -73,7 +79,9 @@
 				<text><![CDATA[Nume]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="292" y="10" width="56" height="26" uuid="0fe9de75-cb69-41c7-b092-d04202019151"/>
+				<reportElement x="292" y="10" width="56" height="26" uuid="0fe9de75-cb69-41c7-b092-d04202019151">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
@@ -83,7 +91,9 @@
 				<text><![CDATA[Nr. leg.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="394" y="10" width="46" height="26" uuid="3549aca3-fa7e-49ec-b5b9-027f857db69f"/>
+				<reportElement x="394" y="10" width="46" height="26" uuid="3549aca3-fa7e-49ec-b5b9-027f857db69f">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -94,7 +104,9 @@
 Bac]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="440" y="10" width="46" height="26" uuid="eb96d56d-8188-4cfb-8938-b7ea0e01a843"/>
+				<reportElement x="440" y="10" width="46" height="26" uuid="eb96d56d-8188-4cfb-8938-b7ea0e01a843">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -105,7 +117,9 @@ Bac]]></text>
 Bac]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="486" y="10" width="40" height="26" uuid="4abded93-6ff7-48d5-b1f3-2da0cd176590"/>
+				<reportElement x="486" y="10" width="40" height="26" uuid="4abded93-6ff7-48d5-b1f3-2da0cd176590">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -115,7 +129,9 @@ Bac]]></text>
 				<text><![CDATA[Media]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="526" y="10" width="31" height="26" uuid="657ec917-bada-406f-803f-b97acb5cb913"/>
+				<reportElement x="526" y="10" width="31" height="26" uuid="657ec917-bada-406f-803f-b97acb5cb913">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -125,7 +141,9 @@ Bac]]></text>
 				<text><![CDATA[Lista]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="348" y="10" width="46" height="26" uuid="b7aa1319-afe1-48a4-9a9c-d39ec28aa1b5"/>
+				<reportElement x="348" y="10" width="46" height="26" uuid="b7aa1319-afe1-48a4-9a9c-d39ec28aa1b5">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>

@@ -96,47 +96,55 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
 
             AdmissionOption option = candidateOption.getCandidateOptionId().getAdmissionOption();
             switch (option) {
-                case RO_BUGET:
+                case RO_BUGET: {
                     if (allocation.getRoBuget() > 0) {
                         allocation.decrementRoBuget();
                         return ListAllocationType.L3;
                     }
+                    break;
+                }
                 case EN_BUGET: {
                     if (allocation.getEnBuget() > 0) {
                         allocation.decrementEnBuget();
                         return ListAllocationType.L4;
                     }
+                    break;
                 }
-                case RO_TAXA:
+                case RO_TAXA: {
                     if (allocation.getRoTaxa() > 0) {
                         allocation.decrementRoTaxa();
                         return ListAllocationType.L5;
                     }
+                    break;
+                }
                 case EN_TAXA: {
                     if (allocation.getEnTaxa() > 0) {
                         allocation.decrementEnTaxa();
                         return ListAllocationType.L6;
                     }
+                    break;
                 }
                 case MD_RO_BUGET: {
                     if (allocation.getMdRoBuget() > 0) {
                         allocation.decrementMdRoBuget();
                         return ListAllocationType.L2;
                     }
+                    break;
                 }
                 case MD_EN_BUGET: {
                     if (allocation.getMdEnBuget() > 0) {
                         allocation.decrementMdEnBuget();
                         return ListAllocationType.L2;
                     }
+                    break;
                 }
             }
-
-            if (admissionResult.getFinalGrade() > 5) {
-                return ListAllocationType.L7;
-            }
-
         }
+
+        if (admissionResult.getFinalGrade() > 5) {
+            return ListAllocationType.L7;
+        }
+
         return ListAllocationType.L8;
     }
 

@@ -11,7 +11,8 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="80" splitType="Stretch">
+		<band height="119" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement x="0" y="0" width="270" height="58" uuid="f2c1129a-11fc-4d06-a42e-41e272e6a54f"/>
 				<textElement textAlignment="Left">
@@ -23,95 +24,109 @@ CONCURS DE ADMITERE
 SESIUNEA IULIE 2020]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="221" y="58" width="112" height="19" uuid="b019e733-523a-49ce-8cc6-6d60602effcc"/>
+				<reportElement x="213" y="58" width="129" height="19" uuid="b019e733-523a-49ce-8cc6-6d60602effcc"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font fontName="Times New Roman" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LISTA]]></text>
+				<text><![CDATA[REPARTIZAREA]]></text>
 			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="41" splitType="Stretch">
 			<staticText>
-				<reportElement x="110" y="4" width="335" height="15" uuid="b0d9c1e7-1213-4649-bebc-40617316890c"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
+				<reportElement x="82" y="77" width="390" height="42" uuid="264024c3-2cd7-4c38-9ece-3118c8e594d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CANDIDATILOR PE SALI PENTRU TESTUL SCRIS]]></text>
 			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22">
 			<staticText>
-				<reportElement x="41" y="22" width="49" height="19" uuid="ee3fd089-4083-4771-a588-d01b2485a2a4"/>
+				<reportElement x="30" y="3" width="49" height="19" uuid="75fd8c50-350e-4f53-994e-5ab19d8efdc5">
+					<printWhenExpression><![CDATA[ $V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nr. loc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="242" y="22" width="130" height="19" uuid="7fd5303a-a01c-4c88-8dd2-7ab0c1f4c68e"/>
+				<reportElement x="231" y="3" width="130" height="19" uuid="50f3d5bf-2b25-441f-a410-33936bb310ef">
+					<printWhenExpression><![CDATA[ $V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Prenume]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="90" y="22" width="152" height="19" uuid="a1c489c2-0245-4a42-aa26-f5ffde3b94c1"/>
+				<reportElement x="79" y="3" width="152" height="19" uuid="a5a82381-9608-467f-8f59-ca60cd0d4084">
+					<printWhenExpression><![CDATA[ $V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nume]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="372" y="22" width="70" height="19" uuid="d24f1578-b680-408d-afe8-62b009f21199"/>
+				<reportElement x="361" y="3" width="70" height="19" uuid="f3710573-b02e-4b31-bb50-6262be704f86">
+					<printWhenExpression><![CDATA[ $V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nr. leg.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="442" y="22" width="100" height="19" uuid="ce296189-fbff-4889-b8a0-13b7a8541e6a"/>
+				<reportElement x="431" y="3" width="100" height="19" uuid="acc0d939-f799-4ced-a1eb-b4671f3a5f3e">
+					<printWhenExpression><![CDATA[ $V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sala]]></text>
 			</staticText>
 		</band>
-	</pageHeader>
+	</columnHeader>
 	<detail>
 		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="41" y="-1" width="49" height="25" uuid="b178e57d-3c0a-4ced-a9c4-b0b5a0c9b584"/>
+				<reportElement x="30" y="0" width="49" height="25" uuid="b178e57d-3c0a-4ced-a9c4-b0b5a0c9b584"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="90" y="-1" width="152" height="25" uuid="bce52bb3-a5fd-48a2-aea9-4296a802ff21"/>
+				<reportElement x="79" y="0" width="152" height="25" uuid="bce52bb3-a5fd-48a2-aea9-4296a802ff21"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="242" y="-1" width="130" height="25" uuid="62667f8b-d06b-4b17-a263-6ca0fedefc5a"/>
+				<reportElement x="231" y="0" width="130" height="25" uuid="62667f8b-d06b-4b17-a263-6ca0fedefc5a"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
@@ -119,19 +134,23 @@ SESIUNEA IULIE 2020]]></text>
 				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="372" y="-1" width="70" height="25" uuid="5c0695f1-3706-4fcd-a130-397f1fe4303c"/>
+				<reportElement x="361" y="0" width="70" height="25" uuid="5c0695f1-3706-4fcd-a130-397f1fe4303c"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["Nimic"]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="442" y="-1" width="100" height="25" uuid="f379ea79-3ef3-4096-891a-d3b940ab2725"/>
+				<reportElement x="431" y="0" width="100" height="25" uuid="f379ea79-3ef3-4096-891a-d3b940ab2725"/>
 				<box padding="0">
 					<pen lineWidth="1.25"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{hall}.getName()]]></textFieldExpression>
 			</textField>
 		</band>
