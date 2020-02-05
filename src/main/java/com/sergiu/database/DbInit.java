@@ -12,13 +12,12 @@ public class DbInit implements CommandLineRunner {
     private ApplicationStateRepository applicationStateRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         ApplicationState applicationState = new ApplicationState();
         applicationState.setIsImportedResources("false");
         applicationState.setIsDistributedFinalized("false");
         applicationState.setIsDistributed("false");
         applicationState.setIsExamFinish("false");
         applicationStateRepository.save(applicationState);
-
     }
 }
