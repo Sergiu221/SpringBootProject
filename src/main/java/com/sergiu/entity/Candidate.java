@@ -51,7 +51,7 @@ public class Candidate implements Serializable {
     private StatusExam statusExam;
 
     @JsonBackReference("option")
-    @OneToMany(mappedBy = "candidate")
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
     private List<CandidateOption> candidateOptions = new ArrayList<>();
 
     public Candidate() {

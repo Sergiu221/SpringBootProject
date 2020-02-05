@@ -2,8 +2,10 @@ package com.sergiu.service;
 
 import com.sergiu.dto.CandidateDTO;
 import com.sergiu.entity.Candidate;
+import com.sergiu.entity.Category;
 import com.sergiu.exception.ResourceNotFoundException;
 import com.sergiu.repository.CandidateRepository;
+import com.sergiu.repository.CategoryRepository;
 import com.sergiu.transformer.CandidatesTransformer;
 import com.sergiu.util.AdmissionType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,19 @@ import java.util.List;
 @Service
 public class CandidatesServiceImpl implements CandidatesService {
 
-    @Autowired
     private CandidateRepository candidateRepository;
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    public void setCandidateRepository(CandidateRepository candidateRepository) {
+        this.candidateRepository = candidateRepository;
+    }
+
+    @Autowired
+
+    public void setCategoryRepository(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Autowired
     CandidatesTransformer transformer;
@@ -27,7 +40,20 @@ public class CandidatesServiceImpl implements CandidatesService {
 
     @Override
     public void createCandidate(CandidateDTO candidateDTO) {
-        candidateRepository.save(transformer.toEntity(candidateDTO));
+        Candidate candidate = new Candidate();
+        candidate.setCnp(candidateDTO.getCnp());
+        candidate.setFirstName(candidateDTO.getFirstName());
+        candidate.setLastName(candidateDTO.getLastName());
+        candidate.setHighSchool(candidateDTO.getHighSchool());
+        candidate.setBacGrade(candidateDTO.getBacGrade());
+        candidate.setBacBestGrade(candidateDTO.getBacBestGrade());
+        candidate.setStatusExam(candidateDTO.getStatusExam());
+
+        if (candidateDTO.getCategoryName() != null) {
+            Category category = categoryRepository.findByName(candidateDTO.getCategoryName());
+            candidate.setCategory(category);
+        }
+        candidateRepository.save(candidate);
     }
 
     @Override
@@ -38,16 +64,26 @@ public class CandidatesServiceImpl implements CandidatesService {
 
     @Override
     public CandidateDTO updateCandidate(Long cnp, CandidateDTO candidateDTO) {
-        candidateRepository.findByCnp(cnp)
+        Candidate candidate = candidateRepository.findByCnp(cnp)
                 .orElseThrow(() -> new ResourceNotFoundException("Candidate", "cnp", cnp));
 
-        Candidate entity = candidateRepository.save(transformer.toEntity(candidateDTO));
-        return transformer.toDTO(candidateRepository.save(entity));
+        candidate.setFirstName(candidateDTO.getFirstName());
+        candidate.setLastName(candidateDTO.getLastName());
+        candidate.setHighSchool(candidateDTO.getHighSchool());
+        candidate.setBacGrade(candidateDTO.getBacGrade());
+        candidate.setBacBestGrade(candidateDTO.getBacBestGrade());
+        candidate.setStatusExam(candidateDTO.getStatusExam());
+
+        if (candidate.getCategory() != null && !candidate.getCategory().getName().equals(candidateDTO.getCategoryName())) {
+            Category category = categoryRepository.findByName(candidateDTO.getCategoryName());
+            candidate.setCategory(category);
+        }
+        return transformer.toDTO(candidateRepository.save(candidate));
     }
 
     @Override
     public void deleteCandidate(Long cnp) {
-          candidateRepository.deleteById(cnp);
+        candidateRepository.deleteById(cnp);
     }
 
     @Override

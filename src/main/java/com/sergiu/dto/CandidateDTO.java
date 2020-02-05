@@ -1,6 +1,5 @@
 package com.sergiu.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sergiu.util.StatusExam;
 
 import java.io.Serializable;
@@ -13,7 +12,7 @@ public class CandidateDTO implements Serializable {
 
     private String lastName;
 
-    private CategoryDTO categoryDTO;
+    private String categoryName;
 
     private String highSchool;
 
@@ -21,8 +20,9 @@ public class CandidateDTO implements Serializable {
 
     private Double bacBestGrade;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private HallDTO hallDTO;
+    private String hallName;
+
+    private Integer hallId;
 
     private StatusExam statusExam;
 
@@ -50,12 +50,12 @@ public class CandidateDTO implements Serializable {
         this.lastName = lastName;
     }
 
-    public CategoryDTO getCategoryDTO() {
-        return categoryDTO;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategoryDTO(CategoryDTO categoryDTO) {
-        this.categoryDTO = categoryDTO;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getHighSchool() {
@@ -82,12 +82,20 @@ public class CandidateDTO implements Serializable {
         this.bacBestGrade = bacBestGrade;
     }
 
-    public HallDTO getHallDTO() {
-        return hallDTO;
+    public String getHallName() {
+        return hallName;
     }
 
-    public void setHallDTO(HallDTO hallDTO) {
-        this.hallDTO = hallDTO;
+    public void setHallName(String hallName) {
+        this.hallName = hallName;
+    }
+
+    public Integer getHallId() {
+        return hallId;
+    }
+
+    public void setHallId(Integer hallId) {
+        this.hallId = hallId;
     }
 
     public StatusExam getStatusExam() {

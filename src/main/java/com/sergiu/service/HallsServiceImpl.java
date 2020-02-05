@@ -61,7 +61,7 @@ public class HallsServiceImpl implements HallsService {
 
     @Override
     public Integer totalSeatsAvailable() {
-        Long result= hallRepository.findAll().stream().mapToLong(Hall::getUtilizableSize).sum();
+        Long result = hallRepository.findAll().stream().mapToLong(Hall::getUtilizableSize).sum();
         return result.intValue();
     }
 

@@ -11,7 +11,7 @@ import com.sergiu.dto.ReportCandidatesDTO;
 import com.sergiu.dto.ReportHallsDTO;
 import com.sergiu.entity.AdmissionResult;
 import com.sergiu.entity.Candidate;
-import com.sergiu.model.ColumnCandidatesReport;
+import com.sergiu.model.ColumnReport;
 import com.sergiu.repository.AdmissionResultRepository;
 import com.sergiu.repository.CandidateRepository;
 import com.sergiu.util.AdmissionType;
@@ -210,7 +210,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
 
-    private File buildReport(List<ColumnCandidatesReport> columnsReport, JRBeanCollectionDataSource jrBeanCollectionDataSource, String title, String pdfName) throws JRException, IOException, ClassNotFoundException {
+    private File buildReport(List<ColumnReport> columnsReport, JRBeanCollectionDataSource jrBeanCollectionDataSource, String title, String pdfName) throws JRException, IOException, ClassNotFoundException {
         DynamicReport dr = createJasperDesign(columnsReport, title);
         Map<String, Object> parameters = new HashMap<>();
 
@@ -229,12 +229,20 @@ public class ReportServiceImpl implements ReportService {
         return new File(pdfName);
     }
 
-    private DynamicReport createJasperDesign(List<ColumnCandidatesReport> columnCandidatesReports, String title) throws ClassNotFoundException {
-        FastReportBuilder drb = new FastReportBuilder();
-        for (ColumnCandidatesReport column : columnCandidatesReports) {
-            if (column.isReport()) {
-                drb = drb.addColumn(column.getText(), column.getField(), column.getDataType(), FieldWidth.getPredefinedWidth(column.getField()));
+    private DynamicReport createJasperDesign(List<ColumnReport> columnReports, String title) throws ClassNotFoundException {
 
+        Style styleValue = new Style();
+        styleValue.setPattern("##.00");
+
+
+        FastReportBuilder drb = new FastReportBuilder();
+        for (ColumnReport column : columnReports) {
+            if (column.isReport()) {
+                if (column.getDataType().equals("java.lang.Double")) {
+                    drb = drb.addColumn(column.getText(), column.getField(), column.getDataType(), FieldWidth.getPredefinedWidth(column.getField()), styleValue, null);
+                } else {
+                    drb = drb.addColumn(column.getText(), column.getField(), column.getDataType(), FieldWidth.getPredefinedWidth(column.getField()));
+                }
             }
         }
 

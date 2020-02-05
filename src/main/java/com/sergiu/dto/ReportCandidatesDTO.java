@@ -1,6 +1,6 @@
 package com.sergiu.dto;
 
-import com.sergiu.model.ColumnCandidatesReport;
+import com.sergiu.model.ColumnReport;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,7 +9,7 @@ public class ReportCandidatesDTO implements Serializable {
 
     List<CandidateDTO> sourceList;
 
-    List<ColumnCandidatesReport> columnsReport;
+    List<ColumnReport> columnsReport;
 
     public List<CandidateDTO> getSourceList() {
         return sourceList;
@@ -19,11 +19,11 @@ public class ReportCandidatesDTO implements Serializable {
         this.sourceList = sourceList;
     }
 
-    public List<ColumnCandidatesReport> getColumnsReport() {
+    public List<ColumnReport> getColumnsReport() {
         return columnsReport;
     }
 
-    public void setColumnsReport(List<ColumnCandidatesReport> columnsReport) {
+    public void setColumnsReport(List<ColumnReport> columnsReport) {
         this.columnsReport = columnsReport;
     }
 }

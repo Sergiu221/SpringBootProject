@@ -9,13 +9,17 @@ public class FieldWidth {
     public static int getPredefinedWidth(String fieldName) {
         switch (fieldName) {
             case "cnp":
-                return 80;
+                return 120;
             case "firstName":
-                return 50;
+                return 100;
             case "lastName":
                 return 100;
             case "highSchool":
-                return 150;
+                return 80;
+            case "bacGrade":
+                return 50;
+            case "bacBestGrade":
+                return 50;
             default:
                 LOGGER.info("For filed:" + fieldName + "there is no width defined. Default will be 100");
                 return 100;

@@ -2,7 +2,7 @@ package com.sergiu.model;
 
 import java.io.Serializable;
 
-public class ColumnCandidatesReport implements Serializable {
+public class ColumnReport implements Serializable {
     public String field;
 
     public String text;

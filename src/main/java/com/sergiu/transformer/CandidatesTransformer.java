@@ -1,8 +1,6 @@
 package com.sergiu.transformer;
 
 import com.sergiu.dto.CandidateDTO;
-import com.sergiu.dto.CategoryDTO;
-import com.sergiu.dto.HallDTO;
 import com.sergiu.entity.Candidate;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +32,11 @@ public class CandidatesTransformer {
     public CandidateDTO toDTO(Candidate entity) {
         CandidateDTO candidateDTO = modelMapper.map(entity, CandidateDTO.class);
         if (entity.getHall() != null) {
-            candidateDTO.setHallDTO(modelMapper.map(entity.getHall(), HallDTO.class));
+            candidateDTO.setHallName(entity.getHall().getName());
+            candidateDTO.setHallId(entity.getHall().getId());
         }
         if (entity.getCategory() != null) {
-            candidateDTO.setCategoryDTO(modelMapper.map(entity.getCategory(), CategoryDTO.class));
+            candidateDTO.setCategoryName(entity.getCategory().getName());
         }
         return candidateDTO;
     }
