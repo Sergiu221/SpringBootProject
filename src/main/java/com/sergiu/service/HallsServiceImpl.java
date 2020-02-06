@@ -83,14 +83,14 @@ public class HallsServiceImpl implements HallsService {
         if (numberCandidates == sum) {
             bestValue.setValue(sum);
             myMap.put(bestValue.intValue(), new ArrayList(solution));
-            solution.clear();
+            solution.remove(solution.get(solution.size()-1));
             return;
         }
 
         if (sum > numberCandidates && sum < bestValue.intValue()) {
             bestValue.setValue(sum);
             myMap.put(bestValue.intValue(), new ArrayList(solution));
-            solution.clear();
+            solution.remove(solution.get(solution.size()-1));
             return;
         } else {
 

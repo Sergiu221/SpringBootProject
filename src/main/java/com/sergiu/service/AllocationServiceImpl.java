@@ -179,4 +179,9 @@ public class AllocationServiceImpl implements AllocationService, AllocationRule 
         AdmissionResult admissionResult = admissionResultRepository.findById(cnp).get();
         return modelMapper.map(admissionResult, AdmissionResultDTO.class);
     }
+
+    @Override
+    public AllocationModel getAllocationDetails() {
+        return new AllocationModel(RO_BUGET, RO_TAXA, EN_BUGET, EN_TAXA, MD_RO_BUGET, MD_EN_TAXA);
+    }
 }

@@ -1,6 +1,8 @@
 package com.sergiu.controller;
 
 import com.sergiu.dto.AdmissionResultDTO;
+import com.sergiu.exception.FrameworkException;
+import com.sergiu.model.AllocationModel;
 import com.sergiu.service.AllocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +26,19 @@ public class AllocationController {
     }
 
     @GetMapping(path = "/allocation")
-    public void startAllocation() {
+    public ResponseEntity<?> startAllocation() {
+        try {
+            allocationService.startAllocateCandidates();
+            return ResponseEntity.ok().build();
+        } catch (FrameworkException e) {
+            return ResponseEntity.notFound().header(e.getMessage()).build();
+        }
 
-        allocationService.startAllocateCandidates();
+    }
+
+    @GetMapping(path="allocation/details")
+    public AllocationModel allocationDetails(){
+        return allocationService.getAllocationDetails();
     }
 
     @GetMapping(path = "/admission/reject/{cnp}")
