@@ -19,11 +19,7 @@ public class Element implements Comparable {
 
     public BigDecimal getCohesion() {
 
-        if (hall.getUtilizableSize() == 0) {
-            return BigDecimal.ZERO;
-        }
-
-        if (category.getCandidateEntities().size() == 0) {
+        if (hall.getUtilizableSize() == 0 || category.getCandidateEntities().size() == 0) {
             return BigDecimal.ZERO;
         }
 
@@ -31,15 +27,13 @@ public class Element implements Comparable {
             return BigDecimal.ONE;
         }
 
+        BigDecimal candidates = new BigDecimal(category.getCandidateEntities().size());
+        BigDecimal availableSpaces = new BigDecimal(hall.getUtilizableSize());
+
         if (hall.getUtilizableSize() > category.getCandidateEntities().size()) {
-            BigDecimal restCandidates = new BigDecimal(category.getCandidateEntities().size());
-            BigDecimal availableSpaces = new BigDecimal(hall.getUtilizableSize());
-            return restCandidates.divide(availableSpaces, 2, RoundingMode.FLOOR);
-        } else if (category.getCandidateEntities().size() % hall.getUtilizableSize() == 0) {
-            return new BigDecimal(-1 * (category.getCandidateEntities().size() / hall.getUtilizableSize()));
+
+            return candidates.divide(availableSpaces, 2, RoundingMode.FLOOR);
         } else {
-            BigDecimal candidates = new BigDecimal(category.getCandidateEntities().size());
-            BigDecimal availableSpaces = new BigDecimal(hall.getUtilizableSize());
             return (candidates.divide(availableSpaces, 2, RoundingMode.FLOOR).multiply(new BigDecimal(-1)));
         }
     }
