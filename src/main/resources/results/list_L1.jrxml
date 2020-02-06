@@ -42,7 +42,7 @@
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[candidaţilor olimpic]]></text>
+				<text><![CDATA[candidatilori olimpici]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

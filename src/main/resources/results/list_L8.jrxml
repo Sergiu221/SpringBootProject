@@ -42,7 +42,7 @@
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[candidaţilor declaraţi respinşi, care şi-au retras dosarul sau care nu şi-au confirmat locul]]></text>
+				<text><![CDATA[candidatilor declarati respinsi, care si-au retras dosarul sau care nu si-au confirmat locul]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

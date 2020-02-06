@@ -42,7 +42,7 @@
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[candidaţilor declaraţi admişi pe locurile rezervate absolvenţilor de licee din mediul rural]]></text>
+				<text><![CDATA[candidaţilor declarati admisi pe locurile rezervate absolventilor de licee din mediul rural]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

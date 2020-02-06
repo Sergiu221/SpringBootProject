@@ -42,7 +42,7 @@
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[candidaţilor declaraţi respinşi, care pot beneficia de refacerea ulterioară a listelor]]></text>
+				<text><![CDATA[candidatilor declarati respinsi, care pot beneficia de refacerea ulterioară a listelor]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

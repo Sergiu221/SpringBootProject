@@ -42,7 +42,7 @@
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[candidaţilor declaraţi admişi pe locurile cu taxă - limba română]]></text>
+				<text><![CDATA[candidatilor declarati admisi pe locurile cu taxa - limba romana]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
