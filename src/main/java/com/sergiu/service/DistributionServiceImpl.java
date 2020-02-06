@@ -67,8 +67,9 @@ public class DistributionServiceImpl implements DistributionService {
 
             LOGGER.info("====> SIZE OF SUBSETS IS :" + setOfCategoriesWithHalls.size() + "<=======");
             Element element = setOfCategoriesWithHalls.last();
-            setOfCategoriesWithHalls.remove(element);
-
+            if (element.getCohesion().doubleValue() >= Double.parseDouble("0")) {
+                setOfCategoriesWithHalls.remove(element);
+            }
             if (!element.getCohesion().equals(BigDecimal.ZERO)) {
 
                 List<Candidate> listMove;

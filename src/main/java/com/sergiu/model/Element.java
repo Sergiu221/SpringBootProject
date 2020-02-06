@@ -27,20 +27,31 @@ public class Element implements Comparable {
             return BigDecimal.ZERO;
         }
 
-        if (restOfCandidates() == 0) {
+        if (hall.getUtilizableSize() == category.getCandidateEntities().size()) {
             return BigDecimal.ONE;
         }
 
-        BigDecimal restCandidates = new BigDecimal(restOfCandidates());
-        BigDecimal availableSpaces = new BigDecimal(this.hall.getUtilizableSize());
-        return restCandidates.divide(availableSpaces, 2, RoundingMode.FLOOR);
+        if (hall.getUtilizableSize() > category.getCandidateEntities().size()) {
+            BigDecimal restCandidates = new BigDecimal(category.getCandidateEntities().size());
+            BigDecimal availableSpaces = new BigDecimal(hall.getUtilizableSize());
+            return restCandidates.divide(availableSpaces, 2, RoundingMode.FLOOR);
+        } else if (category.getCandidateEntities().size() % hall.getUtilizableSize() == 0) {
+            return new BigDecimal(-1 * (category.getCandidateEntities().size() / hall.getUtilizableSize()));
+        } else {
+            BigDecimal candidates = new BigDecimal(category.getCandidateEntities().size());
+            BigDecimal availableSpaces = new BigDecimal(hall.getUtilizableSize());
+            return (candidates.divide(availableSpaces, 2, RoundingMode.FLOOR).multiply(new BigDecimal(-1)));
+        }
     }
 
     public int restOfCandidates() {
         int nrOfCandidates = category.getCandidateEntities().size();
         int nrOfAvailableSpaces = hall.getUtilizableSize();
-
-        return nrOfCandidates % nrOfAvailableSpaces;
+        if (nrOfCandidates < nrOfAvailableSpaces) {
+            return nrOfCandidates;
+        } else {
+            return nrOfAvailableSpaces;
+        }
     }
 
     @Override
