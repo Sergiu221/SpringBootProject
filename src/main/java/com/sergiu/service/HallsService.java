@@ -1,52 +1,22 @@
 package com.sergiu.service;
 
 import com.sergiu.dto.HallDTO;
-import com.sergiu.entity.HallEntity;
-import com.sergiu.exception.ResourceNotConsistentData;
-import com.sergiu.exception.ResourceNotFoundException;
-import com.sergiu.repository.HallRepository;
-import com.sergiu.transformer.HallsTransformer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.sergiu.entity.Hall;
 
 import java.util.List;
 
-@Service
-public class HallsService {
+public interface HallsService {
+    List<HallDTO> getAllHalls();
 
-    @Autowired
-    private HallRepository hallRepository;
+    void createHall(HallDTO hallDTO);
 
-    @Autowired
-    private HallsTransformer hallsTransformer;
+    HallDTO getHallById(Integer id);
 
-    public List<HallDTO> getAllHalls() {
-        return hallsTransformer.toDTO(hallRepository.findAll());
-    }
+    HallDTO updateHall(Integer id, HallDTO hallDTO);
 
-    public void createHall(HallDTO hallDTO) {
-        hallRepository.save(hallsTransformer.toEntity(hallDTO));
-    }
+    void deleteHall(Integer id);
 
-    public HallDTO getHallById(Integer id) {
-        return hallsTransformer.toDTO(hallRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Hall", "id", id)));
-    }
+    Integer totalSeatsAvailable();
 
-    public HallDTO updateHall(Integer id, HallDTO hallDTO) {
-
-        if (id != hallDTO.getId()) {
-            throw new ResourceNotConsistentData("Hall", "id", id, hallDTO.getId());
-        }
-
-        hallRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Hall", "id", id));
-        return hallsTransformer.toDTO(hallRepository.save(hallsTransformer.toEntity(hallDTO)));
-    }
-
-    public void deleteHall(Integer id) {
-        HallEntity entity = hallRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Hall", "id", id));
-        hallRepository.delete(entity);
-    }
+    List<Hall> selectHalls(Integer numberCandidates);
 }

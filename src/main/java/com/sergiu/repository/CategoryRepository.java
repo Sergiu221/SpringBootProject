@@ -1,9 +1,16 @@
 package com.sergiu.repository;
 
+import com.sergiu.entity.Category;
+import com.sergiu.util.AdmissionType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.sergiu.entity.CategoryEntity;
+import java.util.List;
 
-public interface CategoryRepository extends JpaRepository<CategoryEntity, String> {
+@Repository
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
+    List<Category> findAllByAdmissionType(AdmissionType admissionType);
+
+    Category findByName(String name);
 }

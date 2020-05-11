@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.sergiu.service.HallsService;
+import com.sergiu.service.HallsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sergiu.entity.HallEntity;
-import com.sergiu.exception.ResourceNotFoundException;
 import com.sergiu.dto.HallDTO;
 
 @CrossOrigin
@@ -28,31 +26,31 @@ public class HallsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(HallsController.class);
 
     @Autowired
-    private HallsService hallsService;
+    private HallsServiceImpl hallsServiceImpl;
 
     @GetMapping("/halls")
     public List<HallDTO> getAllHalls() {
-        return hallsService.getAllHalls();
+        return hallsServiceImpl.getAllHalls();
     }
 
     @PostMapping("/halls")
     public void createHall(@Valid @RequestBody HallDTO hallDTO) {
-        hallsService.createHall(hallDTO);
+        hallsServiceImpl.createHall(hallDTO);
     }
 
     @GetMapping("/halls/{id}")
     public HallDTO getHallById(@PathVariable(value = "id") Integer id) {
-        return hallsService.getHallById(id);
+        return hallsServiceImpl.getHallById(id);
     }
 
     @PutMapping("/halls/{id}")
     public HallDTO updateHall(@PathVariable(value = "id") Integer id, @Valid @RequestBody HallDTO hallDTO) {
-        return hallsService.updateHall(id, hallDTO);
+        return hallsServiceImpl.updateHall(id, hallDTO);
     }
 
     @DeleteMapping("/halls/{id}")
     public ResponseEntity<?> deleteHall(@PathVariable(value = "id") Integer id) {
-        hallsService.deleteHall(id);
+        hallsServiceImpl.deleteHall(id);
         return ResponseEntity.ok().build();
     }
 }

@@ -1,53 +1,17 @@
 package com.sergiu.service;
 
+import com.sergiu.dto.SupervisorDTO;
+
 import java.util.List;
 
-import com.sergiu.entity.SupervisorEntity;
-import com.sergiu.exception.ResourceNotConsistentData;
-import com.sergiu.exception.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+public interface SupervisorService {
+    List<SupervisorDTO> getAllSupervisors();
 
-import com.sergiu.dto.SupervisorDTO;
-import com.sergiu.repository.SupervisorRepository;
-import com.sergiu.transformer.SupervisorsTransformer;
+    void createSupervisor(SupervisorDTO supervisorDTO);
 
-@Service
-public class SupervisorService {
+    SupervisorDTO getSupervisorById(Integer id);
 
-    @Autowired
-    private SupervisorRepository supervisorRepository;
+    SupervisorDTO updateSupervisor(Integer id, SupervisorDTO supervisorDTO);
 
-    @Autowired
-    private SupervisorsTransformer supervisorsTransformer;
-
-    public List<SupervisorDTO> getAllSupervisors() {
-        return supervisorsTransformer.toDTO(supervisorRepository.findAll());
-    }
-
-    public void createSupervisor(SupervisorDTO supervisorDTO) {
-        supervisorRepository.save(supervisorsTransformer.toEntity(supervisorDTO));
-    }
-
-    public SupervisorDTO getSupervisorById(Integer id) {
-        return supervisorsTransformer.toDTO(supervisorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Supervisor", "id", id)));
-    }
-
-    public SupervisorDTO updateSupervisor(Integer id, SupervisorDTO supervisorDTO) {
-        if (id != supervisorDTO.getId()) {
-            throw new ResourceNotConsistentData("Supervisor", "id", id, supervisorDTO.getId());
-        }
-        supervisorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Supervisor", "id", id));
-
-        return supervisorsTransformer.toDTO(supervisorRepository.save(supervisorsTransformer.toEntity(supervisorDTO)));
-    }
-
-    public void deleteSupervisor(Integer id) {
-        SupervisorEntity entity = supervisorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Supervisor", "id", id));
-
-        supervisorRepository.delete(entity);
-    }
+    void deleteSupervisor(Integer id);
 }

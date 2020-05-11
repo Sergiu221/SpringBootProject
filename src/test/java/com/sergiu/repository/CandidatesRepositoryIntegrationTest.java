@@ -1,6 +1,6 @@
 package com.sergiu.repository;
 
-import com.sergiu.entity.CandidateEntity;
+import com.sergiu.entity.Candidate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class CandidatesRepositoryIntegrationTest {
 
     @Before
     public void init() {
-        CandidateEntity entity = new CandidateEntity();
+        Candidate entity = new Candidate();
         entity.setCnp(1940122374500L);
         entity.setFirstName("Sergiu-Adrian");
         entity.setLastName("Volocaru");
@@ -34,7 +34,7 @@ public class CandidatesRepositoryIntegrationTest {
 
         entityManager.persist(entity);
 
-        CandidateEntity entity2 = new CandidateEntity();
+        Candidate entity2 = new Candidate();
         entity2.setCnp(1940122374502L);
         entity2.setFirstName("Sergiu-Constatin");
         entity2.setLastName("Volocaru");
@@ -51,7 +51,7 @@ public class CandidatesRepositoryIntegrationTest {
 
     @Test
     public void testFindByCnpOnCandidateRepository() {
-        CandidateEntity found = candidateRepository.findByCnp(1940122374500L).get();
+        Candidate found = candidateRepository.findByCnp(1940122374500L).get();
         assertEquals(found.getCnp(), Long.valueOf(1940122374500L));
     }
 

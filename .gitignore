@@ -8,3 +8,6 @@ target/
 # Default ignored files
 /workspace.xml
 .classpath
+
+#PDF
+.*pdf

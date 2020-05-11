@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.sergiu.service.SupervisorService;
+import com.sergiu.service.SupervisorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,31 +23,31 @@ import com.sergiu.dto.SupervisorDTO;
 public class SupervisorsController {
 
     @Autowired
-    private SupervisorService supervisorService;
+    private SupervisorServiceImpl supervisorServiceImpl;
 
     @GetMapping("/supervisors")
     public List<SupervisorDTO> getAllSupervisors() {
-        return supervisorService.getAllSupervisors();
+        return supervisorServiceImpl.getAllSupervisors();
     }
 
     @PostMapping("/supervisors")
     public void createSupervisor(@Valid @RequestBody SupervisorDTO supervisorDTO) {
-        supervisorService.createSupervisor(supervisorDTO);
+        supervisorServiceImpl.createSupervisor(supervisorDTO);
     }
 
     @GetMapping("/supervisors/{id}")
     public SupervisorDTO getSupervisorById(@PathVariable(value = "id") Integer id) {
-        return supervisorService.getSupervisorById(id);
+        return supervisorServiceImpl.getSupervisorById(id);
     }
 
     @PutMapping("/supervisors/{id}")
     public SupervisorDTO updateSupervisor(@PathVariable(value = "id") Integer id, @Valid @RequestBody SupervisorDTO supervisorDTO) {
-        return supervisorService.updateSupervisor(id, supervisorDTO);
+        return supervisorServiceImpl.updateSupervisor(id, supervisorDTO);
     }
 
     @DeleteMapping("/supervisors/{id}")
     public ResponseEntity<?> deleteSupervisor(@PathVariable(value = "id") Integer id) {
-        supervisorService.deleteSupervisor(id);
+        supervisorServiceImpl.deleteSupervisor(id);
         return ResponseEntity.ok().build();
     }
 }

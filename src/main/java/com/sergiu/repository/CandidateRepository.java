@@ -1,19 +1,25 @@
 package com.sergiu.repository;
 
+import com.sergiu.entity.Candidate;
+import com.sergiu.util.AdmissionType;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.sergiu.entity.CandidateEntity;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CandidateRepository extends JpaRepository<CandidateEntity, Long> {
+@Repository
+public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
-    List<CandidateEntity> findAllByHallId(Integer hallId);
+    List<Candidate> findAllByCategory_Id(Integer categoryId);
 
-    List<CandidateEntity> findAllByCategory_Id(Integer categoryId);
-
-    Optional<CandidateEntity> findByCnp(Long cnp);
+    Optional<Candidate> findByCnp(Long cnp);
 
     void deleteByCnp(Long cnp);
+
+    List<Candidate> findAllByHall_IdOrderByCategoryAscLastNameAscFirstNameAsc(Integer hallId);
+
+    List<Candidate> findAllByCategory_AdmissionTypeNot(AdmissionType admissionType);
+
+    List<Candidate> findAllByCategory_AdmissionTypeOrderByLastNameAscFirstNameAsc(AdmissionType admissionType);
 }

@@ -1,7 +1,7 @@
 package com.sergiu.transformer;
 
-import com.sergiu.entity.CandidateEntity;
 import com.sergiu.dto.CandidateDTO;
+import com.sergiu.entity.Candidate;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,20 +12,32 @@ import java.util.stream.Collectors;
 @Component
 public class CandidatesTransformer {
 
-    @Autowired
     private ModelMapper modelMapper;
 
-    public List<CandidateDTO> toDTO(List<CandidateEntity> entities) {
+    @Autowired
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
+    public List<CandidateDTO> toDTO(List<Candidate> entities) {
         return entities.stream()
                 .map(entity -> toDTO(entity))
                 .collect(Collectors.toList());
     }
 
-    public CandidateEntity toEntity(CandidateDTO candidateDTO) {
-        return modelMapper.map(candidateDTO, CandidateEntity.class);
+    public Candidate toEntity(CandidateDTO candidateDTO) {
+        return modelMapper.map(candidateDTO, Candidate.class);
     }
 
-    public CandidateDTO toDTO(CandidateEntity entity) {
-        return modelMapper.map(entity, CandidateDTO.class);
+    public CandidateDTO toDTO(Candidate entity) {
+        CandidateDTO candidateDTO = modelMapper.map(entity, CandidateDTO.class);
+        if (entity.getHall() != null) {
+            candidateDTO.setHallName(entity.getHall().getName());
+            candidateDTO.setHallId(entity.getHall().getId());
+        }
+        if (entity.getCategory() != null) {
+            candidateDTO.setCategoryName(entity.getCategory().getName());
+        }
+        return candidateDTO;
     }
 }

@@ -1,6 +1,6 @@
 package com.sergiu.repository;
 
-import com.sergiu.entity.HallEntity;
+import com.sergiu.entity.Hall;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,15 +26,15 @@ public class HallsRepositoryIntegrationTest {
     @Before
     public void init() {
 
-        entityManager.persist(new HallEntity("Sala1", 60, 30));
-        entityManager.persist(new HallEntity("Sala2", 50, 25));
+        entityManager.persist(new Hall("Sala1", 60, 30));
+        entityManager.persist(new Hall("Sala2", 50, 25));
 
         entityManager.flush();
     }
 
     @Test
     public void testFindByIdOnHallsRepository() {
-        HallEntity found = hallRepository.findById(1).get();
+        Hall found = hallRepository.findById(1).get();
         assertEquals(found.getId().intValue(), 1);
     }
 

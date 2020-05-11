@@ -1,114 +1,16 @@
 package com.sergiu.service;
 
-import com.sergiu.entity.CandidateEntity;
-import com.sergiu.entity.CategoryEntity;
-import com.sergiu.entity.HallEntity;
 import com.sergiu.model.Element;
-import com.sergiu.repository.CandidateRepository;
-import com.sergiu.repository.HallRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import com.sergiu.repository.DistributionRepository;
+import java.util.SortedSet;
 
-import java.math.BigDecimal;
-import java.util.*;
+public interface DistributionService {
 
-@Service
-public class DistributionService {
+    boolean isSufficientSeatsForExam();
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DistributionService.class);
+    void distributeCandidatesIntoHalls();
 
-    @Autowired
-    private CandidateRepository candidateRepository;
+    SortedSet<Element> fillSet();
 
-    @Autowired
-    private HallRepository hallRepository;
-
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private DistributionRepository distributionRepository;
-
-
-    public void clear() {
-        distributionRepository.deleteAllInBatch();
-    }
-
-    public boolean isSufficientSeatsForExam() {
-        long numberOfCandidates = candidateRepository.count();
-        long numberOfSeatsFromHalls = hallRepository.findAll().stream().mapToLong(h -> h.getUtilizableSize()).sum();
-        return numberOfSeatsFromHalls >= numberOfCandidates;
-    }
-
-    public void distributeCandidatesIntoHalls() {
-
-        SortedSet<Element> setOfCategoriesWithHalls = fillSet();
-
-        while (!setOfCategoriesWithHalls.isEmpty()) {
-
-            displayContent(setOfCategoriesWithHalls);
-
-            LOGGER.info("====> SIZE OF SUBSETS IS :" + setOfCategoriesWithHalls.size() + "<=======");
-            Element element = setOfCategoriesWithHalls.last();
-            setOfCategoriesWithHalls.remove(element);
-
-            if (!element.getCohesion().equals(BigDecimal.ZERO)) {
-
-                List<CandidateEntity> listMove;
-                if (element.restOfCandidates() == 0) {
-                    listMove = element.getCategoryEntity().getCandidateEntities().subList(0, element.getHallEntity().getUtilizableSize());
-                } else {
-                    listMove = element.getCategoryEntity().getCandidateEntities().subList(0, element.restOfCandidates());
-                }
-                int size = listMove.size();
-                element.getHallEntity().getListCandidates().addAll(listMove);
-                List<CandidateEntity> remainingList = getRemainingCandidates(element, size);
-                element.getCategoryEntity().setCandidateEntities(remainingList);
-
-                LOGGER.info("Insert [{}] candidates from category [{}] into hall [{}]! ", size, element.getCategoryEntity().getId(), element.getHallEntity().getId());
-            }
-
-            setOfCategoriesWithHalls = refreshElements(setOfCategoriesWithHalls);
-
-
-        }
-    }
-
-    private void displayContent(SortedSet<Element> setOfCategoriesWithHalls) {
-        for (Element element : setOfCategoriesWithHalls) {
-            LOGGER.info(element.toString());
-        }
-    }
-
-    private List<CandidateEntity> getRemainingCandidates(Element element, int size) {
-        if (size == element.getCategoryEntity().getCandidateEntities().size()) {
-            return new ArrayList<>();
-        }
-        return element.getCategoryEntity().getCandidateEntities().subList(size, element.getCategoryEntity().getCandidateEntities().size());
-    }
-
-    private SortedSet<Element> refreshElements(SortedSet<Element> elementSortedSet) {
-        SortedSet<Element> result = new TreeSet<>();
-        for (Element element : elementSortedSet) {
-            result.add(element);
-        }
-        return result;
-    }
-
-    public SortedSet<Element> fillSet() {
-        List<CategoryEntity> categories = categoryService.getAllCategoriesWithCandidates();
-        List<HallEntity> halls = hallRepository.findAll();
-
-        SortedSet<Element> result = new TreeSet<>();
-        for (CategoryEntity category : categories) {
-            for (HallEntity hall : halls) {
-                result.add(new Element(category, hall));
-            }
-        }
-        return result;
-    }
+    void clearDistribution();
 }
