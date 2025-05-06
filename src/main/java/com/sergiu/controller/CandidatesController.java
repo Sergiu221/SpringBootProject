@@ -4,9 +4,9 @@ import com.sergiu.dto.CandidateDTO;
 import com.sergiu.service.CandidatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
@@ -26,7 +26,7 @@ public class CandidatesController {
     }
 
     @PostMapping("/candidates")
-    public ResponseEntity<?> createCandidate(@Valid @RequestBody CandidateDTO candidateDTO) {
+    public ResponseEntity<?> createCandidate(@Validated @RequestBody CandidateDTO candidateDTO) {
         candidatesService.createCandidate(candidateDTO);
         return ResponseEntity.ok().build();
     }
@@ -38,7 +38,7 @@ public class CandidatesController {
 
     @PutMapping("/candidates/{cnp}")
     public CandidateDTO updateCandidate(@PathVariable(value = "cnp") Long cnp,
-                                        @Valid @RequestBody CandidateDTO candidateDTO) {
+                                        @Validated @RequestBody CandidateDTO candidateDTO) {
         return candidatesService.updateCandidate(cnp, candidateDTO);
     }
 

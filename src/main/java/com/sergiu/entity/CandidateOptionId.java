@@ -1,11 +1,9 @@
 package com.sergiu.entity;
 
 import com.sergiu.util.AdmissionOption;
+import jakarta.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+
 import java.io.Serializable;
 import java.util.Objects;
 

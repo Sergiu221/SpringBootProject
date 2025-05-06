@@ -5,9 +5,9 @@ import com.sergiu.service.CandidateOptionService;
 import com.sergiu.util.AdmissionOption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
@@ -27,14 +27,14 @@ public class CandidateOptionsController {
     }
 
     @PostMapping("/candidate_option")
-    public ResponseEntity<?> createCandidateOption(@Valid @RequestBody CandidateOptionDTO candidateOptionDTO) {
+    public ResponseEntity<?> createCandidateOption(@Validated @RequestBody CandidateOptionDTO candidateOptionDTO) {
         candidateOptionService.add(candidateOptionDTO);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/candidate_option/{cnp}")
     public CandidateOptionDTO updateCandidate(@PathVariable(value = "cnp") Long cnp,
-                                              @Valid @RequestBody CandidateOptionDTO candidateOptionDTO) {
+                                              @Validated @RequestBody CandidateOptionDTO candidateOptionDTO) {
         return candidateOptionService.updateCandidateOption(cnp, candidateOptionDTO);
     }
 

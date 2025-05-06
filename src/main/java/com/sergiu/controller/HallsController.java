@@ -2,13 +2,12 @@ package com.sergiu.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import com.sergiu.service.HallsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +33,7 @@ public class HallsController {
     }
 
     @PostMapping("/halls")
-    public void createHall(@Valid @RequestBody HallDTO hallDTO) {
+    public void createHall(@Validated @RequestBody HallDTO hallDTO) {
         hallsServiceImpl.createHall(hallDTO);
     }
 
@@ -44,7 +43,7 @@ public class HallsController {
     }
 
     @PutMapping("/halls/{id}")
-    public HallDTO updateHall(@PathVariable(value = "id") Integer id, @Valid @RequestBody HallDTO hallDTO) {
+    public HallDTO updateHall(@PathVariable(value = "id") Integer id, @Validated @RequestBody HallDTO hallDTO) {
         return hallsServiceImpl.updateHall(id, hallDTO);
     }
 

@@ -1,6 +1,7 @@
 package com.sergiu.database;
 
-import javax.persistence.*;
+
+import jakarta.persistence.*;
 
 @Entity
 public class ApplicationState {

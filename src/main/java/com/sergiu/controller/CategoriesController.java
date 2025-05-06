@@ -4,9 +4,9 @@ import com.sergiu.dto.CategoryDTO;
 import com.sergiu.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
@@ -27,13 +27,13 @@ public class CategoriesController {
 
 
     @PostMapping("/categories")
-    public ResponseEntity<?> addCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
+    public ResponseEntity<?> addCategory(@Validated @RequestBody CategoryDTO categoryDTO) {
         categoryService.add(categoryDTO);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/categories/{id}")
-    public CategoryDTO updateCategory(@PathVariable(value = "id") Integer id, @Valid @RequestBody CategoryDTO categoryDTO) {
+    public CategoryDTO updateCategory(@PathVariable(value = "id") Integer id, @Validated @RequestBody CategoryDTO categoryDTO) {
         return categoryService.updateCategory(id, categoryDTO);
     }
 

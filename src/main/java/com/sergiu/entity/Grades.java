@@ -1,8 +1,8 @@
 package com.sergiu.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 
 @Entity
 public class Grades {

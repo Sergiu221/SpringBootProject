@@ -12,9 +12,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -93,7 +93,7 @@ public class ReportsController {
     }
 
     @PostMapping("reports/candidates")
-    public ResponseEntity<Resource> getReportsWithCandidates(@Valid @RequestBody ReportCandidatesDTO reportCandidatesDTO) throws FileNotFoundException {
+    public ResponseEntity<Resource> getReportsWithCandidates(@Validated @RequestBody ReportCandidatesDTO reportCandidatesDTO) throws FileNotFoundException {
 
         LOGGER.info("Start generate report for candidates!");
         File file = reportService.generateReportCandidates(reportCandidatesDTO);
@@ -107,7 +107,7 @@ public class ReportsController {
     }
 
     @PostMapping("reports/halls")
-    public ResponseEntity<Resource> getReportsWithHalls(@Valid @RequestBody ReportHallsDTO hallsDTO) throws FileNotFoundException {
+    public ResponseEntity<Resource> getReportsWithHalls(@Validated @RequestBody ReportHallsDTO hallsDTO) throws FileNotFoundException {
 
         LOGGER.info("Start generate report for candidates!");
         File file = reportService.generateReportHalls(hallsDTO);

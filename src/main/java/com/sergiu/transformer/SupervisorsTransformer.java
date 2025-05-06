@@ -3,23 +3,22 @@ package com.sergiu.transformer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sergiu.entity.Supervisor;
 import com.sergiu.dto.SupervisorDTO;
+import org.springframework.validation.annotation.Validated;
 
 @Component
 public class SupervisorsTransformer {
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     public SupervisorDTO toDTO(Supervisor entity) {
-        return modelMapper.map(entity, SupervisorDTO.class);
+        SupervisorDTO supervisorDTO = new SupervisorDTO();
+        supervisorDTO.setId(entity.getId());
+        supervisorDTO.setFirstName(entity.getFirstName());
+        supervisorDTO.setLastName(entity.getLastName());
+        return supervisorDTO;
     }
 
     public List<SupervisorDTO> toDTO(List<Supervisor> entities) {
@@ -28,7 +27,11 @@ public class SupervisorsTransformer {
                 .collect(Collectors.toList());
     }
 
-    public Supervisor toEntity(@Valid SupervisorDTO supervisorDTO) {
-        return modelMapper.map(supervisorDTO, Supervisor.class);
+    public Supervisor toEntity(@Validated SupervisorDTO supervisorDTO) {
+        Supervisor entity = new Supervisor();
+        entity.setId(supervisorDTO.getId());
+        entity.setFirstName(supervisorDTO.getFirstName());
+        entity.setLastName(supervisorDTO.getLastName());
+        return entity;
     }
 }

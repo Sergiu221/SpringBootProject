@@ -2,11 +2,10 @@ package com.sergiu.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import com.sergiu.service.SupervisorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +30,7 @@ public class SupervisorsController {
     }
 
     @PostMapping("/supervisors")
-    public void createSupervisor(@Valid @RequestBody SupervisorDTO supervisorDTO) {
+    public void createSupervisor(@Validated @RequestBody SupervisorDTO supervisorDTO) {
         supervisorServiceImpl.createSupervisor(supervisorDTO);
     }
 
@@ -41,7 +40,7 @@ public class SupervisorsController {
     }
 
     @PutMapping("/supervisors/{id}")
-    public SupervisorDTO updateSupervisor(@PathVariable(value = "id") Integer id, @Valid @RequestBody SupervisorDTO supervisorDTO) {
+    public SupervisorDTO updateSupervisor(@PathVariable(value = "id") Integer id, @Validated @RequestBody SupervisorDTO supervisorDTO) {
         return supervisorServiceImpl.updateSupervisor(id, supervisorDTO);
     }
 

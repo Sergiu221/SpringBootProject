@@ -2,8 +2,9 @@ package com.sergiu.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sergiu.util.StatusExam;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

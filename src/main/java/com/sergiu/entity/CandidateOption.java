@@ -1,8 +1,8 @@
 package com.sergiu.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "candidate_options")

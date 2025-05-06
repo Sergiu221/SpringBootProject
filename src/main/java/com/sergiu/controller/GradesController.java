@@ -4,9 +4,9 @@ import com.sergiu.dto.GradesDTO;
 import com.sergiu.service.GradesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
@@ -26,13 +26,13 @@ public class GradesController {
     }
 
     @PostMapping("/grades")
-    public ResponseEntity<?> addGrade(@Valid @RequestBody GradesDTO gradesDTO) {
+    public ResponseEntity<?> addGrade(@Validated @RequestBody GradesDTO gradesDTO) {
         gradesService.add(gradesDTO);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/grades/{cnp}")
-    public GradesDTO updateGrade(@PathVariable(value = "cnp") Long cnp, @Valid @RequestBody GradesDTO gradesDTO) {
+    public GradesDTO updateGrade(@PathVariable(value = "cnp") Long cnp, @Validated @RequestBody GradesDTO gradesDTO) {
         return gradesService.updateGrades(cnp, gradesDTO);
     }
 

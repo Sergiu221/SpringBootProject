@@ -2,9 +2,10 @@ package com.sergiu.database;
 
 import com.sergiu.repository.ApplicationStateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
 
 @CrossOrigin
 @RestController
@@ -22,7 +23,7 @@ public class DbController {
     }
 
     @PostMapping("/data_base")
-    public void setApplicationState(@Valid @RequestBody ApplicationState applicationState) {
+    public void setApplicationState(@Validated @RequestBody ApplicationState applicationState) {
         ApplicationState entity = applicationStateRepository.findById(1).get();
         entity.setIsDistributed(applicationState.getIsDistributed());
         entity.setIsDistributedFinalized(applicationState.getIsDistributedFinalized());

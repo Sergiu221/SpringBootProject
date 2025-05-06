@@ -1,10 +1,10 @@
 package com.sergiu.entity;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
 
 @Embeddable
 public class DistributionId implements Serializable {

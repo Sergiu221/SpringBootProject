@@ -1,8 +1,8 @@
 package com.sergiu.entity;
 
 import com.sergiu.util.ListAllocationType;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity

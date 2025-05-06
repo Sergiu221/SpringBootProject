@@ -1,8 +1,7 @@
 package com.sergiu.entity;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "distribution")
